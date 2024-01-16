@@ -15,7 +15,7 @@ public class Home extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        request.getRequestDispatcher("Views/Home.jsp").forward(request, response);
+        request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
     } 
 
     @Override
@@ -34,5 +34,4 @@ public class Home extends HttpServlet {
     public String getServletInfo() {
         return "Short description";
     }
-
 }

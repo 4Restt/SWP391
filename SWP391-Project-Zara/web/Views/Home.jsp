@@ -115,272 +115,7 @@
     </symbol>
     </defs>
     </svg>
-
-    <div class="preloader text-white fs-6 text-uppercase overflow-hidden"></div>
-
-    <div class="search-popup">
-        <div class="search-popup-container">
-
-            <form role="search" method="get" class="form-group" action="index.html">
-                <input type="search" id="search-form" class="form-control border-0 border-bottom" placeholder="Type and press enter" value="" name="s" />
-                <button type="submit" class="search-submit border-0 position-absolute bg-white" style="top: 15px;right: 15px;"><svg class="search" width="24" height="24"><use xlink:href="#search"></use></svg></button>
-            </form>
-
-            <h5 class="cat-list-title">Browse Categories</h5>
-
-            <ul class="cat-list">
-                <li class="cat-list-item">
-                    <a href="#" title="Jackets">Jackets</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="T-shirts">T-shirts</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Handbags">Handbags</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Accessories">Accessories</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Cosmetics">Cosmetics</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Dresses">Dresses</a>
-                </li>
-                <li class="cat-list-item">
-                    <a href="#" title="Jumpsuits">Jumpsuits</a>
-                </li>
-            </ul>
-
-        </div>
-    </div>
-
-    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart" aria-labelledby="My Cart" data-bs-theme="dark">
-        <div class="offcanvas-header justify-content-center">
-            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-        </div>
-        <div class="offcanvas-body">
-            <div class="order-md-last">
-                <h4 class="d-flex justify-content-between align-items-center mb-3">
-                    <span class="text-primary">Your cart</span>
-                    <span class="badge bg-primary rounded-pill">3</span>
-                </h4>
-                <ul class="list-group mb-3">
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">Growers cider</h6>
-                            <small class="text-body-secondary">Brief description</small>
-                        </div>
-                        <span class="text-body-secondary">$12</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">Fresh grapes</h6>
-                            <small class="text-body-secondary">Brief description</small>
-                        </div>
-                        <span class="text-body-secondary">$8</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between lh-sm">
-                        <div>
-                            <h6 class="my-0">Heinz tomato ketchup</h6>
-                            <small class="text-body-secondary">Brief description</small>
-                        </div>
-                        <span class="text-body-secondary">$5</span>
-                    </li>
-                    <li class="list-group-item d-flex justify-content-between">
-                        <span>Total (USD)</span>
-                        <strong>$20</strong>
-                    </li>
-                </ul>
-
-                <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
-            </div>
-        </div>
-    </div>
-
-    <nav class="navbar navbar-expand-lg navbar-light text-white text-uppercase fs-6 p-3 border-bottom border-light align-items-center fixed-top border-opacity-10">
-        <div class="container-fluid">
-            <div class="row justify-content-between align-items-center w-100">
-
-                <div class="col-auto">
-                    <a class="navbar-brand" href="index.html"><img src="images/light-logo.png" alt="logo"></a>
-                </div>
-
-                <div class="col-auto">
-                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
-                            aria-controls="offcanvasNavbar">
-                        <span class="navbar-toggler-icon"></span>
-                    </button>
-
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
-                        <div class="offcanvas-header">
-                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
-                        </div>
-
-                        <div class="offcanvas-body">
-                            <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle active" href="#" id="dropdownHome" data-bs-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">Home</a>
-                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownHome">
-                                        <li>
-                                            <a href="index.html" class="dropdown-item item-anchor">Home Layout 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="home2.html" class="dropdown-item item-anchor">Home Layout 2 <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="home3.html" class="dropdown-item item-anchor">Home Layout 3 <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="home4.html" class="dropdown-item item-anchor">Home Layout 4 <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="dropdownShop" data-bs-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">Shop</a>
-                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownShop">
-                                        <li>
-                                            <a href="shop-sidebar.html" class="dropdown-item item-anchor">Shop Sidebar <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-three-column.html" class="dropdown-item item-anchor">Shop Three Column <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-three-column-wide.html" class="dropdown-item item-anchor">Shop Three Column Wide <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-four-column.html" class="dropdown-item item-anchor">Shop Four Column <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-four-column-wide.html" class="dropdown-item item-anchor">Shop Four Column Wide <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-six-column.html" class="dropdown-item item-anchor">Shop Six Column <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-six-column-wide.html" class="dropdown-item item-anchor">Shop Six Column Wide <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="single-product.html" class="dropdown-item item-anchor">Single Product <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="single-product2.html" class="dropdown-item item-anchor">Single Product V2 <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="dropdownBlog" data-bs-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">Blog</a>
-                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownBlog">
-                                        <li>
-                                            <a href="blog-classic.html" class="dropdown-item item-anchor">Blog Classic <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-grid-with-sidebar.html" class="dropdown-item item-anchor">Blog Grid with Sidebar <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-grid-four-column.html" class="dropdown-item item-anchor">Blog Grid Four Column <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-no-sidebar.html" class="dropdown-item item-anchor">Blog No Sidebar <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-right-sidebar.html" class="dropdown-item item-anchor">Blog Right Sidebar <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="single-post.html" class="dropdown-item item-anchor">Single Post <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="single-post-no-sidebar.html" class="dropdown-item item-anchor">Single Post No Sidebar <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">Pages</a>
-                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
-                                        <li>
-                                            <a href="about.html" class="dropdown-item item-anchor">About <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="cart.html" class="dropdown-item item-anchor">Cart <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="checkout.html" class="dropdown-item item-anchor">Checkout <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="coming-soon.html" class="dropdown-item item-anchor">Coming Soon <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="contact.html" class="dropdown-item item-anchor">Contact <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="error-page.html" class="dropdown-item item-anchor">Error Page <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="faqs.html" class="dropdown-item item-anchor">FAQs <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="my-account.html" class="dropdown-item item-anchor">My Account <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="wishlist.html" class="dropdown-item item-anchor">Wishlist <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Blog</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="nav-link" href="#">Contact</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="btn btn-outline-primary rounded-pill" href="https://templatesjungle.gumroad.com/l/kaira-bootstrap-ecommerce-template" target="_blank">Get PRO</a>
-                                </li>
-                            </ul>
-                        </div>
-                    </div>
-                </div>
-
-                <div class="col-3 col-lg-auto">
-                    <ul class="list-unstyled d-flex m-0">
-                        <li class="d-none d-lg-block">
-                            <a href="wishlist.html" class="text-uppercase mx-3">Wishlist <span class="wishlist-count">(0)</span>
-                            </a>
-                        </li>
-                        <li class="d-none d-lg-block">
-                            <a href="cart.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">Cart <span class="cart-count">(0)</span>
-                            </a>
-                        </li>
-                        <li class="d-lg-none">
-                            <a href="#" class="mx-2">
-                                <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                            </a>
-                        </li>
-                        <li class="d-lg-none">
-                            <a href="#" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
-                                <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#cart"></use></svg>
-                            </a>
-                        </li>
-                        <li class="search-box mx-2">
-                            <a href="#search" class="search-button">
-                                <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#search"></use></svg>
-                            </a>
-                        </li>
-                    </ul>
-                </div>
-
-            </div>
-
-        </div>
-    </nav>
-
+    <jsp:include page="Nav.jsp"></jsp:include>
     <section class="text-white">
         <div class="slideshow slide-in" style="height: 100vh;">
             <div class="swiper-wrapper">
@@ -392,7 +127,7 @@
                                     <h2 class="display-1">Cripcrop style</h2>
                                     <p class="caption">Tortor eget placerat arcu integer. Lectus fames egestas tincidunt aliquet vivamus nibh lorem nulla.</p>
                                     <div class="btn-left btn-swiper">
-                                        <a href="#" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
+                                        <a href="shop" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
                                     </div>
                                 </div>
                             </div>
@@ -407,7 +142,7 @@
                                     <h2 class="display-1">Cripcrop style</h2>
                                     <p class="caption">Tortor eget placerat arcu integer. Lectus fames egestas tincidunt aliquet vivamus nibh lorem nulla.</p>
                                     <div class="btn-left btn-swiper">
-                                        <a href="#" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
+                                        <a href="shop" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
                                     </div>
                                 </div>
                             </div>
@@ -422,7 +157,7 @@
                                     <h2 class="display-1">Modern style</h2>
                                     <p class="caption">Tortor eget placerat arcu integer. Lectus fames egestas tincidunt aliquet vivamus nibh lorem nulla.</p>
                                     <div class="btn-left btn-swiper">
-                                        <a href="#" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
+                                        <a href="Shop" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
                                     </div>
                                 </div>
                             </div>
@@ -438,39 +173,19 @@
 
     <section class="categories full-width-container overflow-hidden py-5">
         <div class="row d-flex flex-wrap">
-            <div class="col-md-4 col-sm-6">
-                <div class="cat-item image-zoom-effect position-relative">
-                    <div class="image-holder">
-                        <a href="shop-four-column-wide.html"><img src="images/category-banner-3.jpg" alt="categories" class="product-image img-fluid"></a>
-                        <div class="category-content position-absolute bottom-0 p-5 text-uppercase">
-                            <h4 class="section-title text-white">For Men</h4>
-                            <a href="shop-four-column-wide.html" class="text-white btn-link">Shop it Now</a>
+            <c:forEach items="${listCategory}" var="lc">
+                <div class="col-md-4 col-sm-6">
+                    <div class="cat-item image-zoom-effect position-relative">
+                        <div class="image-holder">
+                            <a href="shop-four-column-wide.html"><img src="images/category-banner-${lc.getId()}.jpg" alt="categories" class="product-image img-fluid"></a>
+                            <div class="category-content position-absolute bottom-0 p-5 text-uppercase">
+                                <h4 class="section-title text-white">${lc.getName()}</h4>
+                                <a href="category?cid=${lc.getId()}" class="text-white btn-link">Shop it Now</a>
+                            </div>
                         </div>
                     </div>
                 </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="cat-item image-zoom-effect position-relative">
-                    <div class="image-holder">
-                        <a href="shop-four-column-wide.html"><img src="images/category-banner-1.jpg" alt="categories" class="product-image img-fluid"></a>
-                        <div class="category-content position-absolute bottom-0 p-5 text-uppercase">
-                            <h4 class="section-title text-white">For Women</h4>
-                            <a href="shop-four-column-wide.html" class="text-white btn-link">Shop it Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
-            <div class="col-md-4 col-sm-6">
-                <div class="cat-item image-zoom-effect position-relative">
-                    <div class="image-holder">
-                        <a href="shop-four-column-wide.html"><img src="images/category-banner-2.jpg" alt="categories" class="product-image img-fluid"></a>
-                        <div class="category-content position-absolute bottom-0 p-5 text-uppercase">
-                            <h4 class="section-title text-white">For Accessories</h4>
-                            <a href="shop-four-column-wide.html" class="text-white btn-link">Shop it Now</a>
-                        </div>
-                    </div>
-                </div>
-            </div>
+            </c:forEach>
         </div>
     </section>
 
@@ -478,100 +193,31 @@
         <div class="container">
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3"> 
                 <h4 class="text-uppercase">Our New Arrivals</h4>
-                <a href="shop-sidebar.html" class="btn-link">View All Products</a>  
+                <a href="shop" class="btn-link">View All Products</a>  
             </div>
             <div class="swiper product-swiper open-up" data-aos="zoom-out">
                 <div class="swiper-wrapper d-flex">
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder position-relative">
-                                <a href="single-product.html">
-                                    <img src="images/product-item1.jpg" alt="categories" class="product-image img-fluid">
-                                </a>
-                                <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="element-title text-uppercase fs-5 mt-3">
-                                        <a href="single-product.html">Dark florish onepiece</a>
-                                    </h5>
-                                    <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$95.00</span></a>
+                    <c:forEach items="${listNewArrival}" var="lna">
+                        <div class="swiper-slide">
+                            <div class="product-item image-zoom-effect link-effect">
+                                <div class="image-holder position-relative">
+                                    <a href="single-product.html">
+                                        <img src="${lna.getImgDefault()}" alt="categories" class="product-image img-fluid">
+                                    </a>
+                                    <a href="wishlist.html" class="btn-icon btn-wishlist">
+                                        <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
+                                    </a>
+                                    <div class="product-content">
+                                        <h5 class="element-title text-uppercase fs-5 mt-3">
+                                            <a href="single-product.html">${lna.getName()}</a>
+                                        </h5>
+                                        <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$95.00</span></a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder position-relative">
-                                <a href="single-product.html">
-                                    <img src="images/product-item2.jpg" alt="categories" class="product-image img-fluid">
-                                </a>
-                                <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="single-product.html">Baggy Shirt</a>
-                                    </h5>
-                                    <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$55.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder position-relative">
-                                <a href="single-product.html">
-                                    <img src="images/product-item3.jpg" alt="categories" class="product-image img-fluid">
-                                </a>
-                                <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="single-product.html">Cotton off-white shirt</a>
-                                    </h5>
-                                    <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$65.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder position-relative">
-                                <a href="single-product.html">
-                                    <img src="images/product-item4.jpg" alt="categories" class="product-image img-fluid">
-                                </a>
-                                <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="single-product.html">Crop sweater</a>
-                                    </h5>
-                                    <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$50.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder position-relative">
-                                <a href="single-product.html">
-                                    <img src="images/product-item10.jpg" alt="categories" class="product-image img-fluid">
-                                </a>
-                                <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="single-product.html">Crop sweater</a>
-                                    </h5>
-                                    <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$70.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
+
                 </div>
                 <div class="swiper-pagination"></div>
             </div>
@@ -942,6 +588,7 @@
                 </div>
             </div>
         </div>
+
     </section>
 
     <footer id="footer" class="mt-5">

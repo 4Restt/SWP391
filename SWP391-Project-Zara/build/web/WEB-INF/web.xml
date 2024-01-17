@@ -4,9 +4,81 @@
         <servlet-name>Home</servlet-name>
         <servlet-class>Controllers.Home</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Category</servlet-name>
+        <servlet-class>Controllers.Category</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Shop</servlet-name>
+        <servlet-class>Controllers.Shop</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Contact</servlet-name>
+        <servlet-class>Controllers.Contact</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Blog</servlet-name>
+        <servlet-class>Controllers.Blog</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>FAQS</servlet-name>
+        <servlet-class>Controllers.FAQS</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>About</servlet-name>
+        <servlet-class>Controllers.About</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SignUp</servlet-name>
+        <servlet-class>Controllers.SignUp</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>LogOut</servlet-name>
+        <servlet-class>Controllers.LogOut</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Login</servlet-name>
+        <servlet-class>Controllers.Login</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
-        <url-pattern>/Home</url-pattern>
+        <url-pattern>/home</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Category</servlet-name>
+        <url-pattern>/category</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Shop</servlet-name>
+        <url-pattern>/shop</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Contact</servlet-name>
+        <url-pattern>/contact</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Blog</servlet-name>
+        <url-pattern>/blog</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>FAQS</servlet-name>
+        <url-pattern>/faqs</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>About</servlet-name>
+        <url-pattern>/about</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SignUp</servlet-name>
+        <url-pattern>/signup</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LogOut</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Login</servlet-name>
+        <url-pattern>/login</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

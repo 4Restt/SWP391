@@ -126,7 +126,7 @@
           <div class="d-flex flex-wrap flex-column justify-content-center align-items-center my-5 text-white">
             <h1 class="page-title text-uppercase">FAQs</h1>
             <nav class="breadcrumb text-white">
-              <a class="breadcrumb-item" href="#">Home</a>
+              <a class="breadcrumb-item" href="home">Home</a>
               <span class="breadcrumb-item active" aria-current="page">FAQs</span>
             </nav>
           </div>

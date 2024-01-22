@@ -313,7 +313,7 @@
             <div class="d-flex justify-content-between align-items-center">
                 <h1 class="page-title pb-2">Contact</h1>
                 <nav class="breadcrumb fs-6">
-                    <a class="breadcrumb-item nav-link" href="#">Home</a>
+                    <a class="breadcrumb-item nav-link" href="home">Home</a>
                     <span class="breadcrumb-item active" aria-current="page">Contact</span>
                 </nav>
             </div>

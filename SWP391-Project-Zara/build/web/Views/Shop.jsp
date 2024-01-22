@@ -204,7 +204,7 @@
                                     </div>
                                 </div>
                             </div>
-                        </c:forEach>
+                        </c:forEach>    
                     </div>
                     <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5">
                         <ul class="pagination">

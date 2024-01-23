@@ -201,7 +201,7 @@
                         <div class="swiper-slide">
                             <div class="product-item image-zoom-effect link-effect">
                                 <div class="image-holder position-relative">
-                                    <a href="single-product.html">
+                                    <a href="detail">
                                         <img src="${lna.getImgDefault()}" alt="categories" class="product-image img-fluid">
                                     </a>
                                     <a href="wishlist.html" class="btn-icon btn-wishlist">

@@ -1,5 +1,6 @@
 package Controllers;
 
+import DAL.CategoryDAO;
 import DAL.ProductDAO;
 import Models.Product;
 import java.io.IOException;
@@ -21,6 +22,8 @@ public class Shop extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         List<Product> listProduct = ProductDAO.INSTANCE.getAllProduct();
+        List<Models.Category> listCategory = CategoryDAO.INSTANCE.getAllCategory();
+        request.setAttribute("listCategory", listCategory);
         request.setAttribute("listProduct", listProduct);
         request.getRequestDispatcher("Views/Shop.jsp").forward(request, response);
     }

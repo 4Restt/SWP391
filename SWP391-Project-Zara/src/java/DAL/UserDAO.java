@@ -1,4 +1,4 @@
-
+    
 package DAL;
 
 import static DAL.ProductDAO.INSTANCE;

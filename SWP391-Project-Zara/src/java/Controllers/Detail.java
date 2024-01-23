@@ -1,24 +1,14 @@
-
 package Controllers;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-
-public class LogOut extends HttpServlet {
+public class Detail extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        response.setContentType("text/html;charset=UTF-8");
-        HttpSession session = request.getSession();
-        if (session.getAttribute("account") != null) {
-            session.removeAttribute("account");
-            response.sendRedirect("home");
-        }
-        
-       
+        request.getRequestDispatcher("Views/Detail.jsp").forward(request, response);
     } 
 
     @Override
@@ -32,10 +22,9 @@ public class LogOut extends HttpServlet {
     throws ServletException, IOException {
         processRequest(request, response);
     }
-
     @Override
     public String getServletInfo() {
         return "Short description";
-    }
+    }// </editor-fold>
 
 }

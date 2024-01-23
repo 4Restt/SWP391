@@ -1,6 +1,4 @@
-
 package Controllers;
-
 import DAL.CategoryDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;

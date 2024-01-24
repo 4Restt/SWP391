@@ -44,6 +44,10 @@
         <servlet-name>Detail</servlet-name>
         <servlet-class>Controllers.Detail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>LoginGoogleHandler</servlet-name>
+        <servlet-class>Controllers.LoginGoogleHandler</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -87,6 +91,10 @@
     <servlet-mapping>
         <servlet-name>Detail</servlet-name>
         <url-pattern>/detail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>LoginGoogleHandler</servlet-name>
+        <url-pattern>/logingooglehandler</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -230,12 +230,13 @@
         </div>
     </div>
 
+
     <nav class="navbar navbar-expand-lg text-uppercase fs-6 p-3 border-bottom align-items-center">
         <div class="container-fluid">
             <div class="row justify-content-between align-items-center w-100">
 
                 <div class="col-auto">
-                    <a class="navbar-brand" href="home"><img src="images/main-logo.png" alt="logo"></a>
+                    <a class="navbar-brand" href="index.html"><img src="images/main-logo.png" alt="logo"></a>
                 </div>
 
                 <div class="col-auto">
@@ -244,97 +245,167 @@
                         <span class="navbar-toggler-icon"></span>
                     </button>
 
-                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar" aria-labelledby="offcanvasNavbarLabel">
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                         aria-labelledby="offcanvasNavbarLabel">
                         <div class="offcanvas-header">
                             <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
-                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
                         </div>
 
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
                                 <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle active" href="#" id="dropdownHome" data-bs-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">Home</a>
+                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownHome">
+                                        <li>
+                                            <a href="index.html" class="dropdown-item item-anchor">Home Layout 1</a>
+                                        </li>
+                                        <li>
+                                            <a href="home2.html" class="dropdown-item item-anchor">Home Layout 2 <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="home3.html" class="dropdown-item item-anchor">Home Layout 3 <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="home4.html" class="dropdown-item item-anchor">Home Layout 4 <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="dropdownShop" data-bs-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">Shop</a>
                                     <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownShop">
-                                        <c:forEach items="${listCategory}" var="lc">
-                                            <li>
-                                                <a href="category?cid=${lc.getId()}" class="dropdown-item item-anchor">${lc.getName()} </a>
-                                            </li>       
-                                        </c:forEach>
+                                        <li>
+                                            <a href="shop-sidebar.html" class="dropdown-item item-anchor">Shop Sidebar <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-three-column.html" class="dropdown-item item-anchor">Shop Three Column <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-three-column-wide.html" class="dropdown-item item-anchor">Shop Three Column Wide <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-four-column.html" class="dropdown-item item-anchor">Shop Four Column <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-four-column-wide.html" class="dropdown-item item-anchor">Shop Four Column Wide <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-six-column.html" class="dropdown-item item-anchor">Shop Six Column <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-six-column-wide.html" class="dropdown-item item-anchor">Shop Six Column Wide <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="single-product.html" class="dropdown-item item-anchor">Single Product <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="single-product2.html" class="dropdown-item item-anchor">Single Product V2 <span class="badge bg-primary">PRO</span></a>
+                                        </li>
                                     </ul>
                                 </li>
-
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="dropdownBlog" data-bs-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">Blog</a>
+                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownBlog">
+                                        <li>
+                                            <a href="blog-classic.html" class="dropdown-item item-anchor">Blog Classic <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-grid-with-sidebar.html" class="dropdown-item item-anchor">Blog Grid with Sidebar <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-grid-four-column.html" class="dropdown-item item-anchor">Blog Grid Four Column <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-no-sidebar.html" class="dropdown-item item-anchor">Blog No Sidebar <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-right-sidebar.html" class="dropdown-item item-anchor">Blog Right Sidebar <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="single-post.html" class="dropdown-item item-anchor">Single Post <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="single-post-no-sidebar.html" class="dropdown-item item-anchor">Single Post No Sidebar <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">Pages</a>
                                     <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
                                         <li>
-                                            <a href="about" class="dropdown-item item-anchor">About </a>
+                                            <a href="about.html" class="dropdown-item item-anchor">About <span class="badge bg-primary">PRO</span></a>
                                         </li>
                                         <li>
-                                            <a href="cart.html" class="dropdown-item item-anchor">Cart </a>
+                                            <a href="cart.html" class="dropdown-item item-anchor">Cart <span class="badge bg-primary">PRO</span></a>
                                         </li>
                                         <li>
-                                            <a href="checkout.html" class="dropdown-item item-anchor">Checkout </a>
+                                            <a href="checkout.html" class="dropdown-item item-anchor">Checkout <span class="badge bg-primary">PRO</span></a>
                                         </li>
                                         <li>
-                                            <a href="coming-soon.html" class="dropdown-item item-anchor">Coming Soon </a>
-                                        </li>
-
-                                        <li>
-                                            <a href="my-account.html" class="dropdown-item item-anchor">My Account </a>
+                                            <a href="coming-soon.html" class="dropdown-item item-anchor">Coming Soon <span class="badge bg-primary">PRO</span></a>
                                         </li>
                                         <li>
-                                            <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking </a>
+                                            <a href="contact.html" class="dropdown-item item-anchor">Contact <span class="badge bg-primary">PRO</span></a>
                                         </li>
                                         <li>
-                                            <a href="wishlist.html" class="dropdown-item item-anchor">Wishlist </a>
+                                            <a href="error-page.html" class="dropdown-item item-anchor">Error Page <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="faqs.html" class="dropdown-item item-anchor">FAQs <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="my-account.html" class="dropdown-item item-anchor">My Account <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="wishlist.html" class="dropdown-item item-anchor">Wishlist <span class="badge bg-primary">PRO</span></a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="blog">Blog</a>
+                                    <a class="nav-link" href="#">Blog</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="contact">Contact</a>
+                                    <a class="nav-link" href="#">Contact</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="faqs">FAQS</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="btn btn-outline-primary rounded-pill" href="login" >Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="btn btn-outline-primary rounded-pill" href="signup" >Sign Up</a>
+                                    <a class="btn btn-outline-primary rounded-pill" href="https://templatesjungle.gumroad.com/l/kaira-bootstrap-ecommerce-template" target="_blank">Get PRO</a>
                                 </li>
                             </ul>
                         </div>
                     </div>
                 </div>
 
-                <div class="col-3 col-lg-auto">
-                    <ul class="list-unstyled d-flex m-0">
-                        <li class="d-none d-lg-block">
+                <div class="col-auto">
+                    <ul class="list-unstyled d-flex">
+                        <li>
                             <a href="wishlist.html" class="text-uppercase mx-3">Wishlist <span class="wishlist-count">(0)</span>
                             </a>
                         </li>
-                        <li class="d-none d-lg-block">
-                            <a href="cart.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">Cart <span class="cart-count">(0)</span>
+                        <li>
+                            <a href="cart.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
+                               aria-controls="offcanvasCart">Cart <span class="cart-count">(0)</span>
                             </a>
                         </li>
-                        <li class="d-lg-none">
-                            <a href="#" class="mx-2">
-                                <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                            </a>
-                        </li>
-                        <li class="d-lg-none">
-                            <a href="#" class="mx-2" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">
-                                <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#cart"></use></svg>
+                        <li>
+                            <a href="#like" class="mx-2">
+                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                <use xlink:href="#user"></use>
+                                </svg>
                             </a>
                         </li>
                         <li class="search-box mx-2">
                             <a href="#search" class="search-button">
-                                <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#search"></use></svg>
+                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                <use xlink:href="#search"></use>
+                                </svg>
                             </a>
                         </li>
                     </ul>
@@ -349,8 +420,8 @@
                 <div class="row">
                     <div class="text-center">
                         <div class="breadcrumbs">
-                            <span class="item"><a href="home">Home /</a></span>
-                            <span class="item">Login</span>
+                            <span class="item"><a href="index.html">Home /</a></span>
+                            <span class="item">My Account</span>
                         </div>
                     </div>
                 </div>
@@ -362,30 +433,23 @@
         <div class="container-sm">
             <div class="row justify-content-center">
                 <div class="col-4">
-                    <h2 class="section-title text-uppercase">Login</h2>
-                    <form id="form" class="form-group flex-wrap" action="login" method="post">
+                    <h2 class="section-title text-uppercase">Forgot Password</h2>
+
+
+                    <form id="form" class="form-group flex-wrap" action="verifycode" method="get">
                         <div class="text-danger">${warn}</div>
                         <div class="col-12 pb-3">
-                            <label>Username or email address *</label>
-                            <input type="text" name="username" value="${username}" placeholder="Write your username / email address here"
+                            <label>Enter your new password *</label>
+                            <input type="password" name="newpassword" placeholder="Write your password here"
                                    class="form-control">
                         </div>
                         <div class="col-12 pb-3">
-                            <label>Password *</label>
-                            <input type="password" name="password" value="${password}" placeholder="Enter your password" class="form-control">
-                        </div>
-                        <div class="col-12 pb-3">
-                            <label>
-                                <input type="checkbox" name="remember">
-                                <span class="label-body">Remember me</span>
-                            </label>
+                            <label>Enter your new password again *</label>
+                            <input type="password" name="repassword" placeholder="Write your password again"
+                                   class="form-control">
                         </div>
                         <div class="col-12">
-                            <button type="submit" name="submit" class="btn btn-dark btn-large text-uppercase pb-3">Log in</button>
-                            <a href="signup" class="btn btn-dark btn-large text-uppercase pb-3">Sign Up</a>
-                            <a href="https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost:9999/SWP391-Project-Zara/logingooglehandler&response_type=code&client_id=937366049176-dvn9qbk5sori7e2eor833mm4pthh3ncc.apps.googleusercontent.com&approval_prompt=force" 
-                               class="btn btn-dark btn-large text-uppercase pb-3">Sign In With Google</a>             
-                            <p><a href="forgotpass">Lost your password?</a></p>
+                            <button type="submit" name="submit" class="btn btn-dark btn-large text-uppercase pb-3">Send Code</button>
                         </div>
                     </form>
                 </div>
@@ -393,21 +457,21 @@
         </div>
     </section>
 
-    <section class="bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
+    <!--  <section class="bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
         <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 py-5 my-5">
-                    <div class="subscribe-header text-center pb-3">
-                        <h3 class="section-title text-uppercase">Sign Up for our newsletter</h3>
-                    </div>
-                    <form id="form" class="d-flex flex-wrap gap-2" action="signup" method="get">
-                        <input type="text" name="email" placeholder="Your Email Addresss" class="form-control form-control-lg">
-                        <button class="btn btn-dark btn-lg text-uppercase w-100">Sign Up</button>
-                    </form>
-                </div>
+          <div class="row justify-content-center">
+            <div class="col-md-8 py-5 my-5">
+              <div class="subscribe-header text-center pb-3">
+                <h3 class="section-title text-uppercase">Sign Up for our newsletter</h3>
+              </div>
+              <form id="form" class="d-flex flex-wrap gap-2">
+                <input type="text" name="email" placeholder="Your Email Addresss" class="form-control form-control-lg">
+                <button class="btn btn-dark btn-lg text-uppercase w-100">Sign Up</button>
+              </form>
             </div>
+          </div>
         </div>
-    </section>
+      </section>-->
 
     <section class="instagram py-5">
         <div class="container">

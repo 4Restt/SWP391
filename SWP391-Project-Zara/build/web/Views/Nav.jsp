@@ -6,8 +6,8 @@
 <div class="search-popup">
     <div class="search-popup-container">
 
-        <form role="search" method="get" class="form-group" action="index.html">
-            <input type="search" id="search-form" class="form-control border-0 border-bottom" placeholder="Type and press enter" value="" name="s" />
+        <form action="search" method="post" class="form-group" action="index.html">
+            <input type="search" id="search-form" class="form-control border-0 border-bottom" placeholder="Type and press enter" value="${txt}" name="search"/>
             <button type="submit" class="search-submit border-0 position-absolute bg-white" style="top: 15px;right: 15px;"><svg class="search" width="24" height="24"><use xlink:href="#search"></use></svg></button>
         </form>
 

@@ -48,6 +48,18 @@
         <servlet-name>LoginGoogleHandler</servlet-name>
         <servlet-class>Controllers.LoginGoogleHandler</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>Search</servlet-name>
+        <servlet-class>Controllers.Search</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>VerifyCode</servlet-name>
+        <servlet-class>Controllers.VerifyCode</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ForgotPass</servlet-name>
+        <servlet-class>Controllers.ForgotPass</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -95,6 +107,18 @@
     <servlet-mapping>
         <servlet-name>LoginGoogleHandler</servlet-name>
         <url-pattern>/logingooglehandler</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Search</servlet-name>
+        <url-pattern>/search</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>VerifyCode</servlet-name>
+        <url-pattern>/verifycode</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ForgotPass</servlet-name>
+        <url-pattern>/forgotpass</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

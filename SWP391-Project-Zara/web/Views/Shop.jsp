@@ -150,40 +150,41 @@
 
     <jsp:include page="Nav.jsp"></jsp:include>
 
-    <section class="hero-section jarallax">
-        <img src="images/banner-large-4.jpg" class="jarallax-img">
-        <div class="py-5">
-            <div class="container">
-                <div class="row">
-                    <div class="d-flex flex-wrap flex-column justify-content-center align-items-center my-5 py-5 text-white">
-                        <h1 class="page-title text-uppercase">Shop</h1>
-                        <nav class="breadcrumb text-white">
-                            <a class="breadcrumb-item" href="home">Home</a>
-                            <span class="breadcrumb-item active" aria-current="page">Shop</span>
-                        </nav>
+        <section class="hero-section jarallax">
+            <img src="images/banner-large-4.jpg" class="jarallax-img">
+            <div class="py-5">
+                <div class="container">
+                    <div class="row">
+                        <div class="d-flex flex-wrap flex-column justify-content-center align-items-center my-5 py-5 text-white">
+                            <h1 class="page-title text-uppercase">Shop</h1>
+                            <nav class="breadcrumb text-white">
+                                <a class="breadcrumb-item" href="home">Home</a>
+                                <span class="breadcrumb-item active" aria-current="page">Shop</span>
+                            </nav>
+                        </div>
                     </div>
                 </div>
             </div>
-        </div>
-    </section>
+        </section>
 
-    <div class="py-5">
-        <div class="container">
-            <div class="row g-5">
-                <main class="main-content col-md-9">
-                    <div class="row py-2">
-                        <div class="col-md-9">
-                            <span>Showing 1–12 of 55 results</span>
+        <div class="py-5">
+            <div class="container">
+                <div class="row g-5">
+                    <main class="main-content col-md-9">
+                        <div class="row py-2">
+                            <div class="col-md-9">
+                                <span>Showing 1–12 of 55 results</span>
+                            </div>
+                            <div class="col-md-3">
+                                <select class="form-select border-0" aria-label="Default select example">
+                                    <option selected>Default Sorting</option>
+                                    <option value="1">Color</option>
+                                    <option value="2">Size</option>
+                                    <option value="3">Price</option>
+                                </select>
+                            </div>
                         </div>
-                        <div class="col-md-3">
-                            <select class="form-select border-0" aria-label="Default select example">
-                                <option selected>Default Sorting</option>
-                                <option value="1">Color</option>
-                                <option value="2">Size</option>
-                                <option value="3">Price</option>
-                            </select>
-                        </div>
-                    </div>
+                        <div class="text-danger">${warn}</div>
                     <div class="row">
                         <c:forEach items="${listProduct}" var="lp">
                             <div class="col-md-4 mb-3 product-item link-effect">
@@ -230,22 +231,27 @@
                     <div class="sidebar">
                         <div class="sidebar-categories border-animation-left mb-5">
                             <div class="text-dark text-uppercase">Browse By Categories:</div>
+
                             <ul class="list-unstyled">
-                                <li>
-                                    <a href="#" class="item-anchor">All</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="item-anchor">Women</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="item-anchor">Accessories</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="item-anchor">New arrivals</a>
-                                </li>
-                                <li>
-                                    <a href="#" class="item-anchor">New sale</a>
-                                </li>
+                                <c:forEach items="${cat}" var="c">
+                                    <li><a href="CategoryControll?id=${c.id}" class="item-anchor">
+                                            ${c.name}</a></li>
+                                        </c:forEach>                                
+                                <!--                                <li>
+                                                                    <a href="#" class="item-anchor">All</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" class="item-anchor">Women</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" class="item-anchor">Accessories</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" class="item-anchor">New arrivals</a>
+                                                                </li>
+                                                                <li>
+                                                                    <a href="#" class="item-anchor">New sale</a>
+                                                                </li>-->
                             </ul>
                         </div>
                         <div class="product-filter padding-small">

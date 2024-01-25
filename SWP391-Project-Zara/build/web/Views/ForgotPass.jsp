@@ -436,8 +436,8 @@
           <h2 class="section-title text-uppercase">Forgot Password</h2>
           
           
-    <form id="form" class="form-group flex-wrap" action="ForgotPass" method="post">
-<!--            <div class="text-danger">${warn}</div>-->
+    <form id="form" class="form-group flex-wrap" action="forgotpass" method="post">
+            <div class="text-danger">${warn}</div>
         
             <div class="col-12 pb-3">
               <label>Enter your email address *</label>

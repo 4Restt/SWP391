@@ -3,14 +3,7 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-<<<<<<< HEAD
-            <file>file:/E:/Course/Spring2024/SWP391/SWP-Project/SWP391/SWP391-Project-Zara/src/java/Controllers/Home.java</file>
-            <file>file:/E:/Course/Spring2024/SWP391/SWP-Project/SWP391/SWP391-Project-Zara/web/WEB-INF/web.xml</file>
-            <file>file:/E:/Course/Spring2024/SWP391/SWP-Project/SWP391/SWP391-Project-Zara/src/java/DAL/DBContext.java</file>
-            <file>file:/E:/Course/Spring2024/SWP391/SWP-Project/SWP391/SWP391-Project-Zara/web/Views/Home.jsp</file>
-            <file>file:/E:/Course/Spring2024/SWP391/SWP-Project/SWP391/SWP391-Project-Zara/web/Views/Login.jsp</file>
-            <file>file:/E:/Course/Spring2024/SWP391/SWP-Project/SWP391/SWP391-Project-Zara/nbproject/build-impl.xml</file>
-=======
+            <file>file:/C:/Users/ManhPhuc/Desktop/SWP391_Group1_Zara/SWP391_Group1_ZaraFashionProject/SWP391-Project-Zara/src/java/Controllers/VerifyCode.java</file>
             <file>file:/C:/Users/ManhPhuc/Desktop/SWP391_Group1_Zara/SWP391_Group1_ZaraFashionProject/SWP391-Project-Zara/web/Views/Login.jsp</file>
             <file>file:/C:/Users/ManhPhuc/Desktop/SWP391_Group1_Zara/SWP391_Group1_ZaraFashionProject/SWP391-Project-Zara/src/java/Controllers/ForgotPass.java</file>
             <file>file:/C:/Users/ManhPhuc/Desktop/SWP391_Group1_Zara/SWP391_Group1_ZaraFashionProject/SWP391-Project-Zara/src/java/DAL/DBContext.java</file>
@@ -19,7 +12,6 @@
             <file>file:/C:/Users/ManhPhuc/Desktop/SWP391_Group1_Zara/SWP391_Group1_ZaraFashionProject/SWP391-Project-Zara/web/Views/ForgotPass.jsp</file>
             <file>file:/C:/Users/ManhPhuc/Desktop/SWP391_Group1_Zara/SWP391_Group1_ZaraFashionProject/SWP391-Project-Zara/src/java/Controllers/Home.java</file>
             <file>file:/C:/Users/ManhPhuc/Desktop/SWP391_Group1_Zara/SWP391_Group1_ZaraFashionProject/SWP391-Project-Zara/src/java/units/email.java</file>
->>>>>>> 6ef6df653ea41b585e86120f00a445329d95682e
         </group>
     </open-files>
 </project-private>

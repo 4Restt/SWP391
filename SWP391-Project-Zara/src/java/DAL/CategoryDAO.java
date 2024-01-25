@@ -16,6 +16,15 @@ public class CategoryDAO {
     private List<Category> listCategory;
     public static CategoryDAO INSTANCE = new CategoryDAO();
 
+    public List<Category> getListCategory() {
+        return listCategory;
+    }
+
+    public void setListCategory(List<Category> listCategory) {
+        this.listCategory = listCategory;
+    }
+
+    
     public CategoryDAO() {
         if (INSTANCE == null) {
             try {
@@ -43,5 +52,10 @@ public class CategoryDAO {
             status = "Error at read Department " + e.getMessage();
         }
         return listCategory;
+    }
+    
+    public static void main(String[] args) {
+        CategoryDAO.INSTANCE.getAllCategory();
+        System.out.println(CategoryDAO.INSTANCE.getListCategory().toString());
     }
 }

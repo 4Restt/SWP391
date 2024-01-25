@@ -148,228 +148,354 @@
     </defs>
     </svg>
 
-    <jsp:include page="Nav.jsp"></jsp:include>
+    <div class="preloader text-white fs-6 text-uppercase overflow-hidden"></div>
 
-        <section class="hero-section jarallax">
-            <img src="images/banner-large-4.jpg" class="jarallax-img">
-            <div class="py-5">
-                <div class="container">
-                    <div class="row">
-                        <div class="d-flex flex-wrap flex-column justify-content-center align-items-center my-5 py-5 text-white">
-                            <h1 class="page-title text-uppercase">Shop</h1>
-                            <nav class="breadcrumb text-white">
-                                <a class="breadcrumb-item" href="home">Home</a>
-                                <span class="breadcrumb-item active" aria-current="page">Shop</span>
-                            </nav>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </section>
+    <div class="search-popup">
+        <div class="search-popup-container">
 
-        <div class="py-5">
-            <div class="container">
-                <div class="row g-5">
-                    <main class="main-content col-md-9">
-                        <div class="row py-2">
-                            <div class="col-md-9">
-                                <span>Showing 1–12 of 55 results</span>
-                            </div>
-                            <div class="col-md-3">
-                                <select class="form-select border-0" aria-label="Default select example">
-                                    <option selected>Default Sorting</option>
-                                    <option value="1">Color</option>
-                                    <option value="2">Size</option>
-                                    <option value="3">Price</option>
-                                </select>
-                            </div>
-                        </div>
-                        <div class="text-danger">${warn}</div>
-                    <div class="row">
-                        <c:forEach items="${listProduct}" var="lp">
-                            <div class="col-md-4 mb-3 product-item link-effect">
-                                <div class="image-holder position-relative">
-                                    <a href="single-product.html">
-                                        <img src="${lp.getImgDefault()}" alt="categories" class="product-image img-fluid">
-                                    </a>
-                                    <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                        <svg width="24" height="24" viewBox="0 0 24 24">
-                                        <use xlink:href="#heart"></use>
-                                        </svg>
-                                    </a> 
-                                    <div class="product-content">
-                                        <h5 class="element-title text-uppercase fs-5 mt-3">
-                                            <a href="single-product.html">${lp.getName()}</a>
-                                        </h5>
-                                        <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$${lp.getPrice()}</span></a>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>    
-                    </div>
-                    <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5">
-                        <ul class="pagination">
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Previous">
-                                    <i class="icon icon-arrow-left"></i>
-                                </a>
-                            </li>
-                            <li class="page-item active" aria-current="page"><a class="page-link" href="#">1</a></li>
-                            <li class="page-item"><a class="page-link" href="#">2</a></li>
-                            <li class="page-item"><a class="page-link" href="#">3</a></li>
-                            <li class="page-item"><a class="page-link" href="#">4</a></li>
-                            <li class="page-item"><a class="page-link" href="#">5</a></li>
-                            <li class="page-item">
-                                <a class="page-link" href="#" aria-label="Next">
-                                    <i class="icon icon-arrow-right"></i>
-                                </a>
-                            </li>
-                        </ul>
-                    </nav>
-                </main>
-                <aside class="col-md-3">
-                    <div class="sidebar">
-                        <div class="sidebar-categories border-animation-left mb-5">
-                            <div class="text-dark text-uppercase">Browse By Categories:</div>
+            <form role="search" method="get" class="form-group" action="index.html">
+                <input type="search" id="search-form" class="form-control border-0 border-bottom" placeholder="Type and press enter" value="" name="s" />
+                <button type="submit" class="search-submit border-0 position-absolute bg-white" style="top: 15px;right: 15px;"><svg class="search" width="24" height="24"><use xlink:href="#search"></use></svg></button>
+            </form>
 
-                            <ul class="list-unstyled">
-                                <c:forEach items="${cat}" var="c">
-                                    <li><a href="CategoryControll?id=${c.id}" class="item-anchor">
-                                            ${c.name}</a></li>
-                                        </c:forEach>                                
-                                <!--                                <li>
-                                                                    <a href="#" class="item-anchor">All</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="item-anchor">Women</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="item-anchor">Accessories</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="item-anchor">New arrivals</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="item-anchor">New sale</a>
-                                                                </li>-->
-                            </ul>
+            <h5 class="cat-list-title">Browse Categories</h5>
+
+            <ul class="cat-list">
+                <li class="cat-list-item">
+                    <a href="#" title="Jackets">Jackets</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="T-shirts">T-shirts</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="Handbags">Handbags</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="Accessories">Accessories</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="Cosmetics">Cosmetics</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="Dresses">Dresses</a>
+                </li>
+                <li class="cat-list-item">
+                    <a href="#" title="Jumpsuits">Jumpsuits</a>
+                </li>
+            </ul>
+
+        </div>
+    </div>
+
+    <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart">
+        <div class="offcanvas-header justify-content-center">
+            <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+        </div>
+        <div class="offcanvas-body">
+            <div class="order-md-last">
+                <h4 class="d-flex justify-content-between align-items-center mb-3">
+                    <span class="text-primary">Your cart</span>
+                    <span class="badge bg-primary rounded-pill">3</span>
+                </h4>
+                <ul class="list-group mb-3">
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Growers cider</h6>
+                            <small class="text-body-secondary">Brief description</small>
                         </div>
-                        <div class="product-filter padding-small">
-                            <div class="text-dark text-uppercase">Filter By:</div>
-                            <div class="accordion" id="accordionExample">
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="heading-one">
-                                        <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapse-one" aria-expanded="true" aria-controls="collapse-one">
-                                            <span class="accordion-title fs-3">Color</span>
-                                        </button>
-                                    </div>
-                                    <div id="collapse-one" class="accordion-collapse collapse show" aria-labelledby="heading-one">
-                                        <div class="accordion-body">
-                                            <div class="form-check">
-                                                <label class="form-check-label red" for="red">
-                                                    Reddish (23)
-                                                    <input class="form-check-input" type="radio" name="color-option" id="red">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <label class="form-check-label brown" for="brown">
-                                                    Orange brown (9)
-                                                    <input class="form-check-input" type="radio" name="color-option" id="brown" checked>
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <label class="form-check-label green" for="green">
-                                                    Greeny (15)
-                                                    <input class="form-check-input" type="radio" name="color-option" id="green">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <label class="form-check-label aqua" for="aqua">
-                                                    Dark aqua blue (18)
-                                                    <input class="form-check-input" type="radio" name="color-option" id="aqua" checked>
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="heading-two">
-                                        <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapse-two" aria-expanded="true" aria-controls="collapse-two">
-                                            <span class="accordion-title fs-3">Size</span>
-                                        </button>
-                                    </div>
-                                    <div id="collapse-two" class="accordion-collapse collapse show" aria-labelledby="heading-two">
-                                        <div class="accordion-body">
-                                            <a href="#">XS <span class="count">(45)</span></a>
-                                            <a href="#">S <span class="count">(90)</span></a>
-                                            <a href="#">M <span class="count">(56)</span></a>
-                                            <a href="#">L <span class="count">(89)</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="heading-three">
-                                        <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapse-three" aria-expanded="true" aria-controls="collapse-three">
-                                            <span class="accordion-title fs-3">Price</span>
-                                        </button>
-                                    </div>
-                                    <div id="collapse-three" class="accordion-collapse collapse show" aria-labelledby="heading-three">
-                                        <div class="accordion-body">
-                                            <a href="#">Less than $10 <span class="count">(80)</span></a>
-                                            <a href="#">$20 - $40 <span class="count">(90)</span></a>
-                                            <a href="#">$40 - $50 <span class="count">(150)</span></a>
-                                            <a href="#">$50 - $60 <span class="count">(70)</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="heading-four">
-                                        <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapse-four" aria-expanded="true" aria-controls="collapse-four">
-                                            <span class="accordion-title fs-3">Brand</span>
-                                        </button>
-                                    </div>
-                                    <div id="collapse-four" class="accordion-collapse collapse show" aria-labelledby="heading-four">
-                                        <div class="accordion-body">
-                                            <a href="#">ARMANI <span class="count">(100)</span></a>
-                                            <a href="#">FENDI <span class="count">(80)</span></a>
-                                            <a href="#">CHANEL <span class="count">(90)</span></a>
-                                            <a href="#">GUCCI <span class="count">(70)</span></a>
-                                            <a href="#">PRADA <span class="count">(50)</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn-link text-uppercase item-anchor">Reset All Filters</a>
-                            </div>
+                        <span class="text-body-secondary">$12</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Fresh grapes</h6>
+                            <small class="text-body-secondary">Brief description</small>
                         </div>
-                    </div>
-                </aside>
+                        <span class="text-body-secondary">$8</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between lh-sm">
+                        <div>
+                            <h6 class="my-0">Heinz tomato ketchup</h6>
+                            <small class="text-body-secondary">Brief description</small>
+                        </div>
+                        <span class="text-body-secondary">$5</span>
+                    </li>
+                    <li class="list-group-item d-flex justify-content-between">
+                        <span>Total (USD)</span>
+                        <strong>$20</strong>
+                    </li>
+                </ul>
+
+                <button class="w-100 btn btn-primary btn-lg" type="submit">Continue to checkout</button>
             </div>
         </div>
     </div>
 
-    <section class="bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
-        <div class="container">
-            <div class="row justify-content-center">
-                <div class="col-md-8 py-5 my-5">
-                    <div class="subscribe-header text-center pb-3">
-                        <h3 class="section-title text-uppercase">Sign Up for our newsletter</h3>
+
+    <nav class="navbar navbar-expand-lg text-uppercase fs-6 p-3 border-bottom align-items-center">
+        <div class="container-fluid">
+            <div class="row justify-content-between align-items-center w-100">
+
+                <div class="col-auto">
+                    <a class="navbar-brand" href="index.html"><img src="images/main-logo.png" alt="logo"></a>
+                </div>
+
+                <div class="col-auto">
+                    <button class="navbar-toggler" type="button" data-bs-toggle="offcanvas" data-bs-target="#offcanvasNavbar"
+                            aria-controls="offcanvasNavbar">
+                        <span class="navbar-toggler-icon"></span>
+                    </button>
+
+                    <div class="offcanvas offcanvas-end" tabindex="-1" id="offcanvasNavbar"
+                         aria-labelledby="offcanvasNavbarLabel">
+                        <div class="offcanvas-header">
+                            <h5 class="offcanvas-title" id="offcanvasNavbarLabel">Menu</h5>
+                            <button type="button" class="btn-close text-reset" data-bs-dismiss="offcanvas"
+                                    aria-label="Close"></button>
+                        </div>
+
+                        <div class="offcanvas-body">
+                            <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle active" href="#" id="dropdownHome" data-bs-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">Home</a>
+                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownHome">
+                                        <li>
+                                            <a href="index.html" class="dropdown-item item-anchor">Home Layout 1</a>
+                                        </li>
+                                        <li>
+                                            <a href="home2.html" class="dropdown-item item-anchor">Home Layout 2 <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="home3.html" class="dropdown-item item-anchor">Home Layout 3 <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="home4.html" class="dropdown-item item-anchor">Home Layout 4 <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="dropdownShop" data-bs-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">Shop</a>
+                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownShop">
+                                        <li>
+                                            <a href="shop-sidebar.html" class="dropdown-item item-anchor">Shop Sidebar <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-three-column.html" class="dropdown-item item-anchor">Shop Three Column <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-three-column-wide.html" class="dropdown-item item-anchor">Shop Three Column Wide <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-four-column.html" class="dropdown-item item-anchor">Shop Four Column <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-four-column-wide.html" class="dropdown-item item-anchor">Shop Four Column Wide <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-six-column.html" class="dropdown-item item-anchor">Shop Six Column <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="shop-six-column-wide.html" class="dropdown-item item-anchor">Shop Six Column Wide <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="single-product.html" class="dropdown-item item-anchor">Single Product <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="single-product2.html" class="dropdown-item item-anchor">Single Product V2 <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="dropdownBlog" data-bs-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">Blog</a>
+                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownBlog">
+                                        <li>
+                                            <a href="blog-classic.html" class="dropdown-item item-anchor">Blog Classic <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-grid-with-sidebar.html" class="dropdown-item item-anchor">Blog Grid with Sidebar <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-grid-four-column.html" class="dropdown-item item-anchor">Blog Grid Four Column <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-no-sidebar.html" class="dropdown-item item-anchor">Blog No Sidebar <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="blog-right-sidebar.html" class="dropdown-item item-anchor">Blog Right Sidebar <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="single-post.html" class="dropdown-item item-anchor">Single Post <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="single-post-no-sidebar.html" class="dropdown-item item-anchor">Single Post No Sidebar <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">Pages</a>
+                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
+                                        <li>
+                                            <a href="about.html" class="dropdown-item item-anchor">About <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="cart.html" class="dropdown-item item-anchor">Cart <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="checkout.html" class="dropdown-item item-anchor">Checkout <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="coming-soon.html" class="dropdown-item item-anchor">Coming Soon <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="contact.html" class="dropdown-item item-anchor">Contact <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="error-page.html" class="dropdown-item item-anchor">Error Page <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="faqs.html" class="dropdown-item item-anchor">FAQs <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="my-account.html" class="dropdown-item item-anchor">My Account <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                        <li>
+                                            <a href="wishlist.html" class="dropdown-item item-anchor">Wishlist <span class="badge bg-primary">PRO</span></a>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Blog</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="nav-link" href="#">Contact</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-primary rounded-pill" href="https://templatesjungle.gumroad.com/l/kaira-bootstrap-ecommerce-template" target="_blank">Get PRO</a>
+                                </li>
+                            </ul>
+                        </div>
                     </div>
-                    <form id="form" class="d-flex flex-wrap gap-2">
-                        <input type="text" name="email" placeholder="Your Email Addresss" class="form-control form-control-lg">
-                        <button class="btn btn-dark btn-lg text-uppercase w-100">Sign Up</button>
+                </div>
+
+                <div class="col-auto">
+                    <ul class="list-unstyled d-flex">
+                        <li>
+                            <a href="wishlist.html" class="text-uppercase mx-3">Wishlist <span class="wishlist-count">(0)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="cart.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart"
+                               aria-controls="offcanvasCart">Cart <span class="cart-count">(0)</span>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#like" class="mx-2">
+                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                <use xlink:href="#user"></use>
+                                </svg>
+                            </a>
+                        </li>
+                        <li class="search-box mx-2">
+                            <a href="#search" class="search-button">
+                                <svg width="24" height="24" viewBox="0 0 24 24">
+                                <use xlink:href="#search"></use>
+                                </svg>
+                            </a>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <section class="hero-section bg-light py-4">
+        <div class="hero-content">
+            <div class="container">
+                <div class="row">
+                    <div class="text-center">
+                        <div class="breadcrumbs">
+                            <span class="item"><a href="index.html">Home /</a></span>
+                            <span class="item">My Account</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="login-form" class="py-5">
+        <div class="container-sm">
+            <div class="row justify-content-center">
+                <div class="col-4">
+                    <h2 class="section-title text-uppercase">Forgot Password</h2>
+
+
+                    <form id="form" class="form-group flex-wrap" action="verifycode" method="post">
+                        <div class="text-danger">${warn}</div>
+                        <div class="text">Code has been sent to ${sessionScope.user.getEmail()}</div>
+                        <div class="col-12 pb-3">
+                            <label>Enter Code from your email address *</label>
+                            <input type="text" name="code" placeholder="Write your code here"
+                                   class="form-control">
+                        </div>
+
+                        <!--            <div class="col-12 pb-3">
+                                      <label>Password *</label>
+                                      <input type="password" name="password" value="" placeholder="Enter your password" class="form-control">
+                                    </div>
+                                    
+                                    <div class="col-12 pb-3">
+                                      <label>Re-Password *</label>
+                                      <input type="password" name="repassword" value="" placeholder="Enter your re-password" class="form-control">
+                                    </div>
+                                    
+                                    <div class="col-12 pb-3">
+                                      <label>Name *</label>
+                                      <input type="text" name="name" value="" placeholder="Enter your name" class="form-control">
+                                    </div>
+                                    <div class="col-12 pb-3">
+                                      <label>Address *</label>
+                                      <input type="text" name="address" value="" placeholder="Enter your address" class="form-control">
+                                    </div>
+                                    <div class="col-12 pb-3">
+                                      <label>Phone *</label>
+                                      <input type="text" name="phone" value="" placeholder="Enter your phone" class="form-control">
+                                    </div>
+                                    <div class="col-12 pb-3">
+                                      <label>Email *</label>
+                                      <input type="email" name="email" value="" placeholder="Enter your email" class="form-control">
+                                    </div>-->
+
+                        <div class="col-12">
+                            <button type="submit" name="submit" class="btn btn-dark btn-large text-uppercase pb-3">Send Code</button>
+                        </div>
                     </form>
                 </div>
             </div>
         </div>
     </section>
+
+    <!--  <section class="bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
+        <div class="container">
+          <div class="row justify-content-center">
+            <div class="col-md-8 py-5 my-5">
+              <div class="subscribe-header text-center pb-3">
+                <h3 class="section-title text-uppercase">Sign Up for our newsletter</h3>
+              </div>
+              <form id="form" class="d-flex flex-wrap gap-2">
+                <input type="text" name="email" placeholder="Your Email Addresss" class="form-control form-control-lg">
+                <button class="btn btn-dark btn-lg text-uppercase w-100">Sign Up</button>
+              </form>
+            </div>
+          </div>
+        </div>
+      </section>-->
 
     <section class="instagram py-5">
         <div class="container">
@@ -568,4 +694,3 @@
 </body>
 
 </html>
-

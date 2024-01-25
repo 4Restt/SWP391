@@ -385,7 +385,7 @@
                             <a href="signup" class="btn btn-dark btn-large text-uppercase pb-3">Sign Up</a>
                             <a href="https://accounts.google.com/o/oauth2/auth?scope=profile&redirect_uri=http://localhost:9999/SWP391-Project-Zara/logingooglehandler&response_type=code&client_id=937366049176-dvn9qbk5sori7e2eor833mm4pthh3ncc.apps.googleusercontent.com&approval_prompt=force" 
                                class="btn btn-dark btn-large text-uppercase pb-3">Sign In With Google</a>             
-                            <p><a href="ForgotPass">Lost your password?</a></p>
+                            <p><a href="forgotpass">Lost your password?</a></p>
                         </div>
                     </form>
                 </div>

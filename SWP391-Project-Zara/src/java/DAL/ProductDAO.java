@@ -35,6 +35,33 @@ public class ProductDAO {
             }
         }
     }
+    
+        public void Search(String sql, String txt, int size) {
+        listProduct = new Vector<Product>();
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            for (int i = 1; i <= size; i++) {
+                ps.setString(i, txt);
+            }
+            ResultSet rs = ps.executeQuery();
+            while (rs.next()) {
+                listProduct.add(new Product(
+                        rs.getInt(1),
+                        rs.getString(2), 
+                        rs.getString(3), 
+                        rs.getInt(4),
+                        rs.getString(5), 
+                        rs.getInt(6),
+                        rs.getString(7),
+                        rs.getInt(8),
+                        rs.getString(9)));
+
+            }
+        } catch (Exception e) {
+        }
+
+    }
+        
     public List<Product> getAllProduct() {
         listProduct = new Vector<Product>();
         String sql = "SELECT p.*\n"

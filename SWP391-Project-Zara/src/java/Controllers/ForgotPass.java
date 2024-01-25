@@ -91,6 +91,7 @@ public class ForgotPass extends HttpServlet {
                 System.out.println("Email sent successfully!");
 
             } catch (MessagingException e) {
+                System.out.println("bi sai roi");
             }
             request.getRequestDispatcher("Views/VerifyCode.jsp").forward(request, response);
         }

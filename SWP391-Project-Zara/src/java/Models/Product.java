@@ -19,9 +19,9 @@ import lombok.ToString;
 @NoArgsConstructor
 public class Product {
     private int id;
+    private int productInfoId;
     private String size;
     private String color;
-    private int styleId;
     private String name;
     private int quantity;
     private String description;

@@ -16,7 +16,6 @@ public class ProductDAO {
     private List<Product> listProduct;
     public static ProductDAO INSTANCE = new ProductDAO();
 
-
     public List<Product> getListProduct() {
         return listProduct;
     }
@@ -24,7 +23,6 @@ public class ProductDAO {
     public void setListProduct(List<Product> listProduct) {
         this.listProduct = listProduct;
     }
-
 
     public ProductDAO() {
         if (INSTANCE == null) {
@@ -35,8 +33,8 @@ public class ProductDAO {
             }
         }
     }
-    
-        public void Search(String sql, String txt, int size) {
+
+    public void Search(String sql, String txt, int size) {
         listProduct = new Vector<Product>();
         try {
             PreparedStatement ps = con.prepareStatement(sql);
@@ -47,21 +45,22 @@ public class ProductDAO {
             while (rs.next()) {
                 listProduct.add(new Product(
                         rs.getInt(1),
-                        rs.getString(2), 
-                        rs.getString(3), 
-                        rs.getInt(4),
-                        rs.getString(5), 
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
                         rs.getInt(6),
                         rs.getString(7),
-                        rs.getInt(8),
-                        rs.getString(9)));
+                        rs.getFloat(8),
+                        rs.getString(9)
+                ));
 
             }
         } catch (Exception e) {
         }
 
     }
-        
+
     public List<Product> getAllProduct() {
         listProduct = new Vector<Product>();
         String sql = "SELECT p.*\n"
@@ -80,9 +79,9 @@ public class ProductDAO {
             while (rs.next()) {
                 listProduct.add(new Product(
                         rs.getInt(1),
-                        rs.getString(2),
+                        rs.getInt(2),
                         rs.getString(3),
-                        rs.getInt(4),
+                        rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
                         rs.getString(7),
@@ -95,19 +94,21 @@ public class ProductDAO {
         }
         return listProduct;
     }
+
     public List<Product> getProductByCid(String cid) {
         listProduct = new Vector<Product>();
-        String sql = "SELECT p.*\n"
-                + "FROM Products p\n"
-                + "JOIN (\n"
-                + "    SELECT MIN(p.id) AS min_id, p.name\n"
-                + "    FROM Products p\n"
-                + "    JOIN Style s ON p.style_id = s.id\n"
-                + "    JOIN Category c ON s.cate_id = c.id\n"
-                + "    WHERE c.id = ?\n"
-                + "    GROUP BY p.name\n"
-                + ") min_products ON p.id = min_products.min_id\n"
-                + "ORDER BY p.id DESC;";
+        String sql = "WITH RankedProducts AS (\n"
+                + "    SELECT P.id, P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, P.description, PI.price, PI.img_default,\n"
+                + "    ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY P.id) AS rn\n"
+                + "    FROM  Product P\n"
+                + "    JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
+                + "    JOIN Style S ON PI.style_id = S.id\n"
+                + "    JOIN Category C ON S.cate_id = C.id\n"
+                + "    WHERE C.id = ? \n"
+                + ")\n"
+                + "SELECT id, product_info_id, size, color, product_name, quantity, description, price, img_default\n"
+                + "FROM RankedProducts\n"
+                + "WHERE rn = 1;";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, cid);
@@ -115,9 +116,9 @@ public class ProductDAO {
             while (rs.next()) {
                 listProduct.add(new Product(
                         rs.getInt(1),
-                        rs.getString(2),
+                        rs.getInt(2),
                         rs.getString(3),
-                        rs.getInt(4),
+                        rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
                         rs.getString(7),
@@ -133,25 +134,27 @@ public class ProductDAO {
 
     public List<Product> getTop6NewArrival() {
         listProduct = new Vector<Product>();
-        String sql = "SELECT TOP 6 p.*\n"
-                + "FROM [dbo].[Products] p\n"
-                + "JOIN (\n"
-                + "    SELECT MIN(p.id) AS min_id, p.name\n"
-                + "    FROM [dbo].[Products] p\n"
-                + "    JOIN [dbo].[Style] s ON p.style_id = s.id\n"
-                + "    JOIN [dbo].[Category] c ON s.cate_id = c.id\n"
-                + "    GROUP BY p.name\n"
-                + ") min_products ON p.id = min_products.min_id\n"
-                + "ORDER BY p.id DESC;";
+        String sql = "WITH RankedProducts AS (\n"
+                + "    SELECT P.id, P.product_info_id, P.size,  P.color, P.name, P.quantity, P.description, PI.price, PI.img_default,\n"
+                + "		ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY P.id) AS rn\n"
+                + "    FROM  Product P\n"
+                + "    JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
+                + "    JOIN Style S ON PI.style_id = S.id\n"
+                + "    JOIN Category C ON S.cate_id = C.id\n"
+                + ")\n"
+                + "SELECT top 6 id, product_info_id, size, color, name, quantity, description, price, img_default\n"
+                + "FROM RankedProducts\n"
+                + "WHERE rn = 1\n"
+                + "ORDER BY id DESC;";
         try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
                 listProduct.add(new Product(
                         rs.getInt(1),
-                        rs.getString(2),
+                        rs.getInt(2),
                         rs.getString(3),
-                        rs.getInt(4),
+                        rs.getString(4),
                         rs.getString(5),
                         rs.getInt(6),
                         rs.getString(7),

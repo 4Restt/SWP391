@@ -37,11 +37,11 @@ public class ProductDAO {
     public void Search(String sql, String txt, int size) {
         listProduct = new Vector<Product>();
         try {
-            PreparedStatement ps = con.prepareStatement(sql);
+            ps = con.prepareStatement(sql);
             for (int i = 1; i <= size; i++) {
                 ps.setString(i, txt);
             }
-            ResultSet rs = ps.executeQuery();
+            rs = ps.executeQuery();
             while (rs.next()) {
                 listProduct.add(new Product(
                         rs.getInt(1),

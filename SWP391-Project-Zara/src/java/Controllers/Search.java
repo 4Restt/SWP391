@@ -33,7 +33,7 @@ public class Search extends HttpServlet {
         search.add("size");
         search.add("color");
         String txt = request.getParameter("search");
-        String sql = "select * from Products where ";
+        String sql = "select * from Product where ";
         String s1 = "";
         for (String s2 : search) {
             s1 += "[" + s2 + "] like CONCAT ('%',?,'%') or ";

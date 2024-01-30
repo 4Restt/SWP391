@@ -5,18 +5,23 @@
 
 package Controllers;
 
+import DAL.*;
+import Models.*;
+import jakarta.servlet.ServletContext;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
  * @author admin
  */
-public class Shipper extends HttpServlet {
+public class Delivery extends HttpServlet {
    
     /** 
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code> methods.
@@ -28,19 +33,8 @@ public class Shipper extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
-        try (PrintWriter out = response.getWriter()) {
-            /* TODO output your page here. You may use following sample code. */
-            out.println("<!DOCTYPE html>");
-            out.println("<html>");
-            out.println("<head>");
-            out.println("<title>Servlet Shipper</title>");  
-            out.println("</head>");
-            out.println("<body>");
-            out.println("<h1>Servlet Shipper at " + request.getContextPath () + "</h1>");
-            out.println("</body>");
-            out.println("</html>");
-            request.getRequestDispatcher("Views/Shipper.jsp").forward(request, response);
-        }
+        
+       
     } 
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -54,7 +48,9 @@ public class Shipper extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+        
+        
+       request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
     } 
 
     /** 
@@ -67,7 +63,21 @@ public class Shipper extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
-        processRequest(request, response);
+                HttpSession ses = request.getSession(false);       
+
+        if (ses != null) {
+        String deliveryName = (String) ses.getAttribute("deliveryName");
+        
+        List<Order> unassignedOrders = OrderDAO.INSTANCE.getUnassignedOrders(deliveryName);
+        List<Customer> listOfCustomers = CustomerDAO.INSTANCE.listOfCustomers();
+        
+        // Đặt danh sách đơn hàng vào attribute của request
+        request.setAttribute("orders", unassignedOrders);
+        request.setAttribute("listOfCustomers", listOfCustomers);
+    }         
+        
+       request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
+
     }
 
     /** 

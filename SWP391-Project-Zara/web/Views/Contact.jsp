@@ -272,6 +272,9 @@
                                 <li class="nav-item">
                                     <a class="btn btn-outline-primary rounded-pill" href="login" >Login</a>
                                 </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-primary rounded-pill" href="signup" >Sign Up</a>
+                                </li>
                             </ul>
                         </div>
                     </div>

@@ -54,6 +54,11 @@ public class ShipperDAO {
         this.listShipper = listShipper;
     }
 
+    public void logout() {
+        shipper = null;
+    }
+
+    
     public List<Shipper> compatibleShippers(String customerAddress) {
         listShipper = new Vector<Shipper>();
         String sql = "SELECT Shipper.id AS shipper_id,\n"
@@ -69,22 +74,51 @@ public class ShipperDAO {
             rs = ps.executeQuery();
             while (rs.next()) {
                 Shipper shipper = Shipper.builder()
-                            .id(rs.getInt("shipper_id"))
-                            .name(rs.getString("shipper_name"))
-                            // Set các giá trị khác nếu cần
-                            .build();
-            listShipper.add(shipper);
+                        .id(rs.getInt("shipper_id"))
+                        .name(rs.getString("shipper_name"))
+                        .location_id(rs.getInt("location_id"))
+                        .location_name(rs.getString("location_name"))
+                        // Set các giá trị khác nếu cần
+                        .build();
+                listShipper.add(shipper);
             }
         } catch (Exception e) {
             status = "Error at read Department " + e.getMessage();
         }
-        
+
         return listShipper;
     }
 
-    public static void main(String[] args) {
-        ShipperDAO.INSTANCE.compatibleShippers("Tu Hiep, Ha Noi");
-        System.out.println(ShipperDAO.INSTANCE.compatibleShippers("Tu Hiep, Ha Noi"));
+    public void login(String name, String password) {
+        String sql = "SELECT Shipper.*, [Location].[name] as location_name\n"
+                + "from Shipper\n"
+                + "join [Location] on Shipper.location_id = [Location].id \n"
+                + "where Shipper.[name] = ? and Shipper.[password] = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, password);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                shipper = new Shipper(rs.getInt("id"),
+                        rs.getString("name"),
+                        rs.getString("password"),
+                        rs.getInt("location_id"),
+                        rs.getString("phone"),
+                        rs.getString("location_name")
+                );
+                System.out.println("OK");
+            } else {
+                System.out.println("Login failed: Incorrect username or password");
+            }
+        } catch (Exception e) {
+            e.printStackTrace(); // Print the exception for debugging purposes
+        }
     }
-    
+
+    public static void main(String[] args) {
+        ShipperDAO.INSTANCE.login("Shipper 1", "shipperpass1");
+
+    }
+
 }

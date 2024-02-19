@@ -1,3 +1,6 @@
+function submitForm() {
+    $('#sizeForm').submit(); // Using jQuery to submit the form
+}
 (function ($) {
 
   "use strict";
@@ -363,3 +366,11 @@
   }); // document ready
 
 })(jQuery)
+
+// JavaScript for Swiper initialization
+var swiper = new Swiper('.product-thumbnail-slider', {
+    navigation: {
+        nextEl: '.swiper-button-down', // Custom navigation for down
+        prevEl: '.swiper-button-up',   // Custom navigation for up
+    },
+});

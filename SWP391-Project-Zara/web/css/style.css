@@ -1509,3 +1509,33 @@ a.btn-link.text-light:after {
   position: relative;
   margin-top: 30px;
 }
+/* CSS for custom navigation buttons */
+.swiper-button-up,
+.swiper-button-down {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    width: 40px;
+    height: 40px;
+    background-color: rgba(255, 255, 255, 0.5);
+    border-radius: 50%;
+    cursor: pointer;
+    z-index: 10;
+}
+
+.swiper-button-up::after,
+.swiper-button-down::after {
+    content: "";
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 10px;
+    height: 10px;
+    border-left: 2px solid #000;
+    border-bottom: 2px solid #000;
+    transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.swiper-button-down::after {
+    transform: translate(-50%, -50%) rotate(135deg);
+}

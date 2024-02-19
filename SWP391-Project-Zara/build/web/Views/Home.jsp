@@ -201,7 +201,7 @@
                         <div class="swiper-slide">
                             <div class="product-item image-zoom-effect link-effect">
                                 <div class="image-holder position-relative">
-                                    <a href="detail?pid=${lna.getId()}">
+                                    <a href="detail?pifid=${lna.getProductInfoId()}&size=${lna.getSize()}&color=${lna.getColor()}">
                                         <img src="${lna.getImgDefault()}" alt="categories" class="product-image img-fluid">
                                     </a>
                                     <a href="wishlist.html" class="btn-icon btn-wishlist">
@@ -209,7 +209,7 @@
                                     </a>
                                     <div class="product-content">
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
-                                            <a href="detail?pid=${lna.getId()}">${lna.getName()}</a>
+                                            <a href="detail?pifid=${lna.getProductInfoId()}&size=${lna.getSize()}&color=${lna.getColor()}">${lna.getName()}</a>
                                         </h5>
                                         <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$95.00</span></a>
                                     </div>

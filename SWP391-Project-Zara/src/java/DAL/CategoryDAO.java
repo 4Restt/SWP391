@@ -24,7 +24,6 @@ public class CategoryDAO {
         this.listCategory = listCategory;
     }
 
-    
     public CategoryDAO() {
         if (INSTANCE == null) {
             try {
@@ -53,9 +52,32 @@ public class CategoryDAO {
         }
         return listCategory;
     }
-    
+
+    public Category getCateByProInfoId(String product_info_id) {
+        String sql = "SELECT C.id, C.name, C.description FROM Category C\n"
+                + "JOIN Style S on C.id = S.cate_id\n"
+                + "JOIN ProductInfor P on S.id = P.style_id\n"
+                + "WHERE P.id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, product_info_id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return (new Category(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
         CategoryDAO.INSTANCE.getAllCategory();
         System.out.println(CategoryDAO.INSTANCE.getListCategory().toString());
+        System.out.println(CategoryDAO.INSTANCE.getCateByProInfoId("1"));
     }
 }

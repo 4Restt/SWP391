@@ -189,7 +189,7 @@
                         <c:forEach items="${listProduct}" var="lp">
                             <div class="col-md-4 mb-3 product-item link-effect">
                                 <div class="image-holder position-relative">
-                                    <a href="single-product.html">
+                                    <a href="detail?pifid=${lp.getProductInfoId()}&size=${lp.getSize()}&color=${lp.getColor()}">
                                         <img src="${lp.getImgDefault()}" alt="categories" class="product-image img-fluid">
                                     </a>
                                     <a href="wishlist.html" class="btn-icon btn-wishlist">
@@ -199,7 +199,7 @@
                                     </a> 
                                     <div class="product-content">
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
-                                            <a href="single-product.html">${lp.getName()}</a>
+                                            <a href="detail?pifid=${lp.getProductInfoId()}&size=${lp.getSize()}&color=${lp.getColor()}">${lp.getName()}</a>
                                         </h5>
                                         <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$${lp.getPrice()}</span></a>
                                     </div>

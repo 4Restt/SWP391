@@ -511,7 +511,7 @@
                                 </div>
                             </div>
                             <div class="product-price">
-                                <span class="fs-2">${product.getPrice()}</span>
+                                <span class="fs-2">${product.getPrice()}$</span>
                                 <!--<del>$54.00</del>-->
                             </div>
                             <p>Tristique ullamcorper nunc egestas non. Justo, cum feugiat imperdiet nulla molestie ac vulputate

@@ -15,6 +15,15 @@ public class CategoryDAO {
     private ResultSet rs = null;
     private List<Category> listCategory;
     public static CategoryDAO INSTANCE = new CategoryDAO();
+    private Category cat = new Category();
+
+    public Category getCat() {
+        return cat;
+    }
+
+    public void setCat(Category cat) {
+        this.cat = cat;
+    }
 
     public List<Category> getListCategory() {
         return listCategory;
@@ -73,6 +82,25 @@ public class CategoryDAO {
             status = "Error at read Department " + e.getMessage();
         }
         return null;
+    }
+
+    public Category getCategorybyId(String id) {
+        String sql = "select * from Category where id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                cat = new Category(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3)
+                );
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+        return cat;
     }
 
     public static void main(String[] args) {

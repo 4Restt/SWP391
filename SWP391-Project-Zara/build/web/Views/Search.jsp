@@ -229,67 +229,54 @@
                 </main>
                 <aside class="col-md-3">
                     <div class="sidebar">
-                        <div class="sidebar-categories border-animation-left mb-5">
-                            <div class="text-dark text-uppercase">Browse By Categories: ${name}</div>
+<!--                        <div class="sidebar-categories border-animation-left mb-5">
+                            <div class="text-dark text-uppercase">Browse By Categories:</div>
 
-                            <!--                            <ul class="list-unstyled">
-                            <c:forEach items="${cat}" var="c">
-                                <li><a href="search?id=${c.id}" class="item-anchor">
-                                ${c.name}</a></li>
-                            </c:forEach>                                
-                </ul>-->
+                            <ul class="list-unstyled">
+                                <c:forEach items="${cat}" var="c">
+                                    <li><a href="search?id=$ {c.id}" class="item-anchor">
+                                            </a></li>
+                                            ${c.name}
+                                        </c:forEach>                                
+                            </ul>
 
-                        </div>
-                        <form action="filter" method="get">
+                        </div>-->
+<!--////////////////////////////////////////////////////-->
+    
+                        <form action="filter" method="post">
+                            <input name="txt" value="${txt}" hidden="">
+                            
                             <div class="product-filter padding-small">
                                 <div class="text-dark text-uppercase">Filter By:</div>
                                 <div class="accordion" id="accordionExample">
-<!--                                    <div class="accordion-item">
+                                    <div class="accordion-item">
                                         <div class="accordion-header" id="heading-one">
                                             <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-one" aria-expanded="true" aria-controls="collapse-one">
-                                                <span class="accordion-title fs-3">Color</span>
+                                                <span class="accordion-title fs-3">Category</span>
                                             </button>
                                         </div>
                                         <div id="collapse-one" class="accordion-collapse collapse show" aria-labelledby="heading-one">
                                             <div class="accordion-body">
-                                                <div class="form-check">
-                                                    <label class="form-check-label red" for="red">
-                                                        Reddish (23)
-                                                        <input class="form-check-input" type="checkbox" name="color" id="red" value="Red">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <label class="form-check-label grey" for="grey">
-                                                        Orange brown (9)
-                                                        <input class="form-check-input" type="checkbox" name="color" id="grey" value="Grey" >
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <label class="form-check-label green" for="green">
-                                                        Greeny (15)
-                                                        <input class="form-check-input" type="checkbox" name="color" id="green" value="Green">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
-                                                <div class="form-check">
-                                                    <label class="form-check-label aqua" for="aqua">
-                                                        Dark aqua blue (18)
-                                                        <input class="form-check-input" type="checkbox" name="color" id="aqua" value="Blue">
-                                                        <span class="checkmark"></span>
-                                                    </label>
-                                                </div>
+                                                <c:forEach items="${cat}" var="c">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label">
+                                                            ${c.name}
+                                                            <input class="form-check-input" type="radio" name="category" value="${c.id}">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div> 
+                                                </c:forEach>   
+
                                             </div>
                                         </div>
-                                    </div>-->
-                                    <div class="accordion-item">
+                                    </div>
+<!--                                    <div class="accordion-item">
                                         <div class="accordion-header" id="heading-two">
                                             <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
                                                     data-bs-target="#collapse-two" aria-expanded="true" aria-controls="collapse-two">
                                                 <span class="accordion-title fs-3">Style</span>
-                                            </button >
+                                            </button>
                                         </div>
                                         <div id="collapse-two" class="accordion-collapse collapse show" aria-labelledby="heading-two">
                                             <div class="accordion-body">
@@ -298,7 +285,7 @@
                                                     <div class="form-check">
                                                         <label class="form-check-label" >
                                                             ${s.name}
-                                                            <input class="form-check-input" type="checkbox" name="style" value="${s.id}">
+                                                            <input class="form-check-input" type="checkbox" name="style" value="" >
                                                             <span class="checkmark"></span>
                                                         </label>
                                                     </div>
@@ -306,7 +293,7 @@
 
                                             </div>
                                         </div>
-                                    </div>
+                                    </div>-->
 
                                     <div class="accordion-item">
                                         <div class="accordion-header" id="heading-three">
@@ -344,239 +331,236 @@
                                                         <input class="form-check-input" type="radio" name="price" value="value4">
                                                         <span class="checkmark"></span>
                                                     </label>
-                                                </div>                                                                                                                      <!--
-                                                                                            <a href="#">Less than $10 <span class="count">(80)</span></a>
-                                                                                            <a href="#">$20 - $40 <span class="count">(90)</span></a>
-                                                                                            <a href="#">$40 - $50 <span class="count">(150)</span></a>
-                                                                                            <a href="#">$50 - $60 <span class="count">(70)</span></a>
-                                                --> 
+                                                </div>                                                                                                                      
+                 
                                             </div>
                                         </div>
                                     </div>
-                                    <input type="submit" value="Apply All Filters" 
-                                    class="btn-link text-uppercase item-anchor">
-                                    <input type="text" name="catid" value="${catid}"hidden="">
+
+
+                                    <input type="submit" value="Apply All Filters" class="btn-link text-uppercase item-anchor">
+<!--                                    <input type="text" name="catid" value="$ {catid}"hidden="">-->
+
                                 </div>
                             </div>
                         </form>
-
-                                </div>
-                                </aside>
-                            </div>
                     </div>
+                </aside>
             </div>
+        </div>
+    </div>
 
-            <section class="bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
-                <div class="container">
-                    <div class="row justify-content-center">
-                        <div class="col-md-8 py-5 my-5">
-                            <div class="subscribe-header text-center pb-3">
-                                <h3 class="section-title text-uppercase">Sign Up for our newsletter</h3>
-                            </div>
-                            <form id="form" class="d-flex flex-wrap gap-2">
-                                <input type="text" name="email" placeholder="Your Email Addresss" class="form-control form-control-lg">
-                                <button class="btn btn-dark btn-lg text-uppercase w-100">Sign Up</button>
-                            </form>
-                        </div>
+    <section class="bg-light" style="background: url(images/pattern-bg.png) no-repeat;">
+        <div class="container">
+            <div class="row justify-content-center">
+                <div class="col-md-8 py-5 my-5">
+                    <div class="subscribe-header text-center pb-3">
+                        <h3 class="section-title text-uppercase">Sign Up for our newsletter</h3>
+                    </div>
+                    <form id="form" class="d-flex flex-wrap gap-2">
+                        <input type="text" name="email" placeholder="Your Email Addresss" class="form-control form-control-lg">
+                        <button class="btn btn-dark btn-lg text-uppercase w-100">Sign Up</button>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section class="instagram py-5">
+        <div class="container">
+            <div class="row g-3">
+                <h6 class="element-title text-center">Follow us on Instagram</h6>
+                <div class="col-6 col-sm-4 col-md-2">
+                    <div class="insta-item">
+                        <a href="https://www.instagram.com/templatesjungle/" target="_blank">
+                            <img src="images/insta-item1.jpg" alt="instagram" class="insta-image img-fluid">
+                        </a>
                     </div>
                 </div>
-            </section>
-
-            <section class="instagram py-5">
-                <div class="container">
-                    <div class="row g-3">
-                        <h6 class="element-title text-center">Follow us on Instagram</h6>
-                        <div class="col-6 col-sm-4 col-md-2">
-                            <div class="insta-item">
-                                <a href="https://www.instagram.com/templatesjungle/" target="_blank">
-                                    <img src="images/insta-item1.jpg" alt="instagram" class="insta-image img-fluid">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-4 col-md-2">
-                            <div class="insta-item">
-                                <a href="https://www.instagram.com/templatesjungle/" target="_blank">
-                                    <img src="images/insta-item2.jpg" alt="instagram" class="insta-image img-fluid">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-4 col-md-2">
-                            <div class="insta-item">
-                                <a href="https://www.instagram.com/templatesjungle/" target="_blank">
-                                    <img src="images/insta-item3.jpg" alt="instagram" class="insta-image img-fluid">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-4 col-md-2">
-                            <div class="insta-item">
-                                <a href="https://www.instagram.com/templatesjungle/" target="_blank">
-                                    <img src="images/insta-item4.jpg" alt="instagram" class="insta-image img-fluid">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-4 col-md-2">
-                            <div class="insta-item">
-                                <a href="https://www.instagram.com/templatesjungle/" target="_blank">
-                                    <img src="images/insta-item5.jpg" alt="instagram" class="insta-image img-fluid">
-                                </a>
-                            </div>
-                        </div>
-                        <div class="col-6 col-sm-4 col-md-2">
-                            <div class="insta-item">
-                                <a href="https://www.instagram.com/templatesjungle/" target="_blank">
-                                    <img src="images/insta-item6.jpg" alt="instagram" class="insta-image img-fluid">
-                                </a>
-                            </div>
-                        </div>
+                <div class="col-6 col-sm-4 col-md-2">
+                    <div class="insta-item">
+                        <a href="https://www.instagram.com/templatesjungle/" target="_blank">
+                            <img src="images/insta-item2.jpg" alt="instagram" class="insta-image img-fluid">
+                        </a>
                     </div>
                 </div>
-            </section>
+                <div class="col-6 col-sm-4 col-md-2">
+                    <div class="insta-item">
+                        <a href="https://www.instagram.com/templatesjungle/" target="_blank">
+                            <img src="images/insta-item3.jpg" alt="instagram" class="insta-image img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4 col-md-2">
+                    <div class="insta-item">
+                        <a href="https://www.instagram.com/templatesjungle/" target="_blank">
+                            <img src="images/insta-item4.jpg" alt="instagram" class="insta-image img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4 col-md-2">
+                    <div class="insta-item">
+                        <a href="https://www.instagram.com/templatesjungle/" target="_blank">
+                            <img src="images/insta-item5.jpg" alt="instagram" class="insta-image img-fluid">
+                        </a>
+                    </div>
+                </div>
+                <div class="col-6 col-sm-4 col-md-2">
+                    <div class="insta-item">
+                        <a href="https://www.instagram.com/templatesjungle/" target="_blank">
+                            <img src="images/insta-item6.jpg" alt="instagram" class="insta-image img-fluid">
+                        </a>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
 
-            <footer id="footer" class="mt-5">
-                <div class="container">
-                    <div class="row d-flex flex-wrap justify-content-between py-5">
-                        <div class="col-md-3 col-sm-6">
-                            <div class="footer-menu footer-menu-001">
-                                <div class="footer-intro mb-4">
-                                    <a href="index.html">
-                                        <img src="images/main-logo.png" alt="logo">
+    <footer id="footer" class="mt-5">
+        <div class="container">
+            <div class="row d-flex flex-wrap justify-content-between py-5">
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-menu footer-menu-001">
+                        <div class="footer-intro mb-4">
+                            <a href="index.html">
+                                <img src="images/main-logo.png" alt="logo">
+                            </a>
+                        </div>
+                        <p>Gravida massa volutpat aenean odio. Amet, turpis erat nullam fringilla elementum diam in. Nisi, purus
+                            vitae, ultrices nunc. Sit ac sit suscipit hendrerit.</p>
+                        <div class="social-links">
+                            <ul class="list-unstyled d-flex flex-wrap gap-3">
+                                <li>
+                                    <a href="#" class="text-secondary">
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                        <use xlink:href="#facebook"></use>
+                                        </svg>
                                     </a>
-                                </div>
-                                <p>Gravida massa volutpat aenean odio. Amet, turpis erat nullam fringilla elementum diam in. Nisi, purus
-                                    vitae, ultrices nunc. Sit ac sit suscipit hendrerit.</p>
-                                <div class="social-links">
-                                    <ul class="list-unstyled d-flex flex-wrap gap-3">
-                                        <li>
-                                            <a href="#" class="text-secondary">
-                                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                                <use xlink:href="#facebook"></use>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="text-secondary">
-                                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                                <use xlink:href="#twitter"></use>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="text-secondary">
-                                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                                <use xlink:href="#youtube"></use>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="text-secondary">
-                                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                                <use xlink:href="#pinterest"></use>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                        <li>
-                                            <a href="#" class="text-secondary">
-                                                <svg width="24" height="24" viewBox="0 0 24 24">
-                                                <use xlink:href="#instagram"></use>
-                                                </svg>
-                                            </a>
-                                        </li>
-                                    </ul>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="footer-menu footer-menu-002">
-                                <h5 class="widget-title text-uppercase mb-4">Quick Links</h5>
-                                <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
-                                    <li class="menu-item">
-                                        <a href="index.html" class="item-anchor">Home</a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="shop-four-column-wide.html" class="item-anchor">About</a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="blog.html" class="item-anchor">Services</a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="styles.html" class="item-anchor">Single item</a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="#" class="item-anchor">Contact</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="footer-menu footer-menu-003">
-                                <h5 class="widget-title text-uppercase mb-4">Help & Info</h5>
-                                <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
-                                    <li class="menu-item">
-                                        <a href="#" class="item-anchor">Track Your Order</a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="#" class="item-anchor">Returns + Exchanges</a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="#" class="item-anchor">Shipping + Delivery</a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="#" class="item-anchor">Contact Us</a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="#" class="item-anchor">Find us easy</a>
-                                    </li>
-                                    <li class="menu-item">
-                                        <a href="faqs.html" class="item-anchor">Faqs</a>
-                                    </li>
-                                </ul>
-                            </div>
-                        </div>
-                        <div class="col-md-3 col-sm-6">
-                            <div class="footer-menu footer-menu-004 border-animation-left">
-                                <h5 class="widget-title text-uppercase mb-4">Contact Us</h5>
-                                <p>Do you have any questions or suggestions? <a href="mailto:contact@yourcompany.com"
-                                                                                class="item-anchor">contact@yourcompany.com</a></p>
-                                <p>Do you need support? Give us a call. <a href="tel:+43 720 11 52 78" class="item-anchor">+43 720 11 52
-                                        78</a>
-                                </p>
-                            </div>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-secondary">
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                        <use xlink:href="#twitter"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-secondary">
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                        <use xlink:href="#youtube"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-secondary">
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                        <use xlink:href="#pinterest"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                                <li>
+                                    <a href="#" class="text-secondary">
+                                        <svg width="24" height="24" viewBox="0 0 24 24">
+                                        <use xlink:href="#instagram"></use>
+                                        </svg>
+                                    </a>
+                                </li>
+                            </ul>
                         </div>
                     </div>
                 </div>
-                <div class="border-top py-4">
-                    <div class="container">
-                        <div class="row">
-                            <div class="col-md-6 d-flex flex-wrap">
-                                <div class="shipping">
-                                    <span>We ship with:</span>
-                                    <img src="images/arct-icon.png" alt="icon">
-                                    <img src="images/dhl-logo.png" alt="icon">
-                                </div>
-                                <div class="payment-option">
-                                    <span>Payment Option:</span>
-                                    <img src="images/visa-card.png" alt="card">
-                                    <img src="images/paypal-card.png" alt="card">
-                                    <img src="images/master-card.png" alt="card">
-                                </div>
-                            </div>
-                            <div class="col-md-6 text-end">
-                                <p>© Copyright 2022 Kaira. All rights reserved. Design by <a href="https://templatesjungle.com"
-                                                                                             target="_blank">TemplatesJungle</a></p>
-                            </div>
-                        </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-menu footer-menu-002">
+                        <h5 class="widget-title text-uppercase mb-4">Quick Links</h5>
+                        <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
+                            <li class="menu-item">
+                                <a href="index.html" class="item-anchor">Home</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="shop-four-column-wide.html" class="item-anchor">About</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="blog.html" class="item-anchor">Services</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="styles.html" class="item-anchor">Single item</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#" class="item-anchor">Contact</a>
+                            </li>
+                        </ul>
                     </div>
                 </div>
-            </footer>
-            <script src="js/jquery.min.js"></script>
-            <script src="js/plugins.js"></script>
-            <script src="js/SmoothScroll.js"></script>
-            <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
-                    integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
-            crossorigin="anonymous"></script>
-            <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
-            <script src="js/script.js"></script>
-            </body>
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-menu footer-menu-003">
+                        <h5 class="widget-title text-uppercase mb-4">Help & Info</h5>
+                        <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
+                            <li class="menu-item">
+                                <a href="#" class="item-anchor">Track Your Order</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#" class="item-anchor">Returns + Exchanges</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#" class="item-anchor">Shipping + Delivery</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#" class="item-anchor">Contact Us</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="#" class="item-anchor">Find us easy</a>
+                            </li>
+                            <li class="menu-item">
+                                <a href="faqs.html" class="item-anchor">Faqs</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="col-md-3 col-sm-6">
+                    <div class="footer-menu footer-menu-004 border-animation-left">
+                        <h5 class="widget-title text-uppercase mb-4">Contact Us</h5>
+                        <p>Do you have any questions or suggestions? <a href="mailto:contact@yourcompany.com"
+                                                                        class="item-anchor">contact@yourcompany.com</a></p>
+                        <p>Do you need support? Give us a call. <a href="tel:+43 720 11 52 78" class="item-anchor">+43 720 11 52
+                                78</a>
+                        </p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="border-top py-4">
+            <div class="container">
+                <div class="row">
+                    <div class="col-md-6 d-flex flex-wrap">
+                        <div class="shipping">
+                            <span>We ship with:</span>
+                            <img src="images/arct-icon.png" alt="icon">
+                            <img src="images/dhl-logo.png" alt="icon">
+                        </div>
+                        <div class="payment-option">
+                            <span>Payment Option:</span>
+                            <img src="images/visa-card.png" alt="card">
+                            <img src="images/paypal-card.png" alt="card">
+                            <img src="images/master-card.png" alt="card">
+                        </div>
+                    </div>
+                    <div class="col-md-6 text-end">
+                        <p>© Copyright 2022 Kaira. All rights reserved. Design by <a href="https://templatesjungle.com"
+                                                                                     target="_blank">TemplatesJungle</a></p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </footer>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/plugins.js"></script>
+    <script src="js/SmoothScroll.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js"
+            integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe"
+    crossorigin="anonymous"></script>
+    <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
+    <script src="js/script.js"></script>
+</body>
 
-            </html>
+</html>
 

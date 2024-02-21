@@ -49,8 +49,8 @@ public class ProductDAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getInt(5),
-                        rs.getFloat(6),
-                        rs.getString(7)
+                        rs.getFloat(7),
+                        rs.getString(8)
                 ));
 
             }
@@ -97,6 +97,77 @@ public class ProductDAO {
             status = "Error at read Student " + e.getMessage();
         }
         return listProduct;
+    }
+    
+    public void SearchFilter(String[] style, String cateId, String sql) {
+        listProduct = new Vector<Product>();
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cateId);
+            for (int i = 0; i < style.length; i++) {
+                ps.setString(i + 2, style[i]);
+            }
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listProduct.add(new Product(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getFloat(6),
+                        rs.getString(7)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+
+        }
+    }
+    
+    public void SearchFilter1(String cateId, String sql) {
+        listProduct = new Vector<Product>();
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cateId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listProduct.add(new Product(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getFloat(6),
+                        rs.getString(7)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+
+        }
+    }
+
+    public void SearchFilter2(String sql) {
+        listProduct = new Vector<Product>();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listProduct.add(new Product(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getFloat(6),
+                        rs.getString(7)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+
+        }
     }
 
     public List<Product> getProductByCid(String cid) {
@@ -277,6 +348,90 @@ public class ProductDAO {
             status = "Error at read Student " + e.getMessage();
         }
         return null;
+    }
+
+    public void Search1(String cateId, String txt, String sql, int size) {
+        listProduct = new Vector<Product>();
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cateId);
+            for (int i = 2; i <= size + 1; i++) {
+                ps.setString(i, txt);
+            }
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listProduct.add(new Product(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getFloat(7),
+                        rs.getString(8)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+
+        }
+    }
+
+    public void Search2(String txt, String sql, int size) {
+        listProduct = new Vector<Product>();
+        try {
+            ps = con.prepareStatement(sql);
+            for (int i = 1; i <= size; i++) {
+                ps.setString(i, txt);
+            }
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listProduct.add(new Product(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getFloat(7),
+                        rs.getString(8)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+
+        }
+    }
+
+    public void SearchByCategory(String CategoryId) {
+        listProduct = new Vector<Product>();
+        String sql = "WITH RankedProducts AS (\n"
+                + "	 SELECT P.id, P.product_info_id, P.size,  P.color, P.name, P.quantity, P.description, PI.price, PI.img_default,\n"
+                + "	ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY P.id) AS rn\n"
+                + "	FROM  Product P\n"
+                + "	JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
+                + "	JOIN Style S ON PI.style_id = S.id\n"
+                + "	JOIN Category C ON S.cate_id = ?\n"
+                + ")\n"
+                + "SELECT id, product_info_id, size, color, name, quantity, "
+                + "description, price, img_default FROM RankedProducts"
+                + " WHERE rn = 1";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, CategoryId);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listProduct.add(new Product(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getFloat(6),
+                        rs.getString(7)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Student " + e.getMessage();
+        }
     }
 
     public static void main(String[] args) {

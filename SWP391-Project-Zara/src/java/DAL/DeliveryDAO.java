@@ -87,5 +87,9 @@ public class DeliveryDAO {
         
     }
     
+    public void deliverProfile(int id , String name , String password , String email , String phone){
+        String sql = "";
+        
+    }
     
 }

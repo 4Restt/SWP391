@@ -11,7 +11,7 @@
                    class="form-control border-0 border-bottom"
                    placeholder="Type and press enter" value="${txt}" name="txt"/>
             <button type="submit" class="search-submit border-0 position-absolute bg-white" 
-                    style="top: 15px;right: 15px;"><svg class="search" width="24" height="24">
+                    style="top: 15px;right: 15px;" ><svg class="search" width="24" height="24">
                 <use xlink:href="#search"></use></svg></button>
         </form>
 
@@ -215,5 +215,20 @@
         </div>
 
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+                function search() {
+                    $.ajax({
+                        url: "/SWP391-Project-Zara/searchtest",
+                        type: "get",
+                        success: function (response) {
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    });
+
+                }
+    </script>
 </nav>
 <!-- Navbar End -->

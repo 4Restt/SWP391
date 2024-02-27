@@ -81,11 +81,35 @@ public class DeliveryDAO {
         }
     }
     
-
+    public void deliverProfile(String name , String password , String email , String phone){
+        String sql = "UPDATE Delivery SET [password] = ? , email = ? , phone = ? WHERE [name] = ?";
+        try {
+            ps = con.prepareStatement(sql);           
+            ps.setString(1, password);
+            ps.setString(2, email);
+            ps.setString(3, phone);
+            ps.setString(4, name);
+            ps.executeUpdate();
+            while (rs.next()) {
+                delivery = new Delivery(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5)
+                        
+                );
+            }
+             System.out.println("successfull");
+        } catch (Exception e) {
+        }
+        
+    }
+    
     public static void main(String[] args) {
         DeliveryDAO.INSTANCE.login("Grab", "secure123");
         
     }
+    
     
     
 }

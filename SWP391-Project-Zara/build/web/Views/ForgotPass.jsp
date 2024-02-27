@@ -441,37 +441,9 @@
         
             <div class="col-12 pb-3">
               <label>Enter your email address *</label>
-              <input type="email" name="email" value="" placeholder="Write your email here"
+              <input type="email" name="email" placeholder="Write your email here"
                 class="form-control">
             </div>
-                
-<!--            <div class="col-12 pb-3">
-              <label>Password *</label>
-              <input type="password" name="password" value="" placeholder="Enter your password" class="form-control">
-            </div>
-            
-            <div class="col-12 pb-3">
-              <label>Re-Password *</label>
-              <input type="password" name="repassword" value="" placeholder="Enter your re-password" class="form-control">
-            </div>
-            
-            <div class="col-12 pb-3">
-              <label>Name *</label>
-              <input type="text" name="name" value="" placeholder="Enter your name" class="form-control">
-            </div>
-            <div class="col-12 pb-3">
-              <label>Address *</label>
-              <input type="text" name="address" value="" placeholder="Enter your address" class="form-control">
-            </div>
-            <div class="col-12 pb-3">
-              <label>Phone *</label>
-              <input type="text" name="phone" value="" placeholder="Enter your phone" class="form-control">
-            </div>
-            <div class="col-12 pb-3">
-              <label>Email *</label>
-              <input type="email" name="email" value="" placeholder="Enter your email" class="form-control">
-            </div>-->
-
             <div class="col-12">
               <button type="submit" name="submit" class="btn btn-dark btn-large text-uppercase pb-3">Send Code</button>
             </div>

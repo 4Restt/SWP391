@@ -433,18 +433,25 @@
         <div class="container-sm">
             <div class="row justify-content-center">
                 <div class="col-4">
-                    <h2 class="section-title text-uppercase">Forgot Password</h2>
+                    <h2 class="section-title text-uppercase">Verification Code</h2>
 
 
                     <form id="form" class="form-group flex-wrap" action="verifycode" method="post">
                         <div class="text-danger">${warn}</div>
-                        <div class="text">Code has been sent to ${sessionScope.user.getEmail()}</div>
+<!--                        <input type="button" name="email" value="$ {email}" hidden="" >-->
+                        <div class="text">Code has been sent to ${email}</div>
+
                         <div class="col-12 pb-3">
                             <label>Enter Code from your email address *</label>
                             <input type="text" name="code" placeholder="Write your code here"
                                    class="form-control">
                         </div>
-
+                        <input type="type" name="username" value="${username}" hidden="">
+                        <input type="type" name="password" value="${password}" hidden="">
+                        <input type="type" name="name" value="${name}" hidden="">
+                        <input type="type" name="phone" value="${phone}" hidden="">
+                        <input type="type" name="address" value="${address}" hidden="">
+                        <input type="type" name="email" value="${email}" hidden="">
                         <!--            <div class="col-12 pb-3">
                                       <label>Password *</label>
                                       <input type="password" name="password" value="" placeholder="Enter your password" class="form-control">

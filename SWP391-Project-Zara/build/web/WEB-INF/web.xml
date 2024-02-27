@@ -64,6 +64,10 @@
         <servlet-name>Filter</servlet-name>
         <servlet-class>Controllers.Filter</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>SearchTest</servlet-name>
+        <servlet-class>Controllers.SearchTest</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -127,6 +131,10 @@
     <servlet-mapping>
         <servlet-name>Filter</servlet-name>
         <url-pattern>/filter</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SearchTest</servlet-name>
+        <url-pattern>/searchtest</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -15,7 +15,9 @@ import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.Vector;
 
 public class OrderDAO {
@@ -175,9 +177,37 @@ public class OrderDAO {
         }
     }
 
+    //Chay o Delivery severlet
+    public List<String> listOfAddresses(String deliveryName) {
+        List<String> addresses = new ArrayList<>();
+        // Cập nhật câu lệnh SQL để lấy 2 phần từ cuối của địa chỉ
+        String sql = "SELECT DISTINCT "
+                + "REVERSE(SUBSTRING(REVERSE(Customer.[address]), 0, CHARINDEX(',', REVERSE(Customer.[address]), CHARINDEX(',', REVERSE(Customer.[address])) + 1))) AS customerAddressLastParts "
+                + "FROM [Order] "
+                + "JOIN Customer ON [Order].Customer_id = Customer.id "
+                + "JOIN Delivery ON [Order].delivery_id = Delivery.id "
+                + "WHERE Delivery.[name] = ?";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, deliveryName);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                // Lấy phần của địa chỉ đã được chỉnh sửa
+                String address = rs.getString("customerAddressLastParts");
+                addresses.add(address);
+            }
+        } catch (Exception e) {
+            System.out.println("Error at listOfAddresses: " + e.getMessage());
+            // Xử lý lỗi hoặc ghi log tại đây
+        }
+        return addresses;
+    }
+
     public static void main(String[] args) {
-        OrderDAO.INSTANCE.AssignOrdertoShipper("2", "4");
-        //System.out.println(OrderDAO.INSTANCE.getAssignedOrders("Shipper 1").toString());
+        OrderDAO.INSTANCE.listOfAddresses("Grab");
+        System.out.println(OrderDAO.INSTANCE.listOfAddresses("Grab"));
+
     }
 
 }

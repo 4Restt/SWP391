@@ -99,7 +99,25 @@
                 </div>
                 <div id="profileContent" style="display:none;">
                     <h3>Delivery Profile</h3>
-                    <!-- Profile content goes here -->
+                    <form action="delivery" method="post"> <!-- Cập nhật action với tên servlet xử lý việc cập nhật hồ sơ -->
+                        <div class="form-group">
+                            <label for="name">Name:</label>
+                            <input type="text" id="name" name="name" placeholder="Your name" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="email">Email:</label>
+                            <input type="email" id="email" name="email" placeholder="Your email" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="phone">Phone:</label>
+                            <input type="tel" id="phone" name="phone" placeholder="Your phone number" required>
+                        </div>
+                        <div class="form-group">
+                            <label for="password">Password:</label>
+                            <input type="password" id="password" name="password" placeholder="Your password" required>
+                        </div>
+                        <button type="submit">Update Profile</button>
+                    </form>
                 </div>
                 <div id="shipperListContent" style="display:none;">
                     <h3>Available Shippers for Delivery ${deliveryName}</h3>
@@ -121,16 +139,16 @@
                 <div id="unassignedOrdersContent" style="display:none;">
                     <h3>Unassigned Orders</h3>
                     <input type="text" id="filterAddress" oninput="filterOrders()" placeholder="Filter by address...">
-                    <select id="addressSelect" onchange="filterOrders()">
-                        <option value="">Select an address...</option>
-                        <!-- Giả định listOfUniqueAddresses được tạo từ dữ liệu đơn hàng -->
+                    <select id="addressSelect" onchange="filterByAddress(this.value)">
+                        <option value="">All</option>
                         <c:forEach items="${listOfAddresses}" var="address">
-                            <option value="${address.customerAddress}">${address}</option>
+                            <option value="${address}">${address}</option>
                         </c:forEach>
                     </select>
+
                     <form id="assignOrdersForm" action="delivery" method="post">
                         <c:forEach items="${orders}" var="order">
-                            <div class="order-details">
+                            <div class="order-details" data-order-address="${order.customerAddress}">
                                 <h3>Order ID: ${order.id}</h3>
                                 <p>Customer Address: ${order.customerAddress} </p>
                                 <p>Total Price: ${order.totalprice}</p>
@@ -140,11 +158,22 @@
                                     <input type="checkbox" name="selectedOrders" value="${order.customerAddress}"/>
                                 </label>
                             </div>
-                        </c:forEach>
-                        <button type="button">Assign Selected Orders</button>
+                        </c:forEach>                       
                     </form>
-                </div>
-
+                    <h3>Available Shippers for Delivery ${deliveryName}</h3>
+                    <div>
+                        <c:forEach items="${shippers}" var="shipper">
+                            <div class="shipper-line" data-shipper-location="${shipper.location_name}">
+                                <span>${shipper.name} - ${shipper.location_name}</span>
+                                <form action="delivery" method="post" style="shipper-line">
+                                    <input type="hidden" name="orderId" value="${order.id}" />
+                                    <input type="hidden" name="shipperId" value="${shipper.id}" />
+                                    <input type="submit" value="Assign Shipper" />
+                                </form>
+                            </div>
+                        </c:forEach>
+                    </div>
+                </div>               
                 <!-- Đơn hàng đã hủy -->
                 <div id="cancelledOrdersContent" style="display:none;">
                     <!-- Nội dung cho đơn hàng đã hủy -->
@@ -207,6 +236,7 @@
                     document.getElementById('cancelledOrdersContent').style.display = 'block';
                 }
             }
+
             function filterOrders() {
                 var input = document.getElementById('filterAddress');
                 var filter = input.value.toUpperCase();
@@ -229,7 +259,31 @@
                 }
             }
 
+            function filterByAddress(selectedAddress) {
+                // Lọc đơn hàng
+                var orders = document.querySelectorAll('.order-details');
+                orders.forEach(function (order) {
+                    if (order.getAttribute('data-order-address').includes(selectedAddress) || selectedAddress === '') {
+                        order.style.display = '';
+                    } else {
+                        order.style.display = 'none';
+                    }
+                });
 
+                // Lọc người giao hàng
+                var shippers = document.querySelectorAll('.shipper-line');
+                shippers.forEach(function (shipper) {
+                    var shipperLocation = shipper.getAttribute('data-shipper-location').toLowerCase(); // Chuyển địa điểm shipper về chữ thường
+                    var normalizedSelectedAddress = selectedAddress.toLowerCase(); // Chuyển địa chỉ được chọn về chữ thường
+
+                    if (shipperLocation.includes(normalizedSelectedAddress) || selectedAddress === '') {
+                        shipper.style.display = ''; // Hiển thị shipper này
+                    } else {
+                        shipper.style.display = 'none'; // Ẩn shipper này
+                    }
+                });
+
+            }
         </script>
     </body>
 </html>

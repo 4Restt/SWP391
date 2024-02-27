@@ -58,19 +58,18 @@ public class ShipperDAO {
         shipper = null;
     }
 
-    
-    public List<Shipper> compatibleShippers(String customerAddress) {
+    public List<Shipper> compatibleShippers(String deliver_name) {
         listShipper = new Vector<Shipper>();
-        String sql = "SELECT Shipper.id AS shipper_id,\n"
-                + "       Shipper.name AS shipper_name,\n"
-                + "       Location.id AS location_id,\n"
-                + "       Location.name AS location_name\n"
-                + "FROM Shipper\n"
-                + "JOIN Location ON Shipper.location_id = Location.id\n"
-                + "WHERE ? LIKE CONCAT('%', Location.name, '%')";
+        String sql = "SELECT Shipper.id AS shipper_id, \n"
+                + "Shipper.name AS shipper_name, \n"
+                + "Location.id AS location_id, \n"
+                + "Location.name AS location_name \n"
+                + "FROM Shipper \n"
+                + "JOIN Location ON Shipper.location_id = Location.id \n"
+                + "where delivery_id = (select id from Delivery where Delivery.[name] = ? ) ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, customerAddress);
+            ps.setString(1, deliver_name);
             rs = ps.executeQuery();
             while (rs.next()) {
                 Shipper shipper = Shipper.builder()
@@ -117,8 +116,36 @@ public class ShipperDAO {
     }
 
     public static void main(String[] args) {
-        ShipperDAO.INSTANCE.login("Shipper 1", "shipperpass1");
+        //ShipperDAO.INSTANCE.login("Shipper 1", "shipperpass1");
+        System.out.println(ShipperDAO.INSTANCE.compatibleShippers("Grab"));
 
     }
 
 }
+
+//    public List<Shipper> shipperList(String delivery_name) {
+//        listShipper = new Vector<Shipper>();
+//        String sql = "select Shipper.*, [Location].[name] as location_name \n"
+//                + "from Shipper\n"
+//                + "JOIN Location ON Shipper.location_id = Location.id\n"
+//                + "where delivery_id = (select id from Delivery where Delivery.[name] = ? )";
+//        try {
+//            ps = con.prepareStatement(sql);
+//            ps.setString(1, delivery_name);
+//            rs = ps.executeQuery();
+//            while (rs.next()) {
+//                listShipper.add(new Shipper(
+//                        rs.getInt(1),
+//                        rs.getString(2),
+//                        rs.getString(3),
+//                        rs.getInt(4),
+//                        rs.getString(5),
+//                        rs.getString("location_name")
+//                ));
+//            }
+//        } catch (Exception e) {
+//            status = "Error at read Department " + e.getMessage();
+//        }
+//
+//        return listShipper;
+//    }

@@ -68,6 +68,14 @@
         <servlet-name>SearchTest</servlet-name>
         <servlet-class>Controllers.SearchTest</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ViewListAddressController</servlet-name>
+        <servlet-class>Controllers.ViewListAddressController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ViewUserProfileController</servlet-name>
+        <servlet-class>Controllers.ViewUserProfileController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -135,6 +143,14 @@
     <servlet-mapping>
         <servlet-name>SearchTest</servlet-name>
         <url-pattern>/searchtest</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewListAddressController</servlet-name>
+        <url-pattern>/viewaddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ViewUserProfileController</servlet-name>
+        <url-pattern>/viewprofile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

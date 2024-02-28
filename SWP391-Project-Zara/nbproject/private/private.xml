@@ -3,7 +3,43 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/C:/Users/ManhPhuc/Desktop/GIT/SWP391_Group1_ZaraFashionProject/SWP391-Project-Zara/src/java/Controllers/Home.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/DAL/StyleDAO.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/DAL/OrderDAO.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/SearchTest.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/ViewDashBoardController.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Contact.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/ForgotPass.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Detail.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/UpdateQuantity.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Cart.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Shop.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/SignUp.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/DAL/ShipperDAO.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/FAQS.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Filter.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/DAL/ProductDAO.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/About.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/units/email.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Search.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Shipper.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Blog.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/AddToCart.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/ViewListAddressController.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Category.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/DAL/UserDAO.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/VerifyCode.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/ViewUserProfileController.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/LoginGoogleHandler.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Home.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Login.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/DAL/CustomerDAO.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/DAL/CategoryDAO.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/LogOut.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/DAL/DBContext.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/Delivery.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/web/WEB-INF/web.xml</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/DAL/DeliveryDAO.java</file>
+            <file>file:/E:/Course/Fall2023/PRJ301/Code/SWP391-Project-Zara-Copy/src/java/Controllers/DeleteCart.java</file>
         </group>
     </open-files>
 </project-private>

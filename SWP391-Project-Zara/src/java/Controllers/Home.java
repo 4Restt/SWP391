@@ -15,12 +15,24 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import Models.Category;
 import Models.Product;
+import java.util.ArrayList;
 public class Home extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
         List<Category> listCategory = CategoryDAO.INSTANCE.getAllCategory();
         List<Product> listNewArrival = ProductDAO.INSTANCE.getTop6NewArrival();
+        ArrayList<Models.Cart> cart_list = (ArrayList<Models.Cart>) request.getSession().getAttribute("cart-list");
+        int totalQ = 0 ;
+        if (cart_list != null) {
+//            request.setAttribute("cart_list", cart_list);
+            for (Models.Cart c : cart_list) {
+                totalQ += c.getQuantity() ;
+            }
+        }
+
+        request.setAttribute("totalQ", totalQ);
+        
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("listNewArrival", listNewArrival);
         request.getRequestDispatcher("Views/Home.jsp").forward(request, response);

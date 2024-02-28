@@ -23,7 +23,8 @@ public class DBContext {
     private final String dbName = "ZaraFashion";
     private final String portNumber = "1433";
     private final String userID = "sa";
-    private final String password = "phuc1234";
+    private final String password = "quanghuy";
+
     
     public static void main(String[] args) {
         try {

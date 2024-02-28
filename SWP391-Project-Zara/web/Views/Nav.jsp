@@ -191,7 +191,7 @@
                         </a>
                     </li>
                     <li class="d-none d-lg-block">
-                        <a href="cart.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">Cart <span class="cart-count">(0)</span>
+                        <a href="cart" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">Cart <span class="cart-count">(${totalQ})</span>
                         </a>
                     </li>
                     <li class="d-lg-none">

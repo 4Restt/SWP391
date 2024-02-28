@@ -5,6 +5,8 @@ import Models.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
+import java.util.List;
 
 public class UserDAO {
 
@@ -155,4 +157,95 @@ public class UserDAO {
         }
 
     }
+    
+    public List<User> getAllUser() {
+        String sql = "select * from [User] ";
+        List<User> listUser = new ArrayList<>();
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User(rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                );
+
+                listUser.add(user);
+            }
+        } catch (Exception e) {
+            System.out.println("getAllUser: " + e.getMessage());
+        }
+        return listUser;
+    }
+
+    public void ChangeEmail(String email, String username) {
+        String sql = "Update [User] set [email]=? where username = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, username);
+            ps.execute();
+        } catch (Exception e) {
+            status = "Error at Update Account" + e.getMessage();
+        }
+
+    }
+    
+    public void ChangePhone(String phone, String username) {
+        String sql = "Update [User] set [phone]=? where username = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, phone);
+            ps.setString(2, username);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("ChangePhone: " + e.getMessage());
+        }
+
+    }
+    
+    public void addAddress(String address, String username) {
+        String sql = "Update [User] set [address]=address + '/' + ? where username = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, address);
+            ps.setString(2, username);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+
+    }
+    
+    public void updateAddress(String address, String username) {
+        String sql = "Update [User] set [address]= ? where username = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, address);
+            ps.setString(2, username);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+
+    }
+    
+    public void updateUserName(String name, String username) {
+        String sql = "Update [User] set [name]= ? where username = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, username);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+
+    }
 }
+
+

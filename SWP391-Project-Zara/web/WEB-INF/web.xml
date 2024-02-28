@@ -76,6 +76,18 @@
         <servlet-name>ViewUserProfileController</servlet-name>
         <servlet-class>Controllers.ViewUserProfileController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateProfileController</servlet-name>
+        <servlet-class>Controllers.UpdateProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateAddressController</servlet-name>
+        <servlet-class>Controllers.UpdateAddressController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddAddressController</servlet-name>
+        <servlet-class>Controllers.AddAddressController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -151,6 +163,18 @@
     <servlet-mapping>
         <servlet-name>ViewUserProfileController</servlet-name>
         <url-pattern>/viewprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateProfileController</servlet-name>
+        <url-pattern>/updateprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAddressController</servlet-name>
+        <url-pattern>/updateAddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAddressController</servlet-name>
+        <url-pattern>/addaddress</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

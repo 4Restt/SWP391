@@ -1,5 +1,5 @@
-
 package Controllers;
+
 import DAL.CategoryDAO;
 import DAL.UserDAO;
 import java.io.IOException;
@@ -87,12 +87,15 @@ public class Login extends HttpServlet {
             response.addCookie(c);
             response.addCookie(p);
 //            request.getRequestDispatcher("Home").forward(request, response);
-            response.sendRedirect("home");
+            if (UserDAO.INSTANCE.getUser().getRollId() == 1) {
+                response.sendRedirect("dashboard");
+            } else {
+                response.sendRedirect("home");
+            }
 
         }
-//            response.sendRedirect("Views/Login.jsp");
-
     }
+//            response.sendRedirect("Views/Login.jsp");
 
     @Override
     public String getServletInfo() {
@@ -100,4 +103,3 @@ public class Login extends HttpServlet {
     }// </editor-fold>
 
 }
-

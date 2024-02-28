@@ -185,11 +185,11 @@
                             </div>
                         </div>
                         <div class="text-danger">${warn}</div>
-                    <div class="row">
+                    <div class="row" id="content">
                         <c:forEach items="${listProduct}" var="lp">
                             <div class="col-md-4 mb-3 product-item link-effect">
                                 <div class="image-holder position-relative">
-                                    <a href="detail?pifid=${lp.getProductInfoId()}&size=${lp.getSize()}&color=${lp.getColor()}">
+                                    <a href="single-product.html">
                                         <img src="${lp.getImgDefault()}" alt="categories" class="product-image img-fluid">
                                     </a>
                                     <a href="wishlist.html" class="btn-icon btn-wishlist">
@@ -199,7 +199,7 @@
                                     </a> 
                                     <div class="product-content">
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
-                                            <a href="detail?pifid=${lp.getProductInfoId()}&size=${lp.getSize()}&color=${lp.getColor()}">${lp.getName()}</a>
+                                            <a href="single-product.html">${lp.getName()}</a>
                                         </h5>
                                         <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$${lp.getPrice()}</span></a>
                                     </div>
@@ -230,125 +230,136 @@
                 <aside class="col-md-3">
                     <div class="sidebar">
                         <div class="sidebar-categories border-animation-left mb-5">
-                            <div class="text-dark text-uppercase">Browse By Categories:</div>
+                            <div class="text-dark text-uppercase">Browse By Categories: ${name}</div>
 
-                            <ul class="list-unstyled">
-                                <c:forEach items="${cat}" var="c">
-                                    <li><a href="CategoryControll?id=${c.id}" class="item-anchor">
-                                            ${c.name}</a></li>
-                                        </c:forEach>                                
-                                <!--                                <li>
-                                                                    <a href="#" class="item-anchor">All</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="item-anchor">Women</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="item-anchor">Accessories</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="item-anchor">New arrivals</a>
-                                                                </li>
-                                                                <li>
-                                                                    <a href="#" class="item-anchor">New sale</a>
-                                                                </li>-->
-                            </ul>
+                            <!--                            <ul class="list-unstyled">
+                            <c:forEach items="${cat}" var="c">
+                                <li><a href="search?id=${c.id}" class="item-anchor">
+                                ${c.name}</a></li>
+                            </c:forEach>                                
+                </ul>-->
+
                         </div>
-                        <div class="product-filter padding-small">
-                            <div class="text-dark text-uppercase">Filter By:</div>
-                            <div class="accordion" id="accordionExample">
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="heading-one">
-                                        <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapse-one" aria-expanded="true" aria-controls="collapse-one">
-                                            <span class="accordion-title fs-3">Color</span>
-                                        </button>
-                                    </div>
-                                    <div id="collapse-one" class="accordion-collapse collapse show" aria-labelledby="heading-one">
-                                        <div class="accordion-body">
-                                            <div class="form-check">
-                                                <label class="form-check-label red" for="red">
-                                                    Reddish (23)
-                                                    <input class="form-check-input" type="radio" name="color-option" id="red">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <label class="form-check-label brown" for="brown">
-                                                    Orange brown (9)
-                                                    <input class="form-check-input" type="radio" name="color-option" id="brown" checked>
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <label class="form-check-label green" for="green">
-                                                    Greeny (15)
-                                                    <input class="form-check-input" type="radio" name="color-option" id="green">
-                                                    <span class="checkmark"></span>
-                                                </label>
-                                            </div>
-                                            <div class="form-check">
-                                                <label class="form-check-label aqua" for="aqua">
-                                                    Dark aqua blue (18)
-                                                    <input class="form-check-input" type="radio" name="color-option" id="aqua" checked>
-                                                    <span class="checkmark"></span>
-                                                </label>
+                        <form action="filter" method="get">
+                            <div class="product-filter padding-small">
+                                <div class="text-dark text-uppercase">Filter By:</div>
+                                <div class="accordion" id="accordionExample">
+                                    <!--                                    <div class="accordion-item">
+                                                                            <div class="accordion-header" id="heading-one">
+                                                                                <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
+                                                                                        data-bs-target="#collapse-one" aria-expanded="true" aria-controls="collapse-one">
+                                                                                    <span class="accordion-title fs-3">Color</span>
+                                                                                </button>
+                                                                            </div>
+                                                                            <div id="collapse-one" class="accordion-collapse collapse show" aria-labelledby="heading-one">
+                                                                                <div class="accordion-body">
+                                                                                    <div class="form-check">
+                                                                                        <label class="form-check-label red" for="red">
+                                                                                            Reddish (23)
+                                                                                            <input class="form-check-input" type="checkbox" name="color" id="red" value="Red">
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div class="form-check">
+                                                                                        <label class="form-check-label grey" for="grey">
+                                                                                            Orange brown (9)
+                                                                                            <input class="form-check-input" type="checkbox" name="color" id="grey" value="Grey" >
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div class="form-check">
+                                                                                        <label class="form-check-label green" for="green">
+                                                                                            Greeny (15)
+                                                                                            <input class="form-check-input" type="checkbox" name="color" id="green" value="Green">
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                    <div class="form-check">
+                                                                                        <label class="form-check-label aqua" for="aqua">
+                                                                                            Dark aqua blue (18)
+                                                                                            <input class="form-check-input" type="checkbox" name="color" id="aqua" value="Blue">
+                                                                                            <span class="checkmark"></span>
+                                                                                        </label>
+                                                                                    </div>
+                                                                                </div>
+                                                                            </div>
+                                                                        </div>-->
+                                    <div class="accordion-item">
+                                        <div class="accordion-header" id="heading-two">
+                                            <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse-two" aria-expanded="true" aria-controls="collapse-two">
+                                                <span class="accordion-title fs-3">Style</span>
+                                            </button >
+                                        </div>
+                                        <div id="collapse-two" class="accordion-collapse collapse show" aria-labelledby="heading-two">
+                                            <div class="accordion-body">
+
+                                                <c:forEach items="${style}" var="s">
+                                                    <div class="form-check">
+                                                        <label class="form-check-label" >
+                                                            ${s.name}
+                                                            <input class="form-check-input" type="checkbox" name="style" value="${s.id}">
+                                                            <span class="checkmark"></span>
+                                                        </label>
+                                                    </div>
+                                                </c:forEach>
+
                                             </div>
                                         </div>
                                     </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="heading-two">
-                                        <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapse-two" aria-expanded="true" aria-controls="collapse-two">
-                                            <span class="accordion-title fs-3">Size</span>
-                                        </button>
-                                    </div>
-                                    <div id="collapse-two" class="accordion-collapse collapse show" aria-labelledby="heading-two">
-                                        <div class="accordion-body">
-                                            <a href="#">XS <span class="count">(45)</span></a>
-                                            <a href="#">S <span class="count">(90)</span></a>
-                                            <a href="#">M <span class="count">(56)</span></a>
-                                            <a href="#">L <span class="count">(89)</span></a>
+
+                                    <div class="accordion-item">
+                                        <div class="accordion-header" id="heading-three">
+                                            <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
+                                                    data-bs-target="#collapse-three" aria-expanded="true" aria-controls="collapse-three">
+                                                <span class="accordion-title fs-3">Price</span>
+                                            </button>
+                                        </div>
+                                        <div id="collapse-three" class="accordion-collapse collapse show" aria-labelledby="heading-three">
+                                            <div class="accordion-body">
+                                                <div class="form-check">
+                                                    <label class="form-check-label" >
+                                                        Less than $100
+                                                        <input class="form-check-input" type="radio" name="price" value="value1">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        $100 - $149
+                                                        <input class="form-check-input" type="radio" name="price" value="value2">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <label class="form-check-label" >
+                                                        $150 - $200 
+                                                        <input class="form-check-input" type="radio" name="price" value="value3">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>
+                                                <div class="form-check">
+                                                    <label class="form-check-label">
+                                                        More than $200
+                                                        <input class="form-check-input" type="radio" name="price" value="value4">
+                                                        <span class="checkmark"></span>
+                                                    </label>
+                                                </div>                                                                                                                      <!--
+                                                                                            <a href="#">Less than $10 <span class="count">(80)</span></a>
+                                                                                            <a href="#">$20 - $40 <span class="count">(90)</span></a>
+                                                                                            <a href="#">$40 - $50 <span class="count">(150)</span></a>
+                                                                                            <a href="#">$50 - $60 <span class="count">(70)</span></a>
+                                                --> 
+                                            </div>
                                         </div>
                                     </div>
+                                    <input type="submit" value="Apply All Filters" 
+                                           class="btn-link text-uppercase item-anchor">
+                                    <input type="text" name="catid" value="${catid}"hidden="">
                                 </div>
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="heading-three">
-                                        <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapse-three" aria-expanded="true" aria-controls="collapse-three">
-                                            <span class="accordion-title fs-3">Price</span>
-                                        </button>
-                                    </div>
-                                    <div id="collapse-three" class="accordion-collapse collapse show" aria-labelledby="heading-three">
-                                        <div class="accordion-body">
-                                            <a href="#">Less than $10 <span class="count">(80)</span></a>
-                                            <a href="#">$20 - $40 <span class="count">(90)</span></a>
-                                            <a href="#">$40 - $50 <span class="count">(150)</span></a>
-                                            <a href="#">$50 - $60 <span class="count">(70)</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <div class="accordion-item">
-                                    <div class="accordion-header" id="heading-four">
-                                        <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
-                                                data-bs-target="#collapse-four" aria-expanded="true" aria-controls="collapse-four">
-                                            <span class="accordion-title fs-3">Brand</span>
-                                        </button>
-                                    </div>
-                                    <div id="collapse-four" class="accordion-collapse collapse show" aria-labelledby="heading-four">
-                                        <div class="accordion-body">
-                                            <a href="#">ARMANI <span class="count">(100)</span></a>
-                                            <a href="#">FENDI <span class="count">(80)</span></a>
-                                            <a href="#">CHANEL <span class="count">(90)</span></a>
-                                            <a href="#">GUCCI <span class="count">(70)</span></a>
-                                            <a href="#">PRADA <span class="count">(50)</span></a>
-                                        </div>
-                                    </div>
-                                </div>
-                                <a href="#" class="btn-link text-uppercase item-anchor">Reset All Filters</a>
                             </div>
-                        </div>
+                        </form>
+
                     </div>
                 </aside>
             </div>
@@ -557,6 +568,28 @@
             </div>
         </div>
     </footer>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+        function search() {
+            var selectedValues = [];
+            var checkboxes = document.querySelectorAll('input[type=checkbox]:checked');
+            checkboxes.forEach(function (checkbox) {
+                selectedValues.push(checkbox.value);
+            });
+            $.ajax({
+                url: "/SWP391-Project-Zara/searchtest",
+                type: "get",
+                data:{style:checkboxes},
+                success: function (response) {
+                    var row = document.getElementById("content");
+                    row.innerHTML += response;
+                },
+                error: function () {
+                    alert("error");
+                }
+            });
+        }
+    </script>
     <script src="js/jquery.min.js"></script>
     <script src="js/plugins.js"></script>
     <script src="js/SmoothScroll.js"></script>

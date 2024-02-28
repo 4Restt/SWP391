@@ -37,6 +37,34 @@ public class UserDAO {
         user = null;
     }
 
+    public User checkEmailExist1(String email) {
+        User u = new User();
+        String sql = "select * from [User]  where [email] = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return (new User(rs.getString(1),
+                        rs.getString(2),
+                        rs.getInt(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                ));
+                
+            }
+        } catch (Exception e) {
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+        User u = UserDAO.INSTANCE.checkEmailExist1("phuckmhe170685@fpt.edu.vn");
+        System.out.println(u.getAccount());
+    }
+    
     public void login(String username, String password) {
         String sql = "select * from [User] where username = ? and [password] = ?";
         try {
@@ -77,7 +105,7 @@ public class UserDAO {
         } catch (Exception e) {
         }
     }
-    
+
     public void checkEmailExist(String email) {
         String sql = "select * from [User]  where [email] = ?";
         try {
@@ -116,7 +144,7 @@ public class UserDAO {
     }
 
     public void ChangeUser(String password, String username) {
-        String sql = "Update [User] set [password]=? where username = ? ";
+        String sql = "Update [User] set [password]= ? where username = ? ";
         try {
             PreparedStatement ps = con.prepareStatement(sql);
             ps.setString(1, password);

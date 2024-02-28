@@ -7,6 +7,7 @@ package Controllers;
 import Models.Category;
 import DAL.CategoryDAO;
 import DAL.ProductDAO;
+import DAL.StyleDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -22,8 +23,7 @@ import java.util.List;
  */
 public class Search extends HttpServlet {
 
-    List<String> search = new ArrayList<>();
-
+    List<String> search = new ArrayList<>();  
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html;charset=UTF-8");
@@ -31,16 +31,18 @@ public class Search extends HttpServlet {
         search.add("description");
         search.add("color");
         search.add("size");
-        String txt = request.getParameter("search");
+        String txt = request.getParameter("txt");
         String sql = "WITH RankedProducts AS (\n"
-                + "	 SELECT P.id, P.product_info_id, P.size,  P.color, P.name, P.quantity, P.description, PI.price, PI.img_default,\n"
-                + "	ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY P.id) AS rn\n"
+                + "	 SELECT P.product_info_id, P.size,  P.color, P.name, P.quantity,"
+                + " PI.description, PI.price, PI.img_default,\n"
+                + "	ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY PI.id) AS rn\n"
                 + "	FROM  Product P\n"
                 + "	JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
                 + "	JOIN Style S ON PI.style_id = S.id\n"
                 + "	JOIN Category C ON S.cate_id = C.id\n"
                 + ")\n"
-                + "SELECT id, product_info_id, size, color, name, quantity, description, price, img_default FROM RankedProducts WHERE rn = 1 and (";
+                + "SELECT product_info_id, size, color, name, quantity, "
+                + "description, price, img_default FROM RankedProducts WHERE rn = 1 and (";
         String s1 = "";
         for (String s2 : search) {
             s1 += "[" + s2 + "] like CONCAT ('%',?,'%') or ";
@@ -54,26 +56,58 @@ public class Search extends HttpServlet {
         if (ProductDAO.INSTANCE.getListProduct().isEmpty()) {
             String warn = "The product you are looking for is not available in our store";
             request.setAttribute("warn", warn);
-            request.getRequestDispatcher("Views/Shop.jsp").forward(request, response);
+            request.getRequestDispatcher("Views/Search.jsp").forward(request, response);
         } else {
-            request.setAttribute("listProduct", ProductDAO.INSTANCE.getListProduct());
             request.setAttribute("txt", txt);
-            request.getRequestDispatcher("Views/Shop.jsp").forward(request, response);
+            request.setAttribute("listProduct", ProductDAO.INSTANCE.getListProduct());
+            request.getRequestDispatcher("Views/Search.jsp").forward(request, response);
         }
+//        try ( PrintWriter out = response.getWriter()) {
+//            out.println(sql);
+//            out.println(txt);
+//            out.println(ProductDAO.INSTANCE.getListProduct().toString());
+//        }
+        
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        String catid = request.getParameter("id");
+        ProductDAO.INSTANCE.SearchByCategory(catid);
+        CategoryDAO.INSTANCE.getAllCategory();
+        request.setAttribute("cat", CategoryDAO.INSTANCE.getListCategory());
+        if (ProductDAO.INSTANCE.getListProduct().isEmpty()) {
+            String warn = "The product you are looking for is not available in our store";
+            request.setAttribute("warn", warn);
+            request.getRequestDispatcher("Views/Search.jsp").forward(request, response);
+        } else {
+            request.setAttribute("catid", catid);
+            request.setAttribute("listProduct", ProductDAO.INSTANCE.getListProduct());
+            request.getRequestDispatcher("Views/Search.jsp").forward(request, response);
+
+        }
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         processRequest(request, response);
     }
 
+    /**
+     * Returns a short description of the servlet.
+     *
+     * @return a String containing servlet description
+     */
     @Override
     public String getServletInfo() {
         return "Short description";

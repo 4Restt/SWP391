@@ -6,17 +6,14 @@ package Controllers;
 
 import DAL.*;
 import Models.*;
-import jakarta.servlet.ServletContext;
 import java.io.IOException;
-import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
-import java.util.HashMap;
+import java.io.PrintWriter;
 import java.util.List;
-import java.util.Map;
 
 /**
  *
@@ -54,8 +51,7 @@ public class Delivery extends HttpServlet {
 
         request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
     }
-
-    
+    List [] address = new List [1000];
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
@@ -63,22 +59,40 @@ public class Delivery extends HttpServlet {
 
         if (ses != null) {
             String deliveryName = (String) ses.getAttribute("deliveryName");
-            String customerAddress = request.getParameter("customerAddress"); // Lấy địa chỉ khách hàng 
             
-            List<Order> unassignedOrders = OrderDAO.INSTANCE.getUnassignedOrders(deliveryName);            
-            List<Order> alShipperOrders = OrderDAO.INSTANCE.getAlShipperOrders(deliveryName);            
-            List<Shipper> compatibleShippers = (List) ShipperDAO.INSTANCE.compatibleShippers(customerAddress);
+
+            List<Order> unassignedOrders = OrderDAO.INSTANCE.getUnassignedOrders(deliveryName);
+            List<Order> alreadyOrders = OrderDAO.INSTANCE.getAlShipperOrders(deliveryName);
+            List<Shipper> compatibleShippers = (List) ShipperDAO.INSTANCE.compatibleShippers(deliveryName);
+            List listOfAddresses = OrderDAO.INSTANCE.listOfAddresses(deliveryName);
             
             
+            // Assign order
+            String orderId = request.getParameter("orderId");
+            String shipperId = request.getParameter("shipperId");
+            if(orderId != null && shipperId != null){
+                OrderDAO.INSTANCE.AssignOrdertoShipper(shipperId, orderId);
+            }
+            
+
             // Đặt danh sách đơn hàng vào attribute của request            
             request.setAttribute("orders", unassignedOrders);
-            request.setAttribute("alShipperOrders", alShipperOrders);
+            request.setAttribute("alreadyOrders", alreadyOrders);
             request.setAttribute("shippers", compatibleShippers);
+            request.setAttribute("listOfAddresses", listOfAddresses);
 
         }
 
         request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
-
+//        address = request.getParameterValues("selectedOrders");
+//            try ( PrintWriter out = response.getWriter()) {
+//                for (int i = 0; i < address.length; i++) {
+//                                out.println(address[i]);
+//
+//                }
+//
+//
+//        }
     }
 
     /**

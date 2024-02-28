@@ -8,7 +8,6 @@ package Controllers;
 import DAL.CategoryDAO;
 import DAL.ProductDAO;
 import java.io.IOException;
-
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;

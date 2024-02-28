@@ -43,15 +43,23 @@ public class VerifyCode extends HttpServlet {
         String newpass = request.getParameter("newpassword");
         String repassword = request.getParameter("repassword");
         HttpSession ses = request.getSession();
-        User user = (User)ses.getAttribute("account");
+        String email = (String)ses.getAttribute("email");
+
+//        User user = (User) ses.getAttribute("account");
+        UserDAO.INSTANCE.checkEmailExist(email);
         if (!newpass.equals(repassword)) {
             String warn = "Please Check again to confirm the new password ";
             request.setAttribute("warn", warn);
             request.getRequestDispatcher("Views/ChangePass.jsp").forward(request, response);
         } else {
-            UserDAO.INSTANCE.ChangeUser(newpass,UserDAO.INSTANCE.getUser().getName());
+            UserDAO.INSTANCE.ChangeUser(newpass, UserDAO.INSTANCE.getUser().getAccount());
             request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
         }
+//        try ( PrintWriter out = response.getWriter()) {
+//            out.println(email);
+//            out.println(UserDAO.INSTANCE.getUser().getAccount());
+//            out.println(newpass);
+//        }
 //                    request.getRequestDispatcher("Views/VerifyCode.jsp").forward(request, response);
 
     }
@@ -59,15 +67,29 @@ public class VerifyCode extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String username = request.getParameter("username");
+        String password = request.getParameter("password");
+        String name = request.getParameter("name");
+        String email = request.getParameter("email");
+        String address = request.getParameter("address");
+        String phone = request.getParameter("phone");
+
         HttpSession ses = request.getSession();
         String code = (String) ses.getAttribute("code");
         String code1 = request.getParameter("code");
+        User user = UserDAO.INSTANCE.checkEmailExist1(email);
         if (!code.equals(code1)) {
-            String warn = "Please check the Code we sent ";
+            String warn = "Please check again the Code we sent ";
             request.setAttribute("warn", warn);
             request.getRequestDispatcher("Views/VerifyCode.jsp").forward(request, response);
         } else {
-            request.getRequestDispatcher("Views/ChangePass.jsp").forward(request, response);
+            if (user != null) {
+                request.setAttribute("email", email);
+                request.getRequestDispatcher("Views/ChangePass.jsp").forward(request, response);
+            } else {
+                UserDAO.INSTANCE.signUp(username, password, name, phone, address, email);
+                request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
+            }
         }
     }
 

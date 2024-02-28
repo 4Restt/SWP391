@@ -1,9 +1,11 @@
 package DAL;
 
+import Models.Cart;
 import Models.Product;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Vector;
 
@@ -277,6 +279,91 @@ public class ProductDAO {
             status = "Error at read Student " + e.getMessage();
         }
         return null;
+    }
+
+    public List<Cart> getCartProduct(ArrayList<Cart> cartList) {
+        List<Cart> productsCart = new ArrayList<>();
+        try {
+            if (cartList.size() > 0) {
+                for (Cart item : cartList) {
+                    String sql = "WITH RankedProducts AS (\n"
+                            + "            SELECT P.product_info_id as productInfoId, P.size,  P.color, P.name, P.quantity, PI.price, PI.img_default as imgDefault,\n"
+                            + "            ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
+                            + "            CASE \n"
+                            + "                             WHEN P.size = 'S' THEN 0 \n"
+                            + "                                WHEN P.size = 'M' THEN 1 \n"
+                            + "                               WHEN P.size = 'L' THEN 2 \n"
+                            + "                                WHEN P.size = 'XL' THEN 3 \n"
+                            + "                                ELSE 4\n"
+                            + "                            END\n"
+                            + "                        ) AS rn\n"
+                            + "                    FROM  Product P\n"
+                            + "                   JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
+                            + "                )\n"
+                            + "                SELECT productInfoId, size, color, name , quantity, price, imgDefault\n"
+                            + "                FROM RankedProducts\n"
+                            + "                WHERE productInfoId = ? and size = ? and color = ? ";
+                    ps = con.prepareStatement(sql);
+                    ps.setInt(1, item.getProductInfoId());
+                    ps.setString(2, item.getSize());
+                    ps.setString(3, item.getColor());
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                        Cart ct = new Cart();
+                        ct.setProductInfoId(rs.getInt("productInfoId"));
+                        ct.setSize(rs.getString("size"));
+                        ct.setColor(rs.getString("color"));
+                        ct.setName(rs.getString("name"));
+                        ct.setQuantity(item.getQuantity());
+                        ct.setPrice(rs.getFloat("price")*item.getQuantity());
+                        ct.setImgDefault(rs.getString("imgDefault"));
+                        productsCart.add(ct);
+                    }
+                }
+            }
+        } catch (Exception e) {
+            System.out.println(e.getMessage());
+        }
+        return productsCart;
+    }
+
+    public float getTotalCartPrice(ArrayList<Cart> cartList) {
+        float sum = 0;
+        try {
+            if (cartList.size() > 0) {
+                for (Cart item : cartList) {
+                    String sql = "WITH RankedProducts AS (\n"
+                            + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price, PI.img_default,\n"
+                            + "        ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
+                            + "            CASE \n"
+                            + "                WHEN P.size = 'S' THEN 0 \n"
+                            + "                WHEN P.size = 'M' THEN 1 \n"
+                            + "                WHEN P.size = 'L' THEN 2 \n"
+                            + "                WHEN P.size = 'XL' THEN 3 \n"
+                            + "                ELSE 4\n"
+                            + "            END\n"
+                            + "        ) AS rn\n"
+                            + "    FROM  Product P\n"
+                            + "    JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
+                            + ")\n"
+                            + "SELECT price \n"
+                            + "FROM RankedProducts\n"
+                            + "WHERE rn = 1 and product_info_id = ? and size = ? and color = ? \n";
+
+                    ps = con.prepareStatement(sql);
+                    ps.setInt(1, item.getProductInfoId());
+                    ps.setString(2, item.getSize());
+                    ps.setString(3, item.getColor());
+                    rs = ps.executeQuery();
+                    while (rs.next()) {
+                        sum += rs.getFloat("price") * item.getQuantity();
+                    }
+                }
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return sum;
     }
 
     public static void main(String[] args) {

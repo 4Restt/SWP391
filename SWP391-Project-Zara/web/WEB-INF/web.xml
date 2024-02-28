@@ -60,6 +60,22 @@
         <servlet-name>ForgotPass</servlet-name>
         <servlet-class>Controllers.ForgotPass</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AddToCart</servlet-name>
+        <servlet-class>Controllers.AddToCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Cart</servlet-name>
+        <servlet-class>Controllers.Cart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteCart</servlet-name>
+        <servlet-class>Controllers.DeleteCart</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UpdateQuantity</servlet-name>
+        <servlet-class>Controllers.UpdateQuantity</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -119,6 +135,22 @@
     <servlet-mapping>
         <servlet-name>ForgotPass</servlet-name>
         <url-pattern>/forgotpass</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddToCart</servlet-name>
+        <url-pattern>/addToCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Cart</servlet-name>
+        <url-pattern>/cart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteCart</servlet-name>
+        <url-pattern>/deleteCart</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateQuantity</servlet-name>
+        <url-pattern>/updateQuantity</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -141,7 +141,7 @@
                                     </li>
 
                                     <li>
-                                        <a href="my-account.html" class="dropdown-item item-anchor">My Account </a>
+                                        <a href="viewprofile" class="dropdown-item item-anchor">My Account </a>
                                     </li>
                                     <li>
                                         <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking </a>

@@ -22,7 +22,8 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order {
+public class Order{
+
     private int id;
     private int customer_id;
     private int shipper_id;
@@ -31,5 +32,7 @@ public class Order {
     private float totalprice;
     private Date date;
     private String status;
-    
+
+    private String customerAddress;
+
 }

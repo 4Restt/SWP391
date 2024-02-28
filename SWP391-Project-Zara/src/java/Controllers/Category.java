@@ -1,7 +1,10 @@
 
 package Controllers;
+import DAL.CategoryDAO;
 import DAL.ProductDAO;
+import DAL.StyleDAO;
 import Models.Product;
+import Models.Style;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -19,7 +22,14 @@ public class Category extends HttpServlet {
     throws ServletException, IOException {
         String cateId = request.getParameter("cid");
         List<Product> listProduct = ProductDAO.INSTANCE.getProductByCid(cateId);
+        CategoryDAO.INSTANCE.getAllCategory();
+        request.setAttribute("listCategory", CategoryDAO.INSTANCE.getListCategory());
+        String name = CategoryDAO.INSTANCE.getCategorybyId(cateId).getName();
+        StyleDAO.INSTANCE.getAllStyleByCateId(cateId);
+        request.setAttribute("style",StyleDAO.INSTANCE.getSt());
         request.setAttribute("listProduct", listProduct);
+        request.setAttribute("name", name);
+        request.setAttribute("catid", cateId);
         request.getRequestDispatcher("Views/Shop.jsp").forward(request, response);
     } 
 

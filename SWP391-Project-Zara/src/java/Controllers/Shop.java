@@ -24,6 +24,7 @@ public class Shop extends HttpServlet {
         List<Product> listProduct = ProductDAO.INSTANCE.getAllProduct();
         List<Models.Category> listCategory = CategoryDAO.INSTANCE.getAllCategory();
         request.setAttribute("listCategory", listCategory);
+        request.setAttribute("cat", listCategory);
         request.setAttribute("listProduct", listProduct);
         request.getRequestDispatcher("Views/Shop.jsp").forward(request, response);
     }

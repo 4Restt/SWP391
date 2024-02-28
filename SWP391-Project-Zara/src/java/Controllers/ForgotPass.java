@@ -23,7 +23,9 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import java.util.UUID;
-
+import java.util.logging.Level;
+import java.util.logging.Logger;
+import units.email;
 
 public class ForgotPass extends HttpServlet {
 
@@ -46,7 +48,7 @@ public class ForgotPass extends HttpServlet {
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-            throws ServletException, IOException {
+            throws ServletException, IOException {      
         request.getRequestDispatcher("Views/ForgotPass.jsp").forward(request, response);
     }
 
@@ -61,39 +63,46 @@ public class ForgotPass extends HttpServlet {
             request.setAttribute("warn", warn);
             request.getRequestDispatcher("Views/ForgotPass.jsp").forward(request, response);
         } else {
-            String verificationCode = generateRandomCode();
-            HttpSession ses = request.getSession();
-            ses.setAttribute("user", UserDAO.INSTANCE.getUser());
-            ses.setAttribute("code", verificationCode);
-            String host = "smtp.gmail.com";
-            String port = "587";
-            final String username = "khongmanhphuc2003@gmail.com";
-            final String password = "qecy mbsn zdra sotu";
-            Properties props = new Properties();
-            props.put("mail.smtp.host", host);
-            props.put("mail.smtp.port", port);
-            props.put("mail.smtp.auth", "true");
-            props.put("mail.smtp.starttls.enable", "true");
-            Session session = Session.getInstance(props, new javax.mail.Authenticator() {
-                @Override
-                protected PasswordAuthentication getPasswordAuthentication() {
-                    return new PasswordAuthentication(username, password);
-                }
-            });
             try {
-                Message message = new MimeMessage(session);
-                message.setFrom(new InternetAddress(username));
-                message.setRecipients(Message.RecipientType.TO,
-                        InternetAddress.parse(email));
-                message.setSubject("Verification Code");
-                message.setText("Your verification code is: " + verificationCode);
-                Transport.send(message);
-                System.out.println("Email sent successfully!");
-
-            } catch (MessagingException e) {
-                System.out.println("bi sai roi");
+                String verificationCode = generateRandomCode();
+                HttpSession ses = request.getSession();
+//                ses.setAttribute("user", UserDAO.INSTANCE.getUser());
+                ses.setAttribute("code", verificationCode);
+                ses.setAttribute("email", email);
+                email e = new email();
+                e.send(email, "Verification Code", "Your verification code is: " + verificationCode);
+//            String host = "smtp.gmail.com";
+//            String port = "587";
+//            final String username = "khongmanhphuc2003@gmail.com";
+//            final String password = "qecy mbsn zdra sotu";
+//            Properties props = new Properties();
+//            props.put("mail.smtp.host", host);
+//            props.put("mail.smtp.port", port);
+//            props.put("mail.smtp.auth", "true");
+//            props.put("mail.smtp.starttls.enable", "true");
+//            Session session = Session.getInstance(props, new javax.mail.Authenticator() {
+//                @Override
+//                protected PasswordAuthentication getPasswordAuthentication() {
+//                    return new PasswordAuthentication(username, password);
+//                }
+//            });
+//            try {
+//                Message message = new MimeMessage(session);
+//                message.setFrom(new InternetAddress(username));
+//                message.setRecipients(Message.RecipientType.TO,
+//                        InternetAddress.parse(email));
+//                message.setSubject("Verification Code");
+//                message.setText("Your verification code is: " + verificationCode);
+//                Transport.send(message);
+//                System.out.println("Email sent successfully!");
+//
+//            } catch (MessagingException e) {
+//                System.out.println("bi sai roi");
+//            }
+                request.getRequestDispatcher("Views/VerifyCode.jsp").forward(request, response);
+            } catch (MessagingException ex) {
+                Logger.getLogger(ForgotPass.class.getName()).log(Level.SEVERE, null, ex);
             }
-            request.getRequestDispatcher("Views/VerifyCode.jsp").forward(request, response);
         }
 
     }

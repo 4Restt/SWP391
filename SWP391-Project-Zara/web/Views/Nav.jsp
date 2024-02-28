@@ -7,8 +7,12 @@
     <div class="search-popup-container">
 
         <form action="search" method="post" class="form-group" action="index.html">
-            <input type="search" id="search-form" class="form-control border-0 border-bottom" placeholder="Type and press enter" value="${txt}" name="search"/>
-            <button type="submit" class="search-submit border-0 position-absolute bg-white" style="top: 15px;right: 15px;"><svg class="search" width="24" height="24"><use xlink:href="#search"></use></svg></button>
+            <input type="search" id="search-form"
+                   class="form-control border-0 border-bottom"
+                   placeholder="Type and press enter" value="${txt}" name="txt"/>
+            <button type="submit" class="search-submit border-0 position-absolute bg-white" 
+                    style="top: 15px;right: 15px;" ><svg class="search" width="24" height="24">
+                <use xlink:href="#search"></use></svg></button>
         </form>
 
         <h5 class="cat-list-title">Browse Categories</h5>
@@ -117,7 +121,7 @@
                                     </c:forEach>
                                 </ul>
                             </li>
-                            
+
 
                             <li class="nav-item dropdown">
                                 <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
@@ -211,5 +215,20 @@
         </div>
 
     </div>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script>
+                function search() {
+                    $.ajax({
+                        url: "/SWP391-Project-Zara/searchtest",
+                        type: "get",
+                        success: function (response) {
+                        },
+                        error: function () {
+                            alert("error");
+                        }
+                    });
+
+                }
+    </script>
 </nav>
 <!-- Navbar End -->

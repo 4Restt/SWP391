@@ -438,10 +438,18 @@
 
                     <form id="form" class="form-group flex-wrap" action="verifycode" method="get">
                         <div class="text-danger">${warn}</div>
+                        <input type="checkbox" id="id" name="email" value="${email}" hidden="">
                         <div class="col-12 pb-3">
                             <label>Enter your new password *</label>
-                            <input type="password" name="newpassword" placeholder="Write your password here"
-                                   class="form-control">
+                            <input type="text" 
+                                   required 
+                                   name="newpassword"
+                                   placeholder="Enter your password" 
+                                   class="form-control" 
+                                   pattern="(?=.*\d)(?=.*[a-z])(?=.*[A-Z]).{8,}" 
+                                   title="Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters"
+                                   oninvalid="setCustomValidity('Must contain at least one number and one uppercase and lowercase letter, and at least 8 or more characters')"
+                                   oninput="setCustomValidity('')">
                         </div>
                         <div class="col-12 pb-3">
                             <label>Enter your new password again *</label>

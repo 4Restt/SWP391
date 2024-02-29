@@ -7,81 +7,274 @@
         <meta charset="UTF-8">
         <title>Delivery Page</title>
         <style>
-            body {
-                font-family: Arial, sans-serif;
-                background-color: #f4f4f4;
-                color: #333;
+            /* Đặt lại một số phong cách cơ bản */
+            body, h1, h2, h3, h4, h5, h6, p, .navbar, .navbar a, .navbar button {
                 margin: 0;
                 padding: 0;
+                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             }
 
+            /* Phong cách cơ bản cho trang */
+            body {
+                background-color: #f4f4f4;
+                color: #5a5c69;
+                font-size: 0.875rem;
+            }
+
+            /* Phong cách cho tiêu đề */
+            .navbar h1 {
+                font-size: 1.75rem;
+                margin-right: 2rem;
+            }
+
+            /* Thanh điều hướng phía trên cùng */
             .navbar {
                 overflow: hidden;
-                background-color: #333;
-                padding: 14px 16px;
+                background-color: #1cc88a; /* Màu xanh lá cây đậm cho navbar */
+                padding: 10px 16px;
+                display: flex;
+                justify-content: start; /* Căn chỉnh các nút ở bên trái */
+                align-items: center;
             }
 
             .navbar button {
                 color: white;
-                padding: 10px 20px;
-                margin: 0 4px;
-                background: none;
-                border: none;
+                padding: 10px 16px;
+                margin-right: 8px; /* Giảm khoảng cách giữa các nút */
+                background-color: #1cc88a; /* Đồng bộ màu với navbar */
+                border: 1px solid transparent; /* Loại bỏ đường viền */
                 border-radius: 4px;
                 cursor: pointer;
+                transition: background-color 0.3s, box-shadow 0.2s;
             }
 
             .navbar button:hover, .navbar button.active {
-                background-color: #555;
+                background-color: #66e6a1; /* Màu nhẹ hơn khi hover */
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             }
 
-            .container {
-                display: block;
-                padding: 10px 0; /* Chỉ giữ padding ở trên và dưới, loại bỏ padding trái và phải */
-                margin: 20px; /* Đảm bảo không có margin không mong muốn */
-            }
-
-            .content {
-                margin: 0; /* Loại bỏ margin để không tạo ra khoảng trống */
-                width: 100%; /* Cho phép nội dung mở rộng ra toàn bộ chiều rộng của trang */
-            }
-
-            h2 {
+            /* Bổ sung phong cách cho tiêu đề h3 để không có margin và phù hợp với nút */
+            .navbar h3 {
+                margin: 0;
                 color: white;
-            }
-            h3 {
-                color: black;
+                padding-right: 16px; /* Tạo khoảng cách giữa tiêu đề và nút đầu tiên */
             }
 
-            p {
-                margin: 5px 0;
+
+            /* Container cho nội dung chính */
+            .container {
+                max-width: 1200px;
+                margin: 1.5rem auto;
+                padding: 1.5rem;
+                background: #fff;
+                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
+                border-radius: 0.35rem;
             }
 
+            /* Phong cách cho bảng */
             table {
                 width: 100%;
+                margin-top: 1rem;
                 border-collapse: collapse;
-                margin-bottom: 20px;
             }
 
-            th, td {
-                border: 1px solid #ddd;
+            table thead tr {
+                background-color: #4e73df;
+                color: #ffffff;
+            }
+
+            table th, table td {
+                padding: 0.75rem;
+                border: 1px solid #e3e6f0;
+            }
+
+            /* Phong cách cho form */
+            form {
+                margin-top: 1rem;
+            }
+
+            .form-group {
+                margin-bottom: 1rem;
+            }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 0.5rem;
+            }
+
+            .form-group input[type="text"],
+            .form-group input[type="email"],
+            .form-group input[type="tel"],
+            .form-group input[type="password"],
+            .form-group select {
+                display: block;
+                width: 100%;
+                padding: 0.375rem 0.75rem;
+                font-size: 0.875rem;
+                font-weight: 400;
+                line-height: 1.5;
+                color: #495057;
+                background-color: #fff;
+                background-clip: padding-box;
+                border: 1px solid #d1d3e2;
+                border-radius: 0.35rem;
+                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
+            }
+
+            .form-group input[type="text"]:focus,
+            .form-group input[type="email"]:focus,
+            .form-group input[type="tel"]:focus,
+            .form-group input[type="password"]:focus,
+            .form-group select:focus {
+                color: #495057;
+                background-color: #fff;
+                border-color: #bac8f3;
+                outline: 0;
+                box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
+            }
+
+            /* Phong cách cho các nút */
+            .btn {
+                padding: 0.375rem 0.75rem;
+                border-radius: 0.35rem;
+                font-size: 0.875rem;
+                line-height: 1.5;
+                transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
+            }
+
+            .btn-primary {
+                color: #fff;
+                background-color: #4e73df;
+                border-color: #4e73df;
+            }
+
+            .btn-primary:hover {
+                color: #fff;
+                background-color: #2e59d9;
+                border-color: #2653d4;
+            }
+
+            .btn-danger {
+                color: #fff;
+                background-color: #e74a3b;
+                border-color: #e74a3b;
+            }
+
+            .btn-danger:hover {
+                color: #fff;
+                background-color: #d42a1b;
+                border-color: #c21a0b;
+            }
+
+            /* Phong cách cho thông báo lỗi */
+            .alert {
+                padding: 0.75rem 1.25rem;
+                margin-bottom: 1rem;
+                border: 1px solid transparent;
+                border-radius: 0.35rem;
+            }
+
+            .alert-danger {
+                color: #721c24;
+                background-color: #f8d7da;
+                border-color: #f5c6cb;
+            }
+
+            /* Phong cách cơ bản cho các nút order-type */
+            .order-type-button {
+                color: #1cc88a;
+                padding: 10px 20px;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                transition: background-color 0.3s, box-shadow 0.2s;
+                margin-right: 8px; /* Điều chỉnh khoảng cách giữa các nút */
+            }
+
+            /* Màu sắc đặc trưng cho từng loại đơn hàng */
+            .order-type-button.assigned {
+                background-color: #1cc88a;
+            }
+
+            .order-type-button.unassigned {
+                background-color: #1cc88a;
+            }
+
+            .order-type-button.cancelled {
+                background-color: #1cc88a;
+            }
+
+            .order-type-button:hover {
+                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+                transform: translateY(-2px);
+            }
+
+            .order-type-button:active {
+                box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
+                transform: translateY(1px);
+            }
+
+            #unassignedOrdersContent .flex-container {
+                display: flex;
+                justify-content: space-between;
+                gap: 20px;
+            }
+
+            #unassignedOrdersContent .orders-column,
+            #unassignedOrdersContent .shippers-column {
+                flex-basis: 48%; /* Cho phép mỗi cột chiếm gần nửa chiều rộng của container */
+            }
+
+            #unassignedOrdersContent h4 {
+                margin-top: 0;
+            }
+
+            #unassignedOrdersContent .order-details {
+                background-color: #f8f9fc;
+                border-radius: 4px;
+                margin-bottom: 10px;
                 padding: 10px;
-                text-align: left;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
-            th {
-                background-color: #f8f8f8;
+            #unassignedOrdersContent .shipper-line {
+                background-color: #f8f9fc;
+                border-radius: 4px;
+                padding: 10px;
+                margin-bottom: 10px;
+                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
             }
 
-            tr:nth-child(even) {
-                background-color: #f2f2f2;
+            #unassignedOrdersContent .shippers-list {
+                display: flex;
+                flex-direction: column;
+            }
+
+            #unassignedOrdersContent .orders-list {
+                display: flex;
+                flex-direction: column;
+            }
+
+            #unassignedOrdersContent input[type="submit"] {
+                margin-top: 10px;
+                background-color: #4e73df;
+                color: white;
+                border: none;
+                border-radius: 4px;
+                padding: 10px 20px;
+                cursor: pointer;
+            }
+
+            #unassignedOrdersContent input[type="submit"]:hover {
+                background-color: #2e59d9;
             }
 
         </style>
+
     </head>
     <body>
         <div class="navbar">
-            <h2>Orders for Delivery ${deliveryName}</h2>
+            <h3>Orders for Delivery ${deliveryName}</h3>
             <button id="loadOrdersButton" onclick="loadOrders()">Load Orders</button>
             <button id="loadProfileButton" onclick="loadProfile()">Load Profile</button>
             <button id="loadShipperListButton" onclick="loadShipperList()">Load Shipper List</button>
@@ -92,9 +285,10 @@
                 <div id="orderContent" style="display:none;">
 
                     <!-- Additional buttons for order types within Load Orders view -->
-                    <button onclick="showOrders('assigned')">Load Assigned Orders</button>
-                    <button onclick="showOrders('unassigned')">Load Unassigned Orders</button>
-                    <button onclick="showOrders('cancelled')">Load Cancelled Orders</button>
+                    <button class="order-type-button" onclick="showOrders('assigned')">Load Assigned Orders</button>
+                    <button class="order-type-button" onclick="showOrders('unassigned')">Load Unassigned Orders</button>
+                    <button class="order-type-button" onclick="showOrders('cancelled')">Load Cancelled Orders</button>
+
                     <!-- Order list content goes here -->
                 </div>
                 <div id="profileContent" style="display:none;">
@@ -137,43 +331,52 @@
                 </div>
                 <!-- Đơn hàng chưa giao -->
                 <div id="unassignedOrdersContent" style="display:none;">
-                    <h3>Unassigned Orders</h3>
-                    <input type="text" id="filterAddress" oninput="filterOrders()" placeholder="Filter by address...">
-                    <select id="addressSelect" onchange="filterByAddress(this.value)">
-                        <option value="">All</option>
-                        <c:forEach items="${listOfAddresses}" var="address">
-                            <option value="${address}">${address}</option>
-                        </c:forEach>
-                    </select>
+                    <form id="assignShipperForm" method="POST" action="assignorder">
+                        <div class="flex-container">
+                            <!-- Cột cho danh sách đơn hàng -->
+                            <div class="orders-column">
+                                <h3>Unassigned Orders</h3>
+                                <select id="addressSelect" onchange="filterByAddress(this.value)">
+                                    <option value="">All</option>
+                                    <c:forEach items="${listOfAddresses}" var="address">
+                                        <option value="${address}" ${address.equals(sessionScope.filterSearchTerm) ? "selected" : ""}>${address}</option>
+                                    </c:forEach>
+                                </select>
 
-                    <form id="assignOrdersForm" action="delivery" method="post">
-                        <c:forEach items="${orders}" var="order">
-                            <div class="order-details" data-order-address="${order.customerAddress}">
-                                <h3>Order ID: ${order.id}</h3>
-                                <p>Customer Address: ${order.customerAddress} </p>
-                                <p>Total Price: ${order.totalprice}</p>
-                                <p>Date: ${order.date}</p>
-                                <p>Status: ${order.status}</p>
-                                <label>Select
-                                    <input type="checkbox" name="selectedOrders" value="${order.customerAddress}"/>
-                                </label>
+                                <div class="orders-list">
+                                    <c:forEach items="${orders}" var="order">
+                                        <div class="order-details" data-order-address="${order.customerAddress}">
+                                            <h4>Order ID: ${order.id}</h4>
+                                            <p>Customer Address: ${order.customerAddress}</p>
+                                            <p>Total Price: ${order.totalprice}</p>
+                                            <p>Date: ${order.date}</p>
+                                            <p>Status: ${order.status}</p>
+                                            <label>Select
+                                                <input type="checkbox" name="selectedOrders" value="${order.id}"/>
+                                            </label>
+                                        </div>
+                                    </c:forEach>
+                                </div>
                             </div>
-                        </c:forEach>                       
-                    </form>
-                    <h3>Available Shippers for Delivery ${deliveryName}</h3>
-                    <div>
-                        <c:forEach items="${shippers}" var="shipper">
-                            <div class="shipper-line" data-shipper-location="${shipper.location_name}">
-                                <span>${shipper.name} - ${shipper.location_name}</span>
-                                <form action="delivery" method="post" style="shipper-line">
-                                    <input type="hidden" name="orderId" value="${order.id}" />
-                                    <input type="hidden" name="shipperId" value="${shipper.id}" />
-                                    <input type="submit" value="Assign Shipper" />
-                                </form>
+
+                            <!-- Cột cho danh sách shipper -->
+                            <div class="shippers-column">
+                                <h3>Available Shippers for Delivery ${deliveryName}</h3>
+                                <div class="shippers-list">
+                                    <c:forEach items="${shippers}" var="shipper">
+                                        <label class="shipper-label">
+                                            <input type="checkbox" class="shipper-checkbox" name="shipperId" value="${shipper.id}" onclick="onlyOneShipper(this)">
+                                            ${shipper.name} - ${shipper.location_name}
+                                        </label>
+                                    </c:forEach>
+                                </div>
                             </div>
-                        </c:forEach>
-                    </div>
-                </div>               
+                        </div>
+                        <button type="submit">Assign Shipper</button>
+                    </form>                    
+                </div>
+
+
                 <!-- Đơn hàng đã hủy -->
                 <div id="cancelledOrdersContent" style="display:none;">
                     <!-- Nội dung cho đơn hàng đã hủy -->
@@ -188,7 +391,10 @@
                 document.getElementById("shipperListContent").style.display = "none";
                 document.getElementById("assignedOrdersContent").style.display = "none";
                 setActiveButton("loadOrdersButton");
+                // Gọi hàm applyCurrentFilter sau khi tải đơn hàng
+                applyCurrentFilter();
             }
+
 
             function loadProfile() {
                 document.getElementById("orderContent").style.display = "none";
@@ -226,7 +432,6 @@
                 document.getElementById('assignedOrdersContent').style.display = 'none';
                 document.getElementById('unassignedOrdersContent').style.display = 'none';
                 document.getElementById('cancelledOrdersContent').style.display = 'none';
-
                 // Hiển thị div tương ứng với loại đơn hàng được chọn
                 if (type === 'assigned') {
                     document.getElementById('assignedOrdersContent').style.display = 'block';
@@ -237,53 +442,63 @@
                 }
             }
 
-            function filterOrders() {
-                var input = document.getElementById('filterAddress');
-                var filter = input.value.toUpperCase();
-                var select = document.getElementById('addressSelect');
-                var selectedValue = select.value.toUpperCase();
+            // Đoạn mã này giả định rằng bạn đã truyền giá trị bộ lọc từ server qua HTML
+            document.addEventListener('DOMContentLoaded', () => {
+                let storedSearchTerm = sessionStorage.getItem('filterSearchTerm');
+                // Giả sử bạn có một phần tử trong HTML chứa giá trị bộ lọc từ server
+                // Ví dụ: <div id="serverFilterValue" data-filter-value="Lưu giá trị bộ lọc ở đây"></div>
+                const serverFilterValue = document.getElementById('serverFilterValue') ? document.getElementById('serverFilterValue').getAttribute('data-filter-value') : null;
 
-                var orders = document.getElementById('unassignedOrdersContent').getElementsByTagName('div');
+                // Nếu có giá trị bộ lọc từ server, ưu tiên sử dụng nó và cập nhật sessionStorage
+                if (serverFilterValue) {
+                    storedSearchTerm = serverFilterValue;
+                    sessionStorage.setItem('filterSearchTerm', storedSearchTerm);
+                }
 
-                for (var i = 0; i < orders.length; i++) {
-                    var address = orders[i].getElementsByTagName("p")[0];
-                    if (address) {
-                        var txtValue = address.textContent || address.innerText;
-                        if ((txtValue.toUpperCase().indexOf(filter) > -1 || filter === "") &&
-                                (txtValue.toUpperCase().indexOf(selectedValue) > -1 || selectedValue === "")) {
-                            orders[i].style.display = "";
-                        } else {
-                            orders[i].style.display = "none";
-                        }
-                    }
+                if (storedSearchTerm) {
+                    filterByAddress(storedSearchTerm);
+                }
+            });
+
+
+            function filterByAddress(searchTerm) {
+                const orderElements = document.querySelectorAll('.order-details');
+                const shipperLabels = document.querySelectorAll('.shipper-label');
+                const normalizedSearchTerm = searchTerm.trim().toLowerCase();
+
+                orderElements.forEach(function (element) {
+                    const address = element.dataset.orderAddress.trim().toLowerCase();
+                    element.style.display = address.includes(normalizedSearchTerm) ? '' : 'none';
+                });
+
+                shipperLabels.forEach(function (label) {
+                    const text = label.textContent.toLowerCase() || label.innerText.toLowerCase();
+                    label.style.display = text.includes(normalizedSearchTerm) ? '' : 'none';
+                });
+
+                // Lưu searchTerm vào sessionStorage
+                sessionStorage.setItem('filterSearchTerm', normalizedSearchTerm);
+            }
+
+            // Hàm mới để áp dụng bộ lọc hiện tại
+            function applyCurrentFilter() {
+                const storedSearchTerm = sessionStorage.getItem('filterSearchTerm');
+                if (storedSearchTerm) {
+                    filterByAddress(storedSearchTerm);
                 }
             }
 
-            function filterByAddress(selectedAddress) {
-                // Lọc đơn hàng
-                var orders = document.querySelectorAll('.order-details');
-                orders.forEach(function (order) {
-                    if (order.getAttribute('data-order-address').includes(selectedAddress) || selectedAddress === '') {
-                        order.style.display = '';
-                    } else {
-                        order.style.display = 'none';
-                    }
+            function onlyOneShipper(checkbox) {
+                // Bỏ chọn tất cả các shipper checkbox khác
+                var checkboxes = document.querySelectorAll('.shipper-checkbox');
+                checkboxes.forEach((item) => {
+                    if (item !== checkbox)
+                        item.checked = false;
                 });
-
-                // Lọc người giao hàng
-                var shippers = document.querySelectorAll('.shipper-line');
-                shippers.forEach(function (shipper) {
-                    var shipperLocation = shipper.getAttribute('data-shipper-location').toLowerCase(); // Chuyển địa điểm shipper về chữ thường
-                    var normalizedSelectedAddress = selectedAddress.toLowerCase(); // Chuyển địa chỉ được chọn về chữ thường
-
-                    if (shipperLocation.includes(normalizedSelectedAddress) || selectedAddress === '') {
-                        shipper.style.display = ''; // Hiển thị shipper này
-                    } else {
-                        shipper.style.display = 'none'; // Ẩn shipper này
-                    }
-                });
-
             }
+
+
+
         </script>
     </body>
 </html>

@@ -186,7 +186,7 @@ public class OrderDAO {
                 + "FROM [Order] "
                 + "JOIN Customer ON [Order].Customer_id = Customer.id "
                 + "JOIN Delivery ON [Order].delivery_id = Delivery.id "
-                + "WHERE Delivery.[name] = ?";
+                + "WHERE Delivery.[name] = ? and [Order].Shipper_id is null";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
@@ -204,10 +204,46 @@ public class OrderDAO {
         return addresses;
     }
 
-    public static void main(String[] args) {
-        OrderDAO.INSTANCE.listOfAddresses("Grab");
-        System.out.println(OrderDAO.INSTANCE.listOfAddresses("Grab"));
+    public List<Order> getOrdersByAddress(String address) {
+        listOrder = new Vector<Order>();
+        String sql = "SELECT [Order].*, Customer.[address] "
+                + "FROM Customer "
+                + "JOIN [Order] ON [Order].Customer_id = Customer.id "
+                + "WHERE Customer.[address] LIKE ? AND [Order].Shipper_id IS NULL;";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + address + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listOrder.add(new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getFloat(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getString(9)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
 
+        return listOrder;
+    }
+
+    public static void main(String[] args) {
+        List<Order> orders = OrderDAO.INSTANCE.getOrdersByAddress("Thanh Trì, Hà Nội");
+        if (orders.isEmpty()) {
+            System.out.println("No orders found for the given address.");
+        } else {
+            for (Order order : orders) {
+                System.out.println(order); 
+            }
+        }
     }
 
 }

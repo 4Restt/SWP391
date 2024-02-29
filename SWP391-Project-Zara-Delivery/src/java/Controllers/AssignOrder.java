@@ -4,22 +4,19 @@
  */
 package Controllers;
 
-import DAL.*;
-import Models.*;
+import DAL.OrderDAO;
 import java.io.IOException;
+import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.io.PrintWriter;
-import java.util.List;
 
 /**
  *
  * @author admin
  */
-public class Delivery extends HttpServlet {
+public class AssignOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -48,45 +45,35 @@ public class Delivery extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
+        processRequest(request, response);
     }
-    List[] address = new List[1000];
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        String[] orderIds = request.getParameterValues("selectedOrders");
+        String shipperId = request.getParameter("shipperId");
+        String filterValue = request.getParameter("filterValue"); 
 
-        HttpSession ses = request.getSession(false);
+        if (orderIds != null && shipperId != null) {
+            for (String orderId : orderIds) {
+                OrderDAO.INSTANCE.AssignOrdertoShipper(shipperId, orderId);
 
-        if (ses != null) {
-            String deliveryName = (String) ses.getAttribute("deliveryName");
-
-            List<Order> unassignedOrders = OrderDAO.INSTANCE.getUnassignedOrders(deliveryName);
-            List<Order> alreadyOrders = OrderDAO.INSTANCE.getAlShipperOrders(deliveryName);
-            List<Shipper> compatibleShippers = (List) ShipperDAO.INSTANCE.compatibleShippers(deliveryName);
-            List listOfAddresses = OrderDAO.INSTANCE.listOfAddresses(deliveryName);
-            
-            
-            
-            // Đặt danh sách đơn hàng vào attribute của request            
-            request.setAttribute("orders", unassignedOrders);
-            request.setAttribute("alreadyOrders", alreadyOrders);
-            request.setAttribute("shippers", compatibleShippers);
-            request.setAttribute("listOfAddresses", listOfAddresses);
-
+            }
         }
-        request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
+        
+        request.getSession().setAttribute("filterSearchTerm", filterValue);
+        request.getSession().setAttribute("message", "Orders have been successfully assigned to shipper.");
+        request.getRequestDispatcher("delivery").forward(request, response);
 
-//        address = request.getParameterValues("selectedOrders");
-//            try ( PrintWriter out = response.getWriter()) {
-//                for (int i = 0; i < address.length; i++) {
-//                                out.println(address[i]);
-//
-//                }
-//
-//
-//        }
     }
 
     /**

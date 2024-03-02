@@ -4,8 +4,14 @@
 <!DOCTYPE html>
 <html>
     <head>
-        <meta charset="UTF-8">
+        <!-- Meta tags Required for Bootstrap -->
+        <meta charset="utf-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Delivery Page</title>
+        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
+        <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
         <style>
             /* Đặt lại một số phong cách cơ bản */
             body, h1, h2, h3, h4, h5, h6, p, .navbar, .navbar a, .navbar button {
@@ -269,10 +275,22 @@
                 background-color: #2e59d9;
             }
 
+            .modal-header {
+                background-color: #f4f4f4; /* Your desired header background color */
+            }
+
+            .modal-title {
+                color: #333; /* Your desired title text color */
+            }
+
+            /* Add any additional custom styles you want for the modal here */
+
         </style>
 
     </head>
     <body>
+        <input type="hidden" id="contentValue" value="${content}">
+
         <div class="navbar">
             <h3>Orders for Delivery ${deliveryName}</h3>
             <button id="loadOrdersButton" onclick="loadOrders()">Load Orders</button>
@@ -291,32 +309,90 @@
 
                     <!-- Order list content goes here -->
                 </div>
-                <div id="profileContent" style="display:none;">
+                <div id="profileContent" style="display:block;"> 
                     <h3>Delivery Profile</h3>
-                    <form action="delivery" method="post"> <!-- Cập nhật action với tên servlet xử lý việc cập nhật hồ sơ -->
+                    <form action="deliveryprofile" method="post"> 
                         <div class="form-group">
                             <label for="name">Name:</label>
-                            <input type="text" id="name" name="name" placeholder="Your name" required>
+                            <input type="text" id="name" name="name" value="${delivery.name}" placeholder="Your name" required>
                         </div>
                         <div class="form-group">
                             <label for="email">Email:</label>
-                            <input type="email" id="email" name="email" placeholder="Your email" required>
+                            <input type="email" id="email" name="email" value="${delivery.email}" placeholder="Your email" required>
                         </div>
                         <div class="form-group">
                             <label for="phone">Phone:</label>
-                            <input type="tel" id="phone" name="phone" placeholder="Your phone number" required>
+                            <input type="tel" id="phone" name="phone" value="${delivery.phone}" placeholder="Your phone number" required>
                         </div>
                         <div class="form-group">
                             <label for="password">Password:</label>
-                            <input type="password" id="password" name="password" placeholder="Your password" required>
+                            <input type="password" id="password" name="password" value="${delivery.password}" placeholder="Your password" required>
                         </div>
                         <button type="submit">Update Profile</button>
                     </form>
                 </div>
+
                 <div id="shipperListContent" style="display:none;">
                     <h3>Available Shippers for Delivery ${deliveryName}</h3>
-                    <!-- Shipper list content goes here -->
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>Name</th>
+                                <th>Location</th>
+                                <th>Phone</th>
+                                <th>Action</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${listShipper}" var="shipper">
+                                <tr>
+                                    <td>${shipper.name}</td>
+                                    <td>${shipper.location_name}</td>
+                                    <td>${shipper.phone}</td>
+                                    <td>
+                                        <button type="button" class="btn btn-primary btn-edit-shipper" data-toggle="modal" data-target="#editShipperModal" data-id="${shipper.id}" data-name="${shipper.name}" data-location="${shipper.location_name}" data-phone="${shipper.phone}">
+                                            Edit
+                                        </button>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>                   
                 </div>
+                <!-- Modal Edit Shipper -->
+                <div class="modal fade" id="editShipperModal" tabindex="-1" role="dialog" aria-labelledby="editShipperModalLabel" aria-hidden="true">
+                    <div class="modal-dialog" role="document">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="editShipperModalLabel">Edit Shipper</h5>
+                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                                    <span aria-hidden="true">&times;</span>
+                                </button>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Form fields for editing shipper will go here -->
+                                <!-- Example fields -->
+                                <div class="form-group">
+                                    <label for="shipperNameModal">Name:</label>
+                                    <input type="text" class="form-control" id="shipperNameModal" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="shipperLocationModal">Location:</label>
+                                    <input type="text" class="form-control" id="shipperLocationModal" required>
+                                </div>
+                                <div class="form-group">
+                                    <label for="shipperPhoneModal">Phone:</label>
+                                    <input type="tel" class="form-control" id="shipperPhoneModal" required>
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                                <button type="submit" class="btn btn-primary">Save changes</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
                 <div id="assignedOrdersContent" style="display:none;">
                     <h3>Assigned Orders</h3>
                     <c:forEach items="${alreadyOrders}" var="order">                                                 
@@ -346,7 +422,6 @@
                                 <div class="orders-list">
                                     <c:forEach items="${orders}" var="order">
                                         <div class="order-details" data-order-address="${order.customerAddress}">
-                                            <h4>Order ID: ${order.id}</h4>
                                             <p>Customer Address: ${order.customerAddress}</p>
                                             <p>Total Price: ${order.totalprice}</p>
                                             <p>Date: ${order.date}</p>
@@ -445,10 +520,9 @@
             // Đoạn mã này giả định rằng bạn đã truyền giá trị bộ lọc từ server qua HTML
             document.addEventListener('DOMContentLoaded', () => {
                 let storedSearchTerm = sessionStorage.getItem('filterSearchTerm');
-                // Giả sử bạn có một phần tử trong HTML chứa giá trị bộ lọc từ server
-                // Ví dụ: <div id="serverFilterValue" data-filter-value="Lưu giá trị bộ lọc ở đây"></div>
                 const serverFilterValue = document.getElementById('serverFilterValue') ? document.getElementById('serverFilterValue').getAttribute('data-filter-value') : null;
-
+                // Lấy giá trị content từ input ẩn
+                const contentValue = document.getElementById('contentValue') ? document.getElementById('contentValue').value : null;
                 // Nếu có giá trị bộ lọc từ server, ưu tiên sử dụng nó và cập nhật sessionStorage
                 if (serverFilterValue) {
                     storedSearchTerm = serverFilterValue;
@@ -458,24 +532,43 @@
                 if (storedSearchTerm) {
                     filterByAddress(storedSearchTerm);
                 }
+
+                // Kiểm tra và hiển thị nội dung dựa trên giá trị content
+                if (contentValue) {
+                    showContentBasedOnParam(contentValue);
+                }
             });
+            function showContentBasedOnParam(content) {
+                // Ẩn tất cả các phần nội dung
+                document.getElementById("orderContent").style.display = "none";
+                document.getElementById("profileContent").style.display = "none";
+                document.getElementById("shipperListContent").style.display = "none";
+                document.getElementById("unassignedOrdersContent").style.display = "none";
+                // Hiển thị phần nội dung dựa trên tham số
+                if (content === 'unassignedOrders') {
+                    document.getElementById("unassignedOrdersContent").style.display = "block";
+                } else if (content === 'assignedOrders') {
+                    document.getElementById("assignedOrdersContent").style.display = "block";
+                } else if (content === 'profile') {
+                    document.getElementById("profileContent").style.display = "block";
+                }
+
+            }
+
 
 
             function filterByAddress(searchTerm) {
                 const orderElements = document.querySelectorAll('.order-details');
                 const shipperLabels = document.querySelectorAll('.shipper-label');
                 const normalizedSearchTerm = searchTerm.trim().toLowerCase();
-
                 orderElements.forEach(function (element) {
                     const address = element.dataset.orderAddress.trim().toLowerCase();
                     element.style.display = address.includes(normalizedSearchTerm) ? '' : 'none';
                 });
-
                 shipperLabels.forEach(function (label) {
                     const text = label.textContent.toLowerCase() || label.innerText.toLowerCase();
                     label.style.display = text.includes(normalizedSearchTerm) ? '' : 'none';
                 });
-
                 // Lưu searchTerm vào sessionStorage
                 sessionStorage.setItem('filterSearchTerm', normalizedSearchTerm);
             }
@@ -497,8 +590,35 @@
                 });
             }
 
+            $(document).ready(function () {
+                $('.btn-edit-shipper').on('click', function () {
+                    // Lấy dữ liệu từ data attributes của nút được nhấn
+                    var shipperId = $(this).data('id');
+                    var shipperName = $(this).data('name');
+                    var shipperLocation = $(this).data('location');
+                    var shipperPhone = $(this).data('phone');
 
+                    // Đặt dữ liệu vào các trường của form trong modal
+                    $('#shipperNameModal').val(shipperName);
+                    $('#shipperLocationModal').val(shipperLocation);
+                    $('#shipperPhoneModal').val(shipperPhone);
+
+                    // Lưu ID của shipper vào một trường ẩn để sử dụng khi gửi form
+                    $('#editShipperModal').find('[name="shipperId"]').val(shipperId);
+
+                    // Hiển thị modal
+                    $('#editShipperModal').modal('show');
+                });
+
+                // Bắt sự kiện submit của form
+                $('#editShipperForm').on('submit', function (event) {
+                    event.preventDefault(); // Ngăn không cho form gửi theo cách thông thường
+
+                    // Gửi dữ liệu đến server ở đây...
+                });
+            });
 
         </script>
     </body>
+
 </html>

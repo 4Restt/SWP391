@@ -144,9 +144,37 @@ public class ShipperDAO {
         return listShipper;
     }
 
+    public List<Shipper> shipperList(String delivery_name) {
+        listShipper = new Vector<>();
+        String sql = "SELECT Shipper.*, [Location].name AS location_name "
+                + "FROM Shipper "
+                + "JOIN [Location] ON Shipper.location_id = [Location].id "
+                + "WHERE Shipper.delivery_id = (SELECT id FROM Delivery WHERE Delivery.name = ? )";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, delivery_name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Shipper shipper = Shipper.builder()
+                        .id(rs.getInt("id"))
+                        .name(rs.getString("name"))
+                        .password(rs.getString("password"))
+                        .location_id(rs.getInt("location_id"))
+                        .phone(rs.getString("phone"))
+                        .location_name(rs.getString("location_name"))
+                        .build();
+                listShipper.add(shipper);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listShipper;
+    }
+
     public static void main(String[] args) {
         ShipperDAO shipperDAO = new ShipperDAO();
-        List<Shipper> shippers = shipperDAO.getShippersByAddress("Thanh Trì, Hà Nội");
+        List<Shipper> shippers = shipperDAO.shipperList("Grab");
         if (shippers.isEmpty()) {
             System.out.println("No shippers found for the given address.");
         } else {

@@ -69,7 +69,7 @@ public class AssignOrder extends HttpServlet {
 
             }
         }
-        
+        request.setAttribute("content", "unassignedOrders");
         request.getSession().setAttribute("filterSearchTerm", filterValue);
         request.getSession().setAttribute("message", "Orders have been successfully assigned to shipper.");
         request.getRequestDispatcher("delivery").forward(request, response);

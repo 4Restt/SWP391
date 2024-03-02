@@ -104,13 +104,12 @@ public class DeliveryDAO {
 
     }
 
-    public void getDeliverybyName(String name) {
-        String sql = "select * from Delivery\n"
-                + "where name = ?";
+    public Delivery getDeliverybyName(String name) {
+        String sql = "select * from Delivery where name = ?";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, name);           
-            ps.executeQuery();
+            ps.setString(1, name);
+            rs = ps.executeQuery(); // Khởi tạo ResultSet
             while (rs.next()) {
                 delivery = new Delivery(rs.getInt(1),
                         rs.getString(2),
@@ -118,15 +117,20 @@ public class DeliveryDAO {
                         rs.getString(4),
                         rs.getString(5)
                 );
+                if(delivery != null){
+                    System.out.println(delivery);
+                }
+                return delivery;
             }
-            
+
         } catch (Exception e) {
+            e.printStackTrace(); // In ra lỗi để dễ dàng debug
         }
+        return null;
     }
 
     public static void main(String[] args) {
         DeliveryDAO.INSTANCE.getDeliverybyName("Grab");
-
 
     }
 

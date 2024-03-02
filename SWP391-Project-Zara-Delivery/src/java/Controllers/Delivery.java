@@ -66,27 +66,26 @@ public class Delivery extends HttpServlet {
             List<Order> alreadyOrders = OrderDAO.INSTANCE.getAlShipperOrders(deliveryName);
             List<Shipper> compatibleShippers = (List) ShipperDAO.INSTANCE.compatibleShippers(deliveryName);
             List listOfAddresses = OrderDAO.INSTANCE.listOfAddresses(deliveryName);
-            
-            
-            
-            // Đặt danh sách đơn hàng vào attribute của request            
+            List<Shipper> listShipper = (List) ShipperDAO.INSTANCE.shipperList(deliveryName);
+            //Update profile, manage shipper
+            String content = (String) request.getAttribute("content");
+            if (content != null && content.equals("profile")) {
+                request.setAttribute("content", "profile");
+            } else {
+                request.setAttribute("content", "unassignedOrders");
+            }
+            // Đặt danh sách đơn hàng vào attribute của request   
+            request.setAttribute("delivery", DeliveryDAO.INSTANCE.getDeliverybyName(deliveryName));
             request.setAttribute("orders", unassignedOrders);
             request.setAttribute("alreadyOrders", alreadyOrders);
             request.setAttribute("shippers", compatibleShippers);
             request.setAttribute("listOfAddresses", listOfAddresses);
+            request.setAttribute("listShipper", listShipper);
+            
 
         }
         request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
 
-//        address = request.getParameterValues("selectedOrders");
-//            try ( PrintWriter out = response.getWriter()) {
-//                for (int i = 0; i < address.length; i++) {
-//                                out.println(address[i]);
-//
-//                }
-//
-//
-//        }
     }
 
     /**

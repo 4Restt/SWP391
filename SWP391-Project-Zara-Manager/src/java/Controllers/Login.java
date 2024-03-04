@@ -1,5 +1,5 @@
-
 package Controllers;
+
 import DAL.CategoryDAO;
 import DAL.UserDAO;
 import java.io.IOException;
@@ -47,7 +47,16 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie arr[] = request.getCookies();
+        Cookie[] arr = request.getCookies();
+        if (arr == null) {
+            arr = new Cookie[0]; // Assign an empty array if arr is null
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == null) {
+                arr[i] = new Cookie("empty", " "); // If arr[i] is null, assign a cookie with a space
+            }
+        }
         for (Cookie o : arr) {
             if (o.getName().equals("userC")) {
                 request.setAttribute("username", o.getValue());
@@ -87,11 +96,11 @@ public class Login extends HttpServlet {
             response.addCookie(c);
             response.addCookie(p);
 //            request.getRequestDispatcher("Home").forward(request, response);
-             if( UserDAO.INSTANCE.getUser().getRollId() == 1 ){
+            if (UserDAO.INSTANCE.getUser().getRollId() == 1) {
                 response.sendRedirect("dashboard");
+            } else {
+                response.sendRedirect("home");
             }
-            else response.sendRedirect("home");
-            
 
         }
 //            response.sendRedirect("Views/Login.jsp");
@@ -104,4 +113,3 @@ public class Login extends HttpServlet {
     }// </editor-fold>
 
 }
-

@@ -61,7 +61,6 @@
         <servlet-class>Controllers.ForgotPass</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>AddToCart</servlet-name>
         <servlet-class>Controllers.AddToCart</servlet-class>
     </servlet>
@@ -77,7 +76,7 @@
         <servlet-name>UpdateQuantity</servlet-name>
         <servlet-class>Controllers.UpdateQuantity</servlet-class>
     </servlet>
-    <servlet>    
+    <servlet>
         <servlet-name>Filter</servlet-name>
         <servlet-class>Controllers.Filter</servlet-class>
     </servlet>
@@ -90,8 +89,12 @@
         <servlet-class>Controllers.ViewListAddressController</servlet-class>
     </servlet>
     <servlet>
-       <servlet-name>ViewUserProfileController</servlet-name>
+        <servlet-name>ViewUserProfileController</servlet-name>
         <servlet-class>Controllers.ViewUserProfileController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentController</servlet-name>
+        <servlet-class>Controllers.PaymentController</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
@@ -184,6 +187,10 @@
     <servlet-mapping>
         <servlet-name>ViewUserProfileController</servlet-name>
         <url-pattern>/viewprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentController</servlet-name>
+        <url-pattern>/pay</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

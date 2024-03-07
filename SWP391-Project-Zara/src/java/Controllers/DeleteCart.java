@@ -5,6 +5,7 @@
 package Controllers;
 
 import DAL.ProductDAO;
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -57,7 +58,8 @@ public class DeleteCart extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        User user = (User) request.getSession().getAttribute("account");
+
         try ( PrintWriter out = response.getWriter()) {
 
             int pifid = Integer.parseInt(request.getParameter("pifid"));
@@ -66,7 +68,7 @@ public class DeleteCart extends HttpServlet {
 
             if (pifid != 0 && size != null && color != null) {
                 HttpSession session = request.getSession();
-                ArrayList<Models.Cart> cart_list = (ArrayList<Models.Cart>) session.getAttribute("cart-list");
+                ArrayList<Models.Cart> cart_list = (ArrayList<Models.Cart>) session.getAttribute("cart-list" + user.getAccount());
                 if (cart_list != null) {
                     for (Models.Cart cart : cart_list) {
                         if (cart.getProductInfoId() == pifid && cart.getSize().equals(size) && cart.getColor().equals(color)) {

@@ -6,6 +6,7 @@ package Controllers;
 
 import DAL.ProductDAO;
 import Models.Cart;
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -33,17 +34,7 @@ public class AddToCart extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        HttpSession session = request.getSession();
-
-        ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
-        List<Cart> cartProduct = null;
-
-        if (cart_list != null) {
-            cartProduct = ProductDAO.INSTANCE.getCartProduct(cart_list);
-        }
-
-        request.setAttribute("cart_list", cartProduct);
-
+        
     }
 
     // <editor-fold defaultstate="collapsed" desc="HttpServlet methods. Click on the + sign on the left to edit the code.">
@@ -58,26 +49,34 @@ public class AddToCart extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charSet=UTF-8");
-
+        User user = (User) request.getSession().getAttribute("account") ;
+        if(user == null ) {
+            response.sendRedirect("login");
+            return ;
+        }
+        
         try ( PrintWriter out = response.getWriter()) {
             ArrayList<Cart> cartList = new ArrayList<>();
-
+            
             int pifid = Integer.parseInt(request.getParameter("pifid"));
             String size = request.getParameter("size");
             String color = request.getParameter("color");
+            int amount = Integer.parseInt(request.getParameter("amount")) ;
+            String returnUrl = request.getParameter("returnUrl") ;
             
             Cart c = new Cart();
             c.setProductInfoId(pifid);
             c.setSize(size);
             c.setColor(color);
+            
 
             HttpSession session = request.getSession();
-            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list");
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"+user.getAccount());
 
             if (cart_list == null) {
                 c.setQuantity(1);
                 cartList.add(c);
-                session.setAttribute("cart-list", cartList);
+                session.setAttribute("cart-list"+user.getAccount(), cartList);
                 response.sendRedirect("home");
             } else {
                 cartList = cart_list;
@@ -86,11 +85,7 @@ public class AddToCart extends HttpServlet {
                 for (Cart cart : cart_list) {
                     if (cart.getProductInfoId() == pifid && cart.getSize().equals(size) && cart.getColor().equals(color)) {
                         exist = true;
-                        cart.setQuantity(cart.getQuantity() + 1);
-                        
-//                        cartList.add(c) ;
-//                        out.println("<h3 style='color:crimson; text-align:center;'>Item already exist in Cart.<a href='cart'>Go to Cart Page</a></h3>");
-//                        response.sendRedirect("home");
+                        cart.setQuantity(cart.getQuantity() + amount);
                         break;
                     }
                 }
@@ -98,10 +93,9 @@ public class AddToCart extends HttpServlet {
                 if (!exist) {
                     c.setQuantity(1);
                     cartList.add(c);
-
                 }
-                session.setAttribute("cart-list", cartList);
-                response.sendRedirect("home");
+                session.setAttribute("cart-list"+user.getAccount(), cartList);
+                response.sendRedirect(returnUrl==null?"home":returnUrl);
 
             }
         }

@@ -407,7 +407,7 @@
                                 <h6 class="cart-title text-uppercase text-muted col-lg-4 pb-3">Subtotal</h6>
                             </div>
                         </div>
-                        
+
                         <c:forEach items="${cartProduct}" var="cl">
                             <div class="cart-item border-top border-bottom">
                                 <div class="row align-items-center"> 
@@ -435,15 +435,12 @@
                                             <div class="col-md-4">
                                                 <div class="input-group product-qty">
                                                     <span class="input-group-btn">
-                                                        <button type="button" class="quantity-left-minus btn btn-light btn-number"  data-type="minus" data-field="1">
-                                                            <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                                        </button>
+                                                        <a type="button"  class="btn btn-light btn-number fs-2" href="addToCart?pifid=${cl.getProductInfoId()}&size=${cl.getSize()}&color=${cl.getColor()}&amount=-1&returnUrl=cart">-</a>
                                                     </span>
                                                     <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="${cl.getQuantity()}" min="1" max="100">
                                                     <span class="input-group-btn">
-                                                        <button type="button" class="quantity-right-plus btn btn-light btn-number" data-type="plus" data-field="">
-                                                            <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                                        </button>
+                                                        <a type="button"  class="btn btn-light btn-number fs-2" href="addToCart?pifid=${cl.getProductInfoId()}&size=${cl.getSize()}&color=${cl.getColor()}&amount=1&returnUrl=cart">+</a>
+
                                                     </span>
                                                 </div>
                                             </div>
@@ -468,9 +465,9 @@
                         </c:forEach>
                     </div>
                 </div>
-                
+
                 <div class="col-md-4">
-                    
+
                     <div class="cart-totals bg-grey py-5">
                         <h4 class="text-dark pb-4">Cart Total</h4>
                         <div class="total-price pb-5">
@@ -493,16 +490,16 @@
                             <div class="col-md-12"><a class="btn btn-primary text-uppercase btn-rounded-none w-100">Buy Now</a></div>
                         </div>
                     </div>
-                    
+
                 </div>
 
             </div>
         </div>
     </section> 
-                                            
 
 
-    
+
+
     <footer id="footer" class="mt-5">
         <div class="container">
             <div class="row d-flex flex-wrap justify-content-between py-5">

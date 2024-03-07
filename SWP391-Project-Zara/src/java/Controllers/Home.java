@@ -15,14 +15,17 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import Models.Category;
 import Models.Product;
+import Models.User;
 import java.util.ArrayList;
 public class Home extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
     throws ServletException, IOException {
+        User user = (User) request.getSession().getAttribute("account") ;
+        
         List<Category> listCategory = CategoryDAO.INSTANCE.getAllCategory();
         List<Product> listNewArrival = ProductDAO.INSTANCE.getTop6NewArrival();
-        ArrayList<Models.Cart> cart_list = (ArrayList<Models.Cart>) request.getSession().getAttribute("cart-list");
+        ArrayList<Models.Cart> cart_list = (ArrayList<Models.Cart>) request.getSession().getAttribute("cart-list"+(user==null?"":user.getAccount()));
         int totalQ = 0 ;
         if (cart_list != null) {
 //            request.setAttribute("cart_list", cart_list);

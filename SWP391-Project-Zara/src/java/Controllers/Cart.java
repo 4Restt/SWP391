@@ -5,6 +5,7 @@
 package Controllers;
 
 import DAL.ProductDAO;
+import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
@@ -32,9 +33,14 @@ public class Cart extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        ArrayList<Models.Cart> cart_list = (ArrayList<Models.Cart>) request.getSession().getAttribute("cart-list");
+        User user = (User) request.getSession().getAttribute("account") ;
+        if(user == null ) {
+            response.sendRedirect("login");
+            return ;
+        }
+        ArrayList<Models.Cart> cart_list = (ArrayList<Models.Cart>) request.getSession().getAttribute("cart-list"+user.getAccount());
         List<Models.Cart> cartProduct = null;
+        
 
         if (cart_list != null) {
             cartProduct = ProductDAO.INSTANCE.getCartProduct(cart_list);

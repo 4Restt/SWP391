@@ -211,7 +211,7 @@
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
                                             <a href="detail?pifid=${lna.getProductInfoId()}&size=${lna.getSize()}&color=${lna.getColor()}">${lna.getName()}</a>
                                         </h5>
-                                        <a href="addToCart?pifid=${lna.getProductInfoId()}&size=${lna.getSize()}&color=${lna.getColor()}" class="text-decoration-none" data-after="Add to cart"><span>$ ${lna.getPrice()}</span></a>
+                                        <a href="addToCart?pifid=${lna.getProductInfoId()}&size=${lna.getSize()}&color=${lna.getColor()}&amount=1" class="text-decoration-none" data-after="Add to cart"><span>$ ${lna.getPrice()}</span></a>
                                     </div>
                                 </div>
                             </div>

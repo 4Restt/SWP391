@@ -27,6 +27,7 @@ public class Login extends HttpServlet {
             request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
         } else {
             HttpSession ses = request.getSession();
+            
             ses.setAttribute("account", UserDAO.INSTANCE.getUser());
             Cookie c = new Cookie("userC", account);
             Cookie p = new Cookie("passC", password);

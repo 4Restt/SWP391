@@ -34,7 +34,7 @@ public class Search extends HttpServlet {
         String txt = request.getParameter("txt");
         String sql = "WITH RankedProducts AS (\n"
                 + "	 SELECT P.product_info_id, P.size,  P.color, P.name, P.quantity,"
-                + " PI.description, PI.price, PI.img_default,\n"
+                + " PI.description, PI.price_sale, PI.img_default,\n"
                 + "	ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY PI.id) AS rn\n"
                 + "	FROM  Product P\n"
                 + "	JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
@@ -42,7 +42,7 @@ public class Search extends HttpServlet {
                 + "	JOIN Category C ON S.cate_id = C.id\n"
                 + ")\n"
                 + "SELECT product_info_id, size, color, name, quantity, "
-                + "description, price, img_default FROM RankedProducts WHERE rn = 1 and (";
+                + "description, price_sale, img_default FROM RankedProducts WHERE rn = 1 and (";
         String s1 = "";
         for (String s2 : search) {
             s1 += "[" + s2 + "] like CONCAT ('%',?,'%') or ";

@@ -1,7 +1,9 @@
 package Controllers;
 
 import DAL.CategoryDAO;
+import DAL.CustomerDAO;
 import DAL.UserDAO;
+import Models.Customer;
 import Models.User;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
@@ -50,7 +52,7 @@ public class SignUp extends HttpServlet {
         String email = request.getParameter("email");
         String address = request.getParameter("address");
         String phone = request.getParameter("phone");
-
+        
         if (!password.equals(repassword)) {
             warn = "Password and Re-password do not match!!! ";
             request.setAttribute("warn", warn);
@@ -60,9 +62,9 @@ public class SignUp extends HttpServlet {
             request.setAttribute("warn", warn);
             request.getRequestDispatcher("Views/SignUp.jsp").forward(request, response);
         } else {
-            UserDAO.INSTANCE.checkAccountExist(username);
-            User u = UserDAO.INSTANCE.checkEmailExist1(email);
-            if (UserDAO.INSTANCE.getUser() == null || u == null) {
+            CustomerDAO.INSTANCE.checkAccountExist(username);
+            Customer u = CustomerDAO.INSTANCE.checkEmailExist1(email);
+            if (CustomerDAO.INSTANCE.getCustomer() == null || u == null) {
                 HttpSession ses = request.getSession();
                 String verificationCode = generateRandomCode();
                 ses.setAttribute("code", verificationCode);

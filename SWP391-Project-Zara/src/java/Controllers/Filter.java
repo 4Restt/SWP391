@@ -38,7 +38,7 @@ public class Filter extends HttpServlet {
 
         String sql = "WITH RankedProducts AS (\n"
                 + "	 SELECT P.product_info_id, P.size, P.color, P.name, P.quantity,\n"
-                + "	 PI.price, PI.img_default,C.id as catid, S.id as [sid],\n"
+                + "	 PI.price_sale, PI.img_default,C.id as catid, S.id as [sid],\n"
                 + "	ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY CASE \n"
                 + "                                    WHEN P.size = 'S' THEN 0 \n"
                 + "                                    WHEN P.size = 'M' THEN 1 \n"
@@ -52,7 +52,7 @@ public class Filter extends HttpServlet {
                 + "	JOIN Category C ON S.cate_id = C.id\n"
                 + ")\n"
                 + "SELECT product_info_id, size, color, name,\n"
-                + "quantity, price, img_default, catid\n"
+                + "quantity, price_sale, img_default, catid\n"
                 + "FROM RankedProducts WHERE rn = 1 and ";
         String s = "";
         String catid = request.getParameter("catid");
@@ -77,13 +77,13 @@ public class Filter extends HttpServlet {
         if (price != null) {
             s += " And( ";
             if (price.equals("value1")) {
-                s += "(price < 100) or ";
+                s += "(price_sale < 100) or ";
             } else if (price.equals("value2")) {
-                s += "(price between 100 and 149) or ";
+                s += "(price_sale between 100 and 149) or ";
             } else if (price.equals("value3")) {
-                s += "(price between 150 and 200) or ";
+                s += "(price_sale between 150 and 200) or ";
             } else if (price.equals("value4")) {
-                s += "(price > 200) or ";
+                s += "(price_sale > 200) or ";
             }
             s += "0=1";
             s += " )";
@@ -124,7 +124,7 @@ public class Filter extends HttpServlet {
         String key = request.getParameter("txt");
         String sql = "WITH RankedProducts AS (\n"
                 + "	 SELECT P.product_info_id, P.size, P.color, P.name, P.quantity,\n"
-                + "	 PI.description, PI.price, PI.img_default,C.id as catid,\n"
+                + "	 PI.description, PI.price_sale, PI.img_default,C.id as catid,\n"
                 + "	ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY CASE \n"
                 + "                                    WHEN P.size = 'S' THEN 0 \n"
                 + "                                    WHEN P.size = 'M' THEN 1 \n"
@@ -138,7 +138,7 @@ public class Filter extends HttpServlet {
                 + "	JOIN Category C ON S.cate_id = C.id\n"
                 + ")\n"
                 + "SELECT product_info_id, size, color, name,\n"
-                + "quantity, description, price, img_default, catid\n"
+                + "quantity, description, price_sale, img_default, catid\n"
                 + "FROM RankedProducts WHERE rn = 1 and ";
         String s = "";
         String catid = request.getParameter("category");
@@ -158,13 +158,13 @@ public class Filter extends HttpServlet {
         if (price != null) {
 //            s += " And( ";
             if (price.equals("value1")) {
-                s += "(price < 100) or ";
+                s += "(price_sale < 100) or ";
             } else if (price.equals("value2")) {
-                s += "(price between 100 and 149) or ";
+                s += "(price_sale between 100 and 149) or ";
             } else if (price.equals("value3")) {
-                s += "(price between 150 and 200) or ";
+                s += "(price_sale between 150 and 200) or ";
             } else if (price.equals("value4")) {
-                s += "(price > 200) or ";
+                s += "(price_sale > 200) or ";
             }
             s += "0=1";
             s += " )";

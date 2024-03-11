@@ -74,7 +74,7 @@ public class OrderDAO {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getFloat(6),
-                        rs.getDate(7),
+                        rs.getString(7),
                         rs.getString(8),
                         rs.getString(9)
                 ));
@@ -104,7 +104,7 @@ public class OrderDAO {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getFloat(6),
-                        rs.getDate(7),
+                        rs.getString(7),
                         rs.getString(8),
                         rs.getString(9)
                 ));
@@ -150,7 +150,7 @@ public class OrderDAO {
                         rs.getInt(4),
                         rs.getString(5),
                         rs.getFloat(6),
-                        rs.getDate(7),
+                        rs.getString(7),
                         rs.getString(8),
                         rs.getString(9)
                 ));
@@ -204,9 +204,54 @@ public class OrderDAO {
         return addresses;
     }
 
+    public List<Order> getListOrderByStatus(String status) {
+        listOrder = new Vector<>();
+        String sql = "SELECT o.*, Customer.address AS customerAddress\n"
+                + "FROM [Order] o\n"
+                + "JOIN Customer ON o.customer_id = Customer.id\n"
+                + "WHERE o.status = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, status);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9)
+                );
+                listOrder.add(order);
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+
+        return listOrder;
+
+    }
+    public void updateStaff(String staffName,String id) {
+        String sql = "UPDATE [Order] SET Staff_name = ? WHERE id = ?";
+        
+        try{
+            ps = con.prepareStatement(sql);
+            ps.setString(1, staffName);
+            ps.setString(2, id);
+            ps.executeUpdate();   
+        }catch(Exception ex){
+            status = "Error at OrderDetail " + ex.getMessage();
+            System.out.println(status);
+        }
+    }
+
     public static void main(String[] args) {
-        OrderDAO.INSTANCE.listOfAddresses("Grab");
-        System.out.println(OrderDAO.INSTANCE.listOfAddresses("Grab"));
+
+        System.out.println(OrderDAO.INSTANCE.getListOrderByStatus("0"));
 
     }
 

@@ -1,12 +1,12 @@
 package DAL;
 
-import static DAL.ProductDAO.INSTANCE;
 import Models.User;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Vector;
 
 public class UserDAO {
 
@@ -16,6 +16,7 @@ public class UserDAO {
     private ResultSet rs = null;
     private User user;
     public static UserDAO INSTANCE = new UserDAO();
+    private List<User> listStaff;
 
     public UserDAO() {
         if (INSTANCE == null) {
@@ -47,15 +48,20 @@ public class UserDAO {
             ps.setString(1, email);
             rs = ps.executeQuery();
             while (rs.next()) {
-                return (new User(rs.getString(1),
+                return (new User(
+                        rs.getString(1),
                         rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
+                        rs.getString(3),
+                        rs.getInt(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 ));
-                
+
             }
         } catch (Exception e) {
         }
@@ -63,10 +69,17 @@ public class UserDAO {
     }
 
     public static void main(String[] args) {
-        User u = UserDAO.INSTANCE.checkEmailExist1("phuckmhe170685@fpt.edu.vn");
-        System.out.println(u.getAccount());
+        System.out.println("asdsad"+UserDAO.INSTANCE.getPasswordByid("3"));
+//        User u = UserDAO.INSTANCE.checkEmailExist1("phuckmhe170685@fpt.edu.vn");
+//        List<User> ll = UserDAO.INSTANCE.pagingStaff(1);
+//        UserDAO.INSTANCE.login("manager", "manager");
+//        System.out.println(UserDAO.INSTANCE.getUser());
+//        System.out.println(ll);
+//        System.out.println(u.getAccount());
+        
+
     }
-    
+
     public void login(String username, String password) {
         String sql = "select * from [User] where username = ? and [password] = ?";
         try {
@@ -75,13 +88,18 @@ public class UserDAO {
             ps.setString(2, password);
             rs = ps.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getString(1),
+                user = new User(
+                        rs.getString(1),
                         rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
+                        rs.getString(3),
+                        rs.getInt(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 );
             }
         } catch (Exception e) {
@@ -95,13 +113,18 @@ public class UserDAO {
             ps.setString(1, username);
             rs = ps.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getString(1),
+                user = new User(
+                        rs.getString(1),
                         rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
+                        rs.getString(3),
+                        rs.getInt(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 );
             }
         } catch (Exception e) {
@@ -115,13 +138,18 @@ public class UserDAO {
             ps.setString(1, email);
             rs = ps.executeQuery();
             while (rs.next()) {
-                user = new User(rs.getString(1),
+                user = new User(
+                        rs.getString(1),
                         rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
+                        rs.getString(3),
+                        rs.getInt(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 );
             }
         } catch (Exception e) {
@@ -157,6 +185,7 @@ public class UserDAO {
         }
 
     }
+
     public List<User> getAllUser() {
         String sql = "select * from [User] ";
         List<User> listUser = new ArrayList<>();
@@ -164,13 +193,18 @@ public class UserDAO {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
             while (rs.next()) {
-                User user = new User(rs.getString(1),
+                User user = new User(
+                        rs.getString(1),
                         rs.getString(2),
-                        rs.getInt(3),
-                        rs.getString(4),
+                        rs.getString(3),
+                        rs.getInt(4),
                         rs.getString(5),
                         rs.getString(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 );
 
                 listUser.add(user);
@@ -193,7 +227,7 @@ public class UserDAO {
         }
 
     }
-    
+
     public void ChangePhone(String phone, String username) {
         String sql = "Update [User] set [phone]=? where username = ? ";
         try {
@@ -206,7 +240,7 @@ public class UserDAO {
         }
 
     }
-    
+
     public void addAddress(String address, String username) {
         String sql = "Update [User] set [address]=address + '/' + ? where username = ? ";
         try {
@@ -219,7 +253,7 @@ public class UserDAO {
         }
 
     }
-    
+
     public void updateAddress(String address, String username) {
         String sql = "Update [User] set [address]= ? where username = ? ";
         try {
@@ -232,7 +266,7 @@ public class UserDAO {
         }
 
     }
-    
+
     public void updateUserName(String name, String username) {
         String sql = "Update [User] set [name]= ? where username = ? ";
         try {
@@ -244,5 +278,196 @@ public class UserDAO {
             System.out.println("addAddress: " + e.getMessage());
         }
 
+    }
+
+    public List<User> getListStaff() {
+        listStaff = new Vector<User>();
+        String sql = "SELECT * FROM [User] WHERE rollid = 3 ORDER BY id DESC";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                );
+
+                listStaff.add(user);
+            }
+        } catch (Exception e) {
+            System.out.println("getAllUser: " + e.getMessage());
+        }
+        return listStaff;
+    }
+
+    public void addNewStaff(String username, String password, String name, String phone,
+            String address, String email, String image) {
+        String sql = "INSERT INTO [dbo].[User] ([username], [password], [rollid], [name], [phone], [address], [email], [image])\n"
+                + "VALUES (?, ?, 3, ?, ?, ?, ?, ?);";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setString(3, name);
+            ps.setString(4, phone);
+            ps.setString(5, address);
+            ps.setString(6, email);
+            ps.setString(7, image);
+            ps.execute();
+        } catch (Exception e) {
+            status = "Error at Insert User" + e.getMessage();
+        }
+    }
+
+    public void updateStatus(String id, String status) {
+        String sql = "Update [User] set [status]= ? where id = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setString(2, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+
+    }
+
+    public void editStaff(String id, String username, String password, String name, String phone,
+            String address, String email, String image) {
+        String sql = "Update [User] set [username]= ?, [password]=?, [name] = ?, [phone] = ?, [address] = ?, "
+                + "[email] = ?, [image] = ? where id = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(8, id);
+            ps.setString(1, username);
+            ps.setString(2, password);
+            ps.setString(3, name);
+            ps.setString(4, phone);
+            ps.setString(5, address);
+            ps.setString(6, email);
+            ps.setString(7, image);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+
+    }
+
+    public int getTotalStaff() {
+        String sql = "SELECT count(*) from [User] where rollid = 3 ";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalStaff: " + e.getMessage());
+        }
+        return 0;
+    }
+
+    public List<User> pagingStaff(int index) {
+        listStaff = new Vector<>();
+        String sql = "SELECT * FROM [User]\n"
+                + "WHERE rollid = 3\n"
+                + "ORDER BY id	DESC\n"
+                + "OFFSET ? ROWS FETCH NEXT 3 ROWS ONLY";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, (index-1)*3);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                User user = new User(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                );
+                listStaff.add(user);
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalStaff: " + e.getMessage());
+        }
+        return listStaff;
+    }
+    public User getUserById(String id){
+        String sql = "SELECT * FROM [User] Where id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+               return( new User(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                ));
+               
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalStaff: " + e.getMessage());
+        }
+        return null;
+    }
+    public void deleteUser(String id){
+        String sql = "DELETE FROM [User] Where id = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.execute();
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+    }
+    public String getPasswordByid(String id){
+         String sql = "SELECT [password] from [User] WHERE id = ?";
+         try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getString("password");    
+            }
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+         return null;
+    }
+    public void changePassword(String id, String newPass){
+        String sql = "Update [User] set [password]= ? where id = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, newPass);
+            ps.setString(2, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
     }
 }

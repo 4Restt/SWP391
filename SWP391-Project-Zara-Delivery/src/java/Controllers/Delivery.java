@@ -71,6 +71,8 @@ public class Delivery extends HttpServlet {
             String content = (String) request.getAttribute("content");
             if (content != null && content.equals("profile")) {
                 request.setAttribute("content", "profile");
+            }else if(content != null && content.equals("shipperList")){
+                request.setAttribute("content", "shipperList");
             } else {
                 request.setAttribute("content", "unassignedOrders");
             }
@@ -84,8 +86,8 @@ public class Delivery extends HttpServlet {
             
 
         }
-        request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
-
+            request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
+     
     }
 
     /**

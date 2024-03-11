@@ -8,298 +8,52 @@
         <meta charset="utf-8">
         <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
         <title>Delivery Page</title>
-        <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" rel="stylesheet">
+        <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/css/bootstrap.min.css" rel="stylesheet">
+        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.1.3/dist/js/bootstrap.bundle.min.js"></script>
         <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+        <script src="https://code.jquery.com/jquery-3.5.1.min.js"></script>
         <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
         <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-        <style>
-            /* Đặt lại một số phong cách cơ bản */
-            body, h1, h2, h3, h4, h5, h6, p, .navbar, .navbar a, .navbar button {
-                margin: 0;
-                padding: 0;
-                font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            }
-
-            /* Phong cách cơ bản cho trang */
-            body {
-                background-color: #f4f4f4;
-                color: #5a5c69;
-                font-size: 0.875rem;
-            }
-
-            /* Phong cách cho tiêu đề */
-            .navbar h1 {
-                font-size: 1.75rem;
-                margin-right: 2rem;
-            }
-
-            /* Thanh điều hướng phía trên cùng */
-            .navbar {
-                overflow: hidden;
-                background-color: #1cc88a; /* Màu xanh lá cây đậm cho navbar */
-                padding: 10px 16px;
-                display: flex;
-                justify-content: start; /* Căn chỉnh các nút ở bên trái */
-                align-items: center;
-            }
-
-            .navbar button {
-                color: white;
-                padding: 10px 16px;
-                margin-right: 8px; /* Giảm khoảng cách giữa các nút */
-                background-color: #1cc88a; /* Đồng bộ màu với navbar */
-                border: 1px solid transparent; /* Loại bỏ đường viền */
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background-color 0.3s, box-shadow 0.2s;
-            }
-
-            .navbar button:hover, .navbar button.active {
-                background-color: #66e6a1; /* Màu nhẹ hơn khi hover */
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            }
-
-            /* Bổ sung phong cách cho tiêu đề h3 để không có margin và phù hợp với nút */
-            .navbar h3 {
-                margin: 0;
-                color: white;
-                padding-right: 16px; /* Tạo khoảng cách giữa tiêu đề và nút đầu tiên */
-            }
 
 
-            /* Container cho nội dung chính */
-            .container {
-                max-width: 1200px;
-                margin: 1.5rem auto;
-                padding: 1.5rem;
-                background: #fff;
-                box-shadow: 0 0 20px 0 rgba(0, 0, 0, 0.1);
-                border-radius: 0.35rem;
-            }
-
-            /* Phong cách cho bảng */
-            table {
-                width: 100%;
-                margin-top: 1rem;
-                border-collapse: collapse;
-            }
-
-            table thead tr {
-                background-color: #4e73df;
-                color: #ffffff;
-            }
-
-            table th, table td {
-                padding: 0.75rem;
-                border: 1px solid #e3e6f0;
-            }
-
-            /* Phong cách cho form */
-            form {
-                margin-top: 1rem;
-            }
-
-            .form-group {
-                margin-bottom: 1rem;
-            }
-
-            .form-group label {
-                display: block;
-                margin-bottom: 0.5rem;
-            }
-
-            .form-group input[type="text"],
-            .form-group input[type="email"],
-            .form-group input[type="tel"],
-            .form-group input[type="password"],
-            .form-group select {
-                display: block;
-                width: 100%;
-                padding: 0.375rem 0.75rem;
-                font-size: 0.875rem;
-                font-weight: 400;
-                line-height: 1.5;
-                color: #495057;
-                background-color: #fff;
-                background-clip: padding-box;
-                border: 1px solid #d1d3e2;
-                border-radius: 0.35rem;
-                transition: border-color 0.15s ease-in-out, box-shadow 0.15s ease-in-out;
-            }
-
-            .form-group input[type="text"]:focus,
-            .form-group input[type="email"]:focus,
-            .form-group input[type="tel"]:focus,
-            .form-group input[type="password"]:focus,
-            .form-group select:focus {
-                color: #495057;
-                background-color: #fff;
-                border-color: #bac8f3;
-                outline: 0;
-                box-shadow: 0 0 0 0.2rem rgba(78, 115, 223, 0.25);
-            }
-
-            /* Phong cách cho các nút */
-            .btn {
-                padding: 0.375rem 0.75rem;
-                border-radius: 0.35rem;
-                font-size: 0.875rem;
-                line-height: 1.5;
-                transition: color 0.15s ease-in-out, background-color 0.15s ease-in-out, border-color 0.15s ease-in-out;
-            }
-
-            .btn-primary {
-                color: #fff;
-                background-color: #4e73df;
-                border-color: #4e73df;
-            }
-
-            .btn-primary:hover {
-                color: #fff;
-                background-color: #2e59d9;
-                border-color: #2653d4;
-            }
-
-            .btn-danger {
-                color: #fff;
-                background-color: #e74a3b;
-                border-color: #e74a3b;
-            }
-
-            .btn-danger:hover {
-                color: #fff;
-                background-color: #d42a1b;
-                border-color: #c21a0b;
-            }
-
-            /* Phong cách cho thông báo lỗi */
-            .alert {
-                padding: 0.75rem 1.25rem;
-                margin-bottom: 1rem;
-                border: 1px solid transparent;
-                border-radius: 0.35rem;
-            }
-
-            .alert-danger {
-                color: #721c24;
-                background-color: #f8d7da;
-                border-color: #f5c6cb;
-            }
-
-            /* Phong cách cơ bản cho các nút order-type */
-            .order-type-button {
-                color: #1cc88a;
-                padding: 10px 20px;
-                border: none;
-                border-radius: 4px;
-                cursor: pointer;
-                transition: background-color 0.3s, box-shadow 0.2s;
-                margin-right: 8px; /* Điều chỉnh khoảng cách giữa các nút */
-            }
-
-            /* Màu sắc đặc trưng cho từng loại đơn hàng */
-            .order-type-button.assigned {
-                background-color: #1cc88a;
-            }
-
-            .order-type-button.unassigned {
-                background-color: #1cc88a;
-            }
-
-            .order-type-button.cancelled {
-                background-color: #1cc88a;
-            }
-
-            .order-type-button:hover {
-                box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
-                transform: translateY(-2px);
-            }
-
-            .order-type-button:active {
-                box-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.2);
-                transform: translateY(1px);
-            }
-
-            #unassignedOrdersContent .flex-container {
-                display: flex;
-                justify-content: space-between;
-                gap: 20px;
-            }
-
-            #unassignedOrdersContent .orders-column,
-            #unassignedOrdersContent .shippers-column {
-                flex-basis: 48%; /* Cho phép mỗi cột chiếm gần nửa chiều rộng của container */
-            }
-
-            #unassignedOrdersContent h4 {
-                margin-top: 0;
-            }
-
-            #unassignedOrdersContent .order-details {
-                background-color: #f8f9fc;
-                border-radius: 4px;
-                margin-bottom: 10px;
-                padding: 10px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            #unassignedOrdersContent .shipper-line {
-                background-color: #f8f9fc;
-                border-radius: 4px;
-                padding: 10px;
-                margin-bottom: 10px;
-                box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-            }
-
-            #unassignedOrdersContent .shippers-list {
-                display: flex;
-                flex-direction: column;
-            }
-
-            #unassignedOrdersContent .orders-list {
-                display: flex;
-                flex-direction: column;
-            }
-
-            #unassignedOrdersContent input[type="submit"] {
-                margin-top: 10px;
-                background-color: #4e73df;
-                color: white;
-                border: none;
-                border-radius: 4px;
-                padding: 10px 20px;
-                cursor: pointer;
-            }
-
-            #unassignedOrdersContent input[type="submit"]:hover {
-                background-color: #2e59d9;
-            }
-
-            .modal-header {
-                background-color: #f4f4f4; /* Your desired header background color */
-            }
-
-            .modal-title {
-                color: #333; /* Your desired title text color */
-            }
-
-            /* Add any additional custom styles you want for the modal here */
-
-        </style>
+        <link rel="stylesheet" type="text/css" href="css/deliver.css">
 
     </head>
     <body>
-        <input type="hidden" id="contentValue" value="${content}">
-
-        <div class="navbar">
-            <h3>Orders for Delivery ${deliveryName}</h3>
-            <button id="loadOrdersButton" onclick="loadOrders()">Load Orders</button>
-            <button id="loadProfileButton" onclick="loadProfile()">Load Profile</button>
-            <button id="loadShipperListButton" onclick="loadShipperList()">Load Shipper List</button>
+        <div class="sidebar">
+            <h3>${deliveryName}</h3>
+            <div id="loadOrdersMenu" class="list-group-item">
+                <a href="#loadOrdersSubMenu" data-toggle="collapse" aria-expanded="false" class="dropdown-toggle">Load Orders</a>
+                <ul class="collapse list-unstyled" id="loadOrdersSubMenu">
+                    <li>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="loadUnassign()">Load Unassigned Orders</a>
+                    </li>
+                    <li>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="loadAssign()">Load Assigned Orders</a>
+                    </li>
+                    <li>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="loadCancel()">Load Cancelled Orders</a>
+                    </li>
+                </ul>
+            </div>
+            <!-- Load Profile with onclick event -->
+            <a href="#" id="loadProfileButton" class="list-group-item list-group-item-action" onclick="loadProfile()">Load Profile</a>
+            <!-- Load Shipper List with onclick event -->
+            <a href="#" id="loadShipperListButton" class="list-group-item list-group-item-action" onclick="loadShipperList()">Load Shipper List</a>
         </div>
 
-        <div class="container">
-            <div class="content">
+
+        <div class="content-wrapper">
+            <div class="navbar">
+                <h3>Wellcome hello hello</h3>
+                <div class="logout-container">
+                    <a href="login" role="button">Logout</a>
+                </div>
+            </div>
+            <input type="hidden" id="contentValue" value="${content}">        
+
+
+            <div id="content">
                 <div id="orderContent" style="display:none;">
 
                     <!-- Additional buttons for order types within Load Orders view -->
@@ -332,62 +86,176 @@
                     </form>
                 </div>
 
-                <div id="shipperListContent" style="display:none;">
-                    <h3>Available Shippers for Delivery ${deliveryName}</h3>
+                <!-- Hiển thị danh sách shipper -->
+                <div id="shipperListContent" style="display:block;">
+                    <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addShipperModal">Add Shipper</button>
                     <table class="table">
                         <thead>
                             <tr>
+                                <th>Image</th>
                                 <th>Name</th>
-                                <th>Location</th>
                                 <th>Phone</th>
-                                <th>Action</th>
+                                <th>Location</th>
+                                <th>Actions</th>
                             </tr>
                         </thead>
                         <tbody>
                             <c:forEach items="${listShipper}" var="shipper">
                                 <tr>
-                                    <td>${shipper.name}</td>
-                                    <td>${shipper.location_name}</td>
-                                    <td>${shipper.phone}</td>
+                                    <td><img src="${shipper.getImage()}" alt="Shipper Image" style="width:50px; height:auto;"></td>
+                                    <td>${shipper.getName()}</td>
+                                    <td>${shipper.getPhone()}</td>
+                                    <td>${shipper.getLocation_name()}</td>
                                     <td>
-                                        <button type="button" class="btn btn-primary btn-edit-shipper" data-toggle="modal" data-target="#editShipperModal" data-id="${shipper.id}" data-name="${shipper.name}" data-location="${shipper.location_name}" data-phone="${shipper.phone}">
-                                            Edit
-                                        </button>
+                                        <!-- Nút kích hoạt modal chỉnh sửa -->
+                                        <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#editShipperModal${shipper.getId()}">Edit</button>
                                     </td>
                                 </tr>
                             </c:forEach>
                         </tbody>
-                    </table>                   
-                </div>
-                <!-- Modal Edit Shipper -->
-                <div class="modal fade" id="editShipperModal" tabindex="-1" role="dialog" aria-labelledby="editShipperModalLabel" aria-hidden="true">
-                    <div class="modal-dialog" role="document">
-                        <div class="modal-content">
-                            <div class="modal-header">
-                                <h5 class="modal-title" id="editShipperModalLabel">Edit Shipper</h5>
-                                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                    <span aria-hidden="true">&times;</span>
-                                </button>
+                    </table>
+
+                    <!-- Modal chỉnh sửa cho mỗi shipper -->
+                    <c:forEach items="${listShipper}" var="shipper">
+                        <script>
+                            function uploadImage${shipper.getId()}() {
+                                var formData = new FormData($('#uploadForm${shipper.getId()}')[0]);
+                                $.ajax({
+                                    type: 'POST',
+                                    url: 'uploadimgajax', // Modify to match your servlet mapping
+                                    data: formData,
+                                    processData: false,
+                                    contentType: false,
+                                    success: function (response) {
+                                        // Display the uploaded image
+                                        var imgSrc = response ? response : '${shipper.getImage()}';
+                                        $(('#imgAfterUp${shipper.getId()}')).attr('src', imgSrc);
+                                        $('input[name="image"]').attr('value', imgSrc);
+                                    },
+                                    error: function (xhr, status, error) {
+                                        // Handle errors
+                                        console.error(xhr.responseText);
+                                    }
+                                });
+                            }
+
+                        </script>         
+                        <div class="modal fade" id="editShipperModal${shipper.getId()}" tabindex="-1" aria-labelledby="editShipperModalLabel${shipper.getId()}" aria-hidden="true">
+                            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                <div class="modal-content">
+                                    <div class="modal-header border-bottom p-3">
+                                        <h5 class="modal-title" id="editShipperModalLabel${shipper.getId()}">Edit Shipper</h5>
+                                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                                    </div>
+                                    <div class="modal-body p-3 pt-4">
+                                        <div class="card border-0 p-4 rounded shadow">
+                                            <div class="row align-items-center">
+                                                <div class="col-lg-2 col-md-4">
+                                                    <img id ="imgAfterUp${shipper.getId()}" src="${shipper.getImage()}" 
+                                                         class="avatar avatar-small rounded-pill shadow mx-auto d-block avatar-img" style="width:50px; height:auto;" alt="">
+                                                </div><!--end col-->
+
+                                                <div class="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
+                                                    <h5 class="">Upload your picture</h5>
+                                                    <p class="text-muted mb-0">For best results, use an image at least 600px by 600px in either .jpg or .png format</p>
+                                                </div><!--end col-->
+                                            </div><!--end row-->
+                                            <!-- Form Upload Image -->
+                                            <form id="uploadForm${shipper.getId()}" enctype="multipart/form-data">
+                                                <div class="col-lg-6 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
+                                                    <input type="file" class="form-control" name="image" id="imageUploadInput">
+                                                    <input type="text" name="imageBackUp" hidden="" value="${shipper.getImage()}">
+
+                                                    <input type="button" class="btn btn-primary" value="Upload" onclick="uploadImage${shipper.getId()}()">
+                                                    <a href="#" class="btn btn-soft-primary ms-2" id="removeButton">Remove</a>
+                                                </div>
+                                            </form>
+                                            <!-- Separate Form for Editing Shipper Details -->
+                                            <form method="post" action="manageshipper?shipperId=${shipper.getId()}">
+                                                <div class="row">
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label for="name${shipper.getId()}" class="form-label">Name <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" id="name${shipper.getId()}" name="shipperName" value="${shipper.getName()}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-6">
+                                                        <div class="mb-3">
+                                                            <label for="name${shipper.getId()}" class="form-label">Password <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" id="name${shipper.getId()}" name="shipperPassword" value="${shipper.getPassword()}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="phone${shipper.getId()}" class="form-label">Phone <span class="text-danger">*</span></label>
+                                                            <input type="tel" class="form-control" id="phone${shipper.getId()}" name="shipperPhone" value="${shipper.getPhone()}" required>
+                                                        </div>
+                                                    </div>
+                                                    <div class="col-lg-12">
+                                                        <div class="mb-3">
+                                                            <label for="address${shipper.getId()}" class="form-label">Address <span class="text-danger">*</span></label>
+                                                            <input type="text" class="form-control" id="address${shipper.getId()}" name="shipperLocation" value="${shipper.getLocation_name()}" required>
+                                                        </div>
+                                                    </div>
+                                                    <!-- Hidden field for image URL, updated on successful image upload -->
+                                                    <input type="text" name="imageBackUp" hidden="" value="${shipper.getImage()}">
+                                                    <input type="text" name="image" hidden="" value="">
+                                                    <div class="col-lg-12">
+                                                        <div class="d-grid">
+                                                            <button type="submit" class="btn btn-primary">Save Changes</button>
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                            </form>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                            <div class="modal-body">
-                                <!-- Form fields for editing shipper will go here -->
-                                <!-- Example fields -->
-                                <div class="form-group">
-                                    <label for="shipperNameModal">Name:</label>
-                                    <input type="text" class="form-control" id="shipperNameModal" required>
+                        </div>
+                    </c:forEach>
+
+                    <!-- Button to Open the Modal -->
+                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addShipperModal">Add Shipper</button>
+
+                    <div class="modal fade" id="addShipperModal" tabindex="-1" aria-labelledby="addShipperModalLabel" aria-hidden="true">
+                        <div class="modal-dialog modal-lg">
+                            <div class="modal-content">
+                                <div class="modal-header">
+                                    <h5 class="modal-title" id="addShipperModalLabel">Add New Shipper</h5>
+                                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
-                                <div class="form-group">
-                                    <label for="shipperLocationModal">Location:</label>
-                                    <input type="text" class="form-control" id="shipperLocationModal" required>
+                                <div class="modal-body">
+                                    <div class="col-lg-8 mt-4">
+                                        <div class="card border-0 p-4 rounded shadow">
+                                            <div class="row align-items-center">
+                                                <div class="col-lg-2 col-md-4">
+                                                    <img id="imgAfterUp" src="images/profile-image-default.jpg" 
+                                                         class="avatar avatar-md-md rounded-pill shadow mx-auto d-block avatar-img" style="width:50px; height:auto;" alt="">
+                                                </div><!--end col-->
+
+                                                <div class="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
+                                                    <h5>Upload your picture</h5>
+                                                    <p class="text-muted mb-0">For best results, use an image at least 600px by 600px in either .jpg or .png format</p>
+                                                </div><!--end col-->
+                                            </div><!--end row-->
+                                            <form id="uploadForm" enctype="multipart/form-data">
+                                                <div class="col-lg-6 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
+                                                    <input type="file" class="form-control" name="image" id="imageUploadInput">
+                                                    <input type="button" class="btn btn-primary" value="Upload" onclick="uploadImage()">
+                                                    <a href="#" class="btn btn-soft-primary ms-2" id="removeButton">Remove</a>
+                                                </div><!--end col-->
+                                            </form>
+
+                                            <div id="status"></div>
+                                            <form class="mt-4" action="addshipper" method="post">
+                                                <!-- Form Fields for Shipper Details -->
+                                                <!-- Similar to your provided structure, include fields for name, username, password, etc. -->
+                                                <input type="text" name="image" hidden="" value="">
+                                                <button type="submit" class="btn btn-primary">Add Shipper</button>
+                                            </form>
+                                        </div>
+                                    </div>
                                 </div>
-                                <div class="form-group">
-                                    <label for="shipperPhoneModal">Phone:</label>
-                                    <input type="tel" class="form-control" id="shipperPhoneModal" required>
-                                </div>
-                            </div>
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-                                <button type="submit" class="btn btn-primary">Save changes</button>
                             </div>
                         </div>
                     </div>
@@ -395,61 +263,107 @@
 
                 <div id="assignedOrdersContent" style="display:none;">
                     <h3>Assigned Orders</h3>
-                    <c:forEach items="${alreadyOrders}" var="order">                                                 
-                        <div class="order-details">
-                            <h3>Order ID: ${order.id}</h3>
-                            <p>Customer Address: ${order.customerAddress} </p> 
-                            <p>Total Price: ${order.totalprice}</p>
-                            <p>Date: ${order.date}</p>
-                            <p>Status: ${order.status}</p>                               
-                        </div>
-                    </c:forEach>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Customer Address</th>
+                                <th>Total Price</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${alreadyOrders}" var="order" varStatus="status">
+                                <tr>
+                                    <td>${status.index + 1}</td>
+                                    <td>${order.customerAddress}</td>
+                                    <td>${order.totalprice}</td>
+                                    <td>${order.date}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${order.status == 1}">Prepare</c:when>
+                                            <c:when test="${order.status == 2}">Shipping</c:when>
+                                            <c:when test="${order.status == 3}">Cancelled</c:when>
+                                            <c:otherwise>Unknown</c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
+
                 <!-- Đơn hàng chưa giao -->
                 <div id="unassignedOrdersContent" style="display:none;">
+                    <h3>Unassigned Orders</h3>
+                    <select id="addressSelect" onchange="filterByAddress(this.value)">
+                        <option value="">All</option>
+                        <c:forEach items="${listOfAddresses}" var="address">
+                            <option value="${address}" ${address.equals(sessionScope.filterSearchTerm) ? "selected" : ""}>${address}</option>
+                        </c:forEach>
+                    </select>
+
+                    <!-- Bảng Unassigned Orders --> 
                     <form id="assignShipperForm" method="POST" action="assignorder">
-                        <div class="flex-container">
-                            <!-- Cột cho danh sách đơn hàng -->
-                            <div class="orders-column">
-                                <h3>Unassigned Orders</h3>
-                                <select id="addressSelect" onchange="filterByAddress(this.value)">
-                                    <option value="">All</option>
-                                    <c:forEach items="${listOfAddresses}" var="address">
-                                        <option value="${address}" ${address.equals(sessionScope.filterSearchTerm) ? "selected" : ""}>${address}</option>
-                                    </c:forEach>
-                                </select>
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>STT</th>
+                                    <th>Select</th>
+                                    <th>Customer Address</th>
+                                    <th>Total Price</th>
+                                    <th>Date</th>
+                                    <th>Status</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${orders}" var="order" varStatus="status">
+                                    <tr>
+                                        <td>${status.index + 1}</td>
+                                        <td><input type="checkbox" name="selectedOrders" value="${order.id}"/></td>
+                                        <td>${order.customerAddress}</td>
+                                        <td>${order.totalprice}</td>
+                                        <td>${order.date}</td>
+                                        <td>
+                                            <c:choose>
+                                                <c:when test="${order.status == 1}">Prepare</c:when>
+                                                <c:when test="${order.status == 2}">Shipping</c:when>
+                                                <c:when test="${order.status == 3}">Cancelled</c:when>
+                                                <c:otherwise>Unknown</c:otherwise>
+                                            </c:choose>
+                                        </td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
 
-                                <div class="orders-list">
-                                    <c:forEach items="${orders}" var="order">
-                                        <div class="order-details" data-order-address="${order.customerAddress}">
-                                            <p>Customer Address: ${order.customerAddress}</p>
-                                            <p>Total Price: ${order.totalprice}</p>
-                                            <p>Date: ${order.date}</p>
-                                            <p>Status: ${order.status}</p>
-                                            <label>Select
-                                                <input type="checkbox" name="selectedOrders" value="${order.id}"/>
-                                            </label>
-                                        </div>
-                                    </c:forEach>
-                                </div>
-                            </div>
+                        <h3>Available Shippers for Delivery ${deliveryName}</h3>
+                        <!-- Bảng Shipper List -->
+                        <table class="table">
+                            <thead>
+                                <tr>
+                                    <th>Select</th>
+                                    <th>Name</th>
+                                    <th>Location</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <c:forEach items="${shippers}" var="shipper">
+                                    <tr>
+                                        <td><input type="checkbox" class="shipper-checkbox" name="shipperId" value="${shipper.getId()}" onclick="onlyOneShipper(this)"/></td>
+                                        <td>${shipper.getName()}</td>
+                                        <td>${shipper.getLocation_name()}</td>
+                                    </tr>
+                                </c:forEach>
+                            </tbody>
+                        </table>
 
-                            <!-- Cột cho danh sách shipper -->
-                            <div class="shippers-column">
-                                <h3>Available Shippers for Delivery ${deliveryName}</h3>
-                                <div class="shippers-list">
-                                    <c:forEach items="${shippers}" var="shipper">
-                                        <label class="shipper-label">
-                                            <input type="checkbox" class="shipper-checkbox" name="shipperId" value="${shipper.id}" onclick="onlyOneShipper(this)">
-                                            ${shipper.name} - ${shipper.location_name}
-                                        </label>
-                                    </c:forEach>
-                                </div>
-                            </div>
-                        </div>
-                        <button type="submit">Assign Shipper</button>
-                    </form>                    
+
+                        <button type="submit" class="btn btn-primary">Assign Shipper</button>
+                    </form>
                 </div>
+
 
 
                 <!-- Đơn hàng đã hủy -->
@@ -457,8 +371,8 @@
                     <!-- Nội dung cho đơn hàng đã hủy -->
                 </div>
             </div>
-        </div>
 
+        </div>
         <script>
             function loadOrders() {
                 document.getElementById("orderContent").style.display = "block";
@@ -470,28 +384,62 @@
                 applyCurrentFilter();
             }
 
+            function loadUnassign() {
+                // Ẩn tất cả các phần nội dung khác
+                document.getElementById("orderContent").style.display = "none";
+                document.getElementById("shipperListContent").style.display = "none";
+                document.getElementById("assignedOrdersContent").style.display = "none";
+                document.getElementById("unassignedOrdersContent").style.display = "block";
+                document.getElementById("cancelledOrdersContent").style.display = "none";
+
+                document.getElementById("profileContent").style.display = "none";
+            }
+
+            function loadAssign() {
+                // Ẩn tất cả các phần nội dung khác
+                document.getElementById("orderContent").style.display = "none";
+                document.getElementById("shipperListContent").style.display = "none";
+                document.getElementById("assignedOrdersContent").style.display = "block";
+                document.getElementById("unassignedOrdersContent").style.display = "none";
+                document.getElementById("cancelledOrdersContent").style.display = "none";
+
+                document.getElementById("profileContent").style.display = "none";
+            }
+
+            function loadCancel() {
+                // Ẩn tất cả các phần nội dung khác
+                document.getElementById("orderContent").style.display = "none";
+                document.getElementById("shipperListContent").style.display = "none";
+                document.getElementById("assignedOrdersContent").style.display = "none";
+                document.getElementById("unassignedOrdersContent").style.display = "none";
+                document.getElementById("cancelledOrdersContent").style.display = "block";
+
+                document.getElementById("profileContent").style.display = "none";
+            }
 
             function loadProfile() {
+                // Ẩn tất cả các phần nội dung khác
                 document.getElementById("orderContent").style.display = "none";
-                document.getElementById("profileContent").style.display = "block";
                 document.getElementById("shipperListContent").style.display = "none";
-                // Thêm các dòng sau
                 document.getElementById("assignedOrdersContent").style.display = "none";
-                document.getElementById("unassignedOrdersContent").style.display = "none"; // Ẩn Unassigned Orders khi Load Profile
+                document.getElementById("unassignedOrdersContent").style.display = "none";
                 document.getElementById("cancelledOrdersContent").style.display = "none";
-                setActiveButton("loadProfileButton");
+
+                document.getElementById("profileContent").style.display = "block";
             }
 
+
             function loadShipperList() {
+                // Ẩn tất cả các phần nội dung khác
                 document.getElementById("orderContent").style.display = "none";
                 document.getElementById("profileContent").style.display = "none";
-                document.getElementById("shipperListContent").style.display = "block";
-                // Thêm các dòng sau
                 document.getElementById("assignedOrdersContent").style.display = "none";
-                document.getElementById("unassignedOrdersContent").style.display = "none"; // Ẩn Unassigned Orders khi Load Shipper List
+                document.getElementById("unassignedOrdersContent").style.display = "none";
                 document.getElementById("cancelledOrdersContent").style.display = "none";
-                setActiveButton("loadShipperListButton");
+                document.getElementById("shipperListContent").style.display = "block";
             }
+
+
 
             function setActiveButton(buttonId) {
                 var buttons = document.getElementsByClassName("navbar")[0].getElementsByTagName("button");
@@ -551,6 +499,8 @@
                     document.getElementById("assignedOrdersContent").style.display = "block";
                 } else if (content === 'profile') {
                     document.getElementById("profileContent").style.display = "block";
+                } else if (content === 'shipperList') {
+                    document.getElementById("shipperListContent").style.display = "block";
                 }
 
             }
@@ -558,20 +508,26 @@
 
 
             function filterByAddress(searchTerm) {
-                const orderElements = document.querySelectorAll('.order-details');
-                const shipperLabels = document.querySelectorAll('.shipper-label');
                 const normalizedSearchTerm = searchTerm.trim().toLowerCase();
-                orderElements.forEach(function (element) {
-                    const address = element.dataset.orderAddress.trim().toLowerCase();
-                    element.style.display = address.includes(normalizedSearchTerm) ? '' : 'none';
+
+                // Lọc đơn hàng chưa được giao
+                const orderRows = document.querySelectorAll("#unassignedOrdersContent .table:first-of-type tbody tr");
+                orderRows.forEach(function (row) {
+                    // Địa chỉ khách hàng nằm ở cột thứ hai
+                    const customerAddress = row.cells[2].textContent.trim().toLowerCase();
+                    row.style.display = customerAddress.includes(normalizedSearchTerm) || normalizedSearchTerm === '' ? "" : "none";
                 });
-                shipperLabels.forEach(function (label) {
-                    const text = label.textContent.toLowerCase() || label.innerText.toLowerCase();
-                    label.style.display = text.includes(normalizedSearchTerm) ? '' : 'none';
+
+                // Lọc danh sách shipper
+                const shipperRows = document.querySelectorAll("#unassignedOrdersContent .table:last-of-type tbody tr");
+                shipperRows.forEach(function (row) {
+                    // Địa điểm shipper nằm ở cột thứ ba
+                    const locationName = row.cells[2].textContent.trim().toLowerCase();
+                    row.style.display = locationName.includes(normalizedSearchTerm) || normalizedSearchTerm === '' ? "" : "none";
                 });
-                // Lưu searchTerm vào sessionStorage
-                sessionStorage.setItem('filterSearchTerm', normalizedSearchTerm);
             }
+
+
 
             // Hàm mới để áp dụng bộ lọc hiện tại
             function applyCurrentFilter() {
@@ -590,35 +546,30 @@
                 });
             }
 
-            $(document).ready(function () {
-                $('.btn-edit-shipper').on('click', function () {
-                    // Lấy dữ liệu từ data attributes của nút được nhấn
-                    var shipperId = $(this).data('id');
-                    var shipperName = $(this).data('name');
-                    var shipperLocation = $(this).data('location');
-                    var shipperPhone = $(this).data('phone');
-
-                    // Đặt dữ liệu vào các trường của form trong modal
-                    $('#shipperNameModal').val(shipperName);
-                    $('#shipperLocationModal').val(shipperLocation);
-                    $('#shipperPhoneModal').val(shipperPhone);
-
-                    // Lưu ID của shipper vào một trường ẩn để sử dụng khi gửi form
-                    $('#editShipperModal').find('[name="shipperId"]').val(shipperId);
-
-                    // Hiển thị modal
-                    $('#editShipperModal').modal('show');
+            function uploadImageShipper(id) {
+                var formData = new FormData(document.getElementById('uploadForm' + id));
+                $.ajax({
+                    type: 'POST',
+                    url: 'uploadShipperImage', // Đường dẫn tới endpoint xử lý việc tải ảnh lên của bạn
+                    data: formData,
+                    processData: false, // Không xử lý dữ liệu
+                    contentType: false, // Không đặt contentType
+                    success: function (response) {
+                        // Thành công, cập nhật URL ảnh mới vào giao diện người dùng
+                        // Giả sử 'response' là URL mới của ảnh
+                        $('#currentImage' + id).attr('src', response);
+                        // Cập nhật giá trị của trường ẩn trong form cập nhật thông tin để gửi URL ảnh mới
+                        $('#image' + id).val(response);
+                    },
+                    error: function (xhr, status, error) {
+                        console.error("Error: " + error);
+                    }
                 });
+            }
 
-                // Bắt sự kiện submit của form
-                $('#editShipperForm').on('submit', function (event) {
-                    event.preventDefault(); // Ngăn không cho form gửi theo cách thông thường
-
-                    // Gửi dữ liệu đến server ở đây...
-                });
-            });
 
         </script>
     </body>
+
 
 </html>

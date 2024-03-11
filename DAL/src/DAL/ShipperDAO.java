@@ -104,7 +104,8 @@ public class ShipperDAO {
                         rs.getString("password"),
                         rs.getInt("location_id"),
                         rs.getString("phone"),
-                        rs.getString("location_name")
+                        rs.getString("location_name"),
+                        rs.getString("image")
                 );
                 System.out.println("OK");
             } else {
@@ -163,6 +164,7 @@ public class ShipperDAO {
                         .location_id(rs.getInt("location_id"))
                         .phone(rs.getString("phone"))
                         .location_name(rs.getString("location_name"))
+                        .image(rs.getString("image"))
                         .build();
                 listShipper.add(shipper);
             }
@@ -171,6 +173,78 @@ public class ShipperDAO {
         }
         return listShipper;
     }
+
+    public void shipperProfile(String id, String name, String password, String location_name, String phone, String image) {
+        String sql = "UPDATE Shipper SET [name] = ? , [password] = ? , phone = ? , \n"
+                + "location_id = (select id from [Location] where [name] = ? ) , \n"
+                + "[image] = ? \n"
+                + "WHERE id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, password);
+            ps.setString(3, phone);
+            ps.setString(4, location_name);
+            ps.setString(5, image);
+            ps.setString(6, id);
+            ps.executeUpdate();
+            while (rs.next()) {
+                shipper = new Shipper(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                );
+            }
+            System.out.println("successfull");
+        } catch (Exception e) {
+        }
+
+    }
+    
+    public void cancelOrder(String id){
+        String sql = "update [Order] set [status] = '6' where id = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);           
+            ps.executeUpdate();
+            while (rs.next()) {
+                shipper = new Shipper(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                );
+            }
+            System.out.println("successfull");
+        } catch (Exception e) {
+        }
+    }
+    public void completedOrder(String id){
+        String sql = "update [Order] set [status] = '5' where id = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);           
+            ps.executeUpdate();
+            while (rs.next()) {
+                shipper = new Shipper(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                );
+            }
+            System.out.println("successfull");
+        } catch (Exception e) {
+        }
+    }
+   
 
     public static void main(String[] args) {
         ShipperDAO shipperDAO = new ShipperDAO();

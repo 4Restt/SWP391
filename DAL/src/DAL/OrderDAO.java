@@ -58,7 +58,7 @@ public class OrderDAO {
 
     public List<Order> getUnassignedOrders(String name) {
         listOrder = new Vector<Order>();
-        String sql = "SELECT [Order].*, Customer.address AS customerAddress\n"
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
                 + "FROM [Order]\n"
                 + "JOIN Customer ON [Order].customer_id = Customer.id\n"
                 + "WHERE [Order].delivery_id = (SELECT id FROM Delivery WHERE name = ? ) and Shipper_id is Null;";
@@ -76,7 +76,9 @@ public class OrderDAO {
                         rs.getFloat(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9)
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 ));
             }
         } catch (Exception e) {
@@ -88,7 +90,7 @@ public class OrderDAO {
 
     public List<Order> getAlShipperOrders(String name) {
         listOrder = new Vector<Order>();
-        String sql = "SELECT [Order].*, Customer.address AS customerAddress\n"
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
                 + "FROM [Order]\n"
                 + "JOIN Customer ON [Order].customer_id = Customer.id\n"
                 + "WHERE [Order].delivery_id = (SELECT id FROM Delivery WHERE name = ? ) and Shipper_id is not Null;";
@@ -106,7 +108,9 @@ public class OrderDAO {
                         rs.getFloat(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9)
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 ));
             }
         } catch (Exception e) {
@@ -133,11 +137,11 @@ public class OrderDAO {
 
     public List<Order> getAssignedOrders(String shipper_name) {
         listOrder = new Vector<Order>();
-        String sql = "SELECT [Order].*, Customer.address AS customerAddress\n"
-                + "FROM [Order]\n"
-                + "JOIN Customer ON [Order].customer_id = Customer.id\n"
-                + "JOIN Shipper ON [Order].shipper_id = Shipper.id\n"
-                + "WHERE [Order].shipper_id = (select id from Shipper where [name] = ?)";
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n" +
+"                 FROM [Order]\n" +
+"                 JOIN Customer ON [Order].customer_id = Customer.id\n" +
+"                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n" +
+"                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '4' )";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, shipper_name);
@@ -152,7 +156,73 @@ public class OrderDAO {
                         rs.getFloat(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9)
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+
+        return listOrder;
+    }
+    public List<Order> getCompletedOrders(String shipper_name) {
+        listOrder = new Vector<Order>();
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n" +
+"                 FROM [Order]\n" +
+"                 JOIN Customer ON [Order].customer_id = Customer.id\n" +
+"                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n" +
+"                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '5' )";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, shipper_name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listOrder.add(new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getFloat(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+
+        return listOrder;
+    }
+    public List<Order> getCancelledOrders(String shipper_name) {
+        listOrder = new Vector<Order>();
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n" +
+"                 FROM [Order]\n" +
+"                 JOIN Customer ON [Order].customer_id = Customer.id\n" +
+"                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n" +
+"                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '6' )";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, shipper_name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listOrder.add(new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getFloat(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 ));
             }
         } catch (Exception e) {
@@ -206,7 +276,7 @@ public class OrderDAO {
 
     public List<Order> getOrdersByAddress(String address) {
         listOrder = new Vector<Order>();
-        String sql = "SELECT [Order].*, Customer.[address] "
+        String sql = "SELECT [Order].*, Customer.[address], Customer.name as customerName, Customer.phone as phoneNumber "
                 + "FROM Customer "
                 + "JOIN [Order] ON [Order].Customer_id = Customer.id "
                 + "WHERE Customer.[address] LIKE ? AND [Order].Shipper_id IS NULL;";
@@ -225,7 +295,9 @@ public class OrderDAO {
                         rs.getFloat(6),
                         rs.getDate(7),
                         rs.getString(8),
-                        rs.getString(9)
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 ));
             }
         } catch (Exception e) {
@@ -235,13 +307,53 @@ public class OrderDAO {
         return listOrder;
     }
 
+    public Order getOrderbyId(String id) {
+        String sql = "Select o.* , [address] as customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
+                + "from [Order] o\n"
+                + "JOIN Customer c ON c.id = o.Customer_id\n"
+                + "where o.id = ? ";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery(); 
+            while (rs.next()) {
+                order = new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getFloat(6),
+                        rs.getDate(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                );              
+                return order;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace(); // In ra lỗi để dễ dàng debug
+        }
+        return null;
+    }
+
     public static void main(String[] args) {
-        List<Order> orders = OrderDAO.INSTANCE.getOrdersByAddress("Thanh Trì, Hà Nội");
+
+//        Order orders = OrderDAO.INSTANCE.getOrderbyId("1");
+//        if(orders != null){
+//            System.out.println(orders);
+//        }else{
+//            System.out.println("No orders found");
+//        }    
+        List<Order> orders = OrderDAO.INSTANCE.getAssignedOrders("Shipper 1");
         if (orders.isEmpty()) {
             System.out.println("No orders found for the given address.");
         } else {
             for (Order order : orders) {
-                System.out.println(order); 
+                System.out.println(order);
             }
         }
     }

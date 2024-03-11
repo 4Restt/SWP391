@@ -4,22 +4,19 @@
  */
 package Controllers;
 
-import DAL.OrderDAO;
-import Models.Order;
+import DAL.ShipperDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
-import jakarta.servlet.http.HttpSession;
-import java.util.List;
 
 /**
  *
  * @author admin
  */
-public class Shipper extends HttpServlet {
+public class ReportCompletedOrder extends HttpServlet {
 
     /**
      * Processes requests for both HTTP <code>GET</code> and <code>POST</code>
@@ -35,12 +32,15 @@ public class Shipper extends HttpServlet {
         response.setContentType("text/html;charset=UTF-8");
         try ( PrintWriter out = response.getWriter()) {
             /* TODO output your page here. You may use following sample code. */
-
             out.println("<!DOCTYPE html>");
-            out.println("<html><body>");
-
-            out.println("</body></html>");
-
+            out.println("<html>");
+            out.println("<head>");
+            out.println("<title>Servlet ReportCompletedOrder</title>");
+            out.println("</head>");
+            out.println("<body>");
+            out.println("<h1>Servlet ReportCompletedOrder at " + request.getContextPath() + "</h1>");
+            out.println("</body>");
+            out.println("</html>");
         }
     }
 
@@ -56,29 +56,30 @@ public class Shipper extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        request.getRequestDispatcher("Views/Shipper.jsp").forward(request, response);
+        processRequest(request, response);
     }
 
+    /**
+     * Handles the HTTP <code>POST</code> method.
+     *
+     * @param request servlet request
+     * @param response servlet response
+     * @throws ServletException if a servlet-specific error occurs
+     * @throws IOException if an I/O error occurs
+     */
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-
-        HttpSession session = request.getSession(false); // Lấy session hiện tại
-
-        if (session != null) {
-
-            String shipperName = (String) session.getAttribute("shipperName");
-            List<Order> assignedOrders = OrderDAO.INSTANCE.getAssignedOrders((String) session.getAttribute("shipperName"));
-            
-            
-
-            request.setAttribute("shipperName", shipperName);
-            request.setAttribute("assignedOrders", assignedOrders);
+        String action = request.getParameter("action");
+        String orderId = request.getParameter("orderId");
+       
+        if ("report".equals(action)) {
+            ShipperDAO.INSTANCE.cancelOrder(orderId);
+        } else if ("complete".equals(action)) {
+            ShipperDAO.INSTANCE.completedOrder(orderId);
         }
-
-        // Chuyển hướng tới JSP với thông tin đã được đặt
-        request.getRequestDispatcher("Views/Shipper.jsp").forward(request, response);
+        request.setAttribute("content", "newOrdersContent");
+        request.getRequestDispatcher("/shipper").forward(request, response);
     }
 
     /**

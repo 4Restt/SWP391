@@ -22,7 +22,7 @@ import lombok.ToString;
 @ToString
 @AllArgsConstructor
 @NoArgsConstructor
-public class Order{
+public class Order {
 
     private int id;
     private int customer_id;
@@ -34,5 +34,6 @@ public class Order{
     private String status;
 
     private String customerAddress;
-
+    private String customerName;
+    private String phoneNumber;
 }

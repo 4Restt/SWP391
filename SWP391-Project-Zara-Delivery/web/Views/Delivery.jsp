@@ -215,7 +215,7 @@
                     </c:forEach>
 
                     <!-- Button to Open the Modal -->
-                    <button type="button" class="btn btn-success" data-bs-toggle="modal" data-bs-target="#addShipperModal">Add Shipper</button>
+                    
 
                     <div class="modal fade" id="addShipperModal" tabindex="-1" aria-labelledby="addShipperModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">

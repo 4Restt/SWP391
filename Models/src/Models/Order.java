@@ -33,5 +33,7 @@ public class Order{
     private String date;
     private String status;
     private String customerAddress;
+    private String customerName;
+    private String phoneNumber;
 
 }

@@ -58,7 +58,7 @@ public class OrderDAO {
 
     public List<Order> getUnassignedOrders(String name) {
         listOrder = new Vector<Order>();
-        String sql = "SELECT [Order].*, Customer.address AS customerAddress\n"
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
                 + "FROM [Order]\n"
                 + "JOIN Customer ON [Order].customer_id = Customer.id\n"
                 + "WHERE [Order].delivery_id = (SELECT id FROM Delivery WHERE name = ? ) and Shipper_id is Null;";
@@ -76,7 +76,9 @@ public class OrderDAO {
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
-                        rs.getString(9)
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 ));
             }
         } catch (Exception e) {
@@ -88,10 +90,10 @@ public class OrderDAO {
 
     public List<Order> getAlShipperOrders(String name) {
         listOrder = new Vector<Order>();
-        String sql = "SELECT [Order].*, Customer.address AS customerAddress\n"
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
                 + "FROM [Order]\n"
                 + "JOIN Customer ON [Order].customer_id = Customer.id\n"
-                + "WHERE [Order].delivery_id = (SELECT id FROM Delivery WHERE name = ? ) and Shipper_id is not Null;";
+                + "WHERE [Order].delivery_id = (SELECT id FROM Delivery WHERE name = ? ) and Shipper_id is not Null and [Order].[status] = '4';";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, name);
@@ -106,7 +108,71 @@ public class OrderDAO {
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
-                        rs.getString(9)
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+
+        return listOrder;
+    }
+    public List<Order> getCompletedOrdersbyDeliver(String name) {
+        listOrder = new Vector<Order>();
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
+                + "FROM [Order]\n"
+                + "JOIN Customer ON [Order].customer_id = Customer.id\n"
++ "WHERE [Order].delivery_id = (SELECT id FROM Delivery WHERE name = ? ) and Shipper_id is not Null and [Order].[status] = '5';";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listOrder.add(new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+
+        return listOrder;
+    }
+    public List<Order> getCancelledOrdersbyDeliver(String name) {
+        listOrder = new Vector<Order>();
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
+                + "FROM [Order]\n"
+                + "JOIN Customer ON [Order].customer_id = Customer.id\n"
+                + "WHERE [Order].delivery_id = (SELECT id FROM Delivery WHERE name = ? ) and Shipper_id is not Null and [Order].[status] = '6';";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listOrder.add(new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 ));
             }
         } catch (Exception e) {
@@ -133,11 +199,11 @@ public class OrderDAO {
 
     public List<Order> getAssignedOrders(String shipper_name) {
         listOrder = new Vector<Order>();
-        String sql = "SELECT [Order].*, Customer.address AS customerAddress\n"
-                + "FROM [Order]\n"
-                + "JOIN Customer ON [Order].customer_id = Customer.id\n"
-                + "JOIN Shipper ON [Order].shipper_id = Shipper.id\n"
-                + "WHERE [Order].shipper_id = (select id from Shipper where [name] = ?)";
+String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n" +
+"                 FROM [Order]\n" +
+"                 JOIN Customer ON [Order].customer_id = Customer.id\n" +
+"                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n" +
+"                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '4' )";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, shipper_name);
@@ -152,7 +218,73 @@ public class OrderDAO {
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
-                        rs.getString(9)
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+
+        return listOrder;
+    }
+    public List<Order> getCompletedOrders(String shipper_name) {
+        listOrder = new Vector<Order>();
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n" +
+"                 FROM [Order]\n" +
+"                 JOIN Customer ON [Order].customer_id = Customer.id\n" +
+"                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n" +
+"                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '5' )";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, shipper_name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listOrder.add(new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+
+        return listOrder;
+    }
+    public List<Order> getCancelledOrders(String shipper_name) {
+        listOrder = new Vector<Order>();
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n" +
+"                 FROM [Order]\n" +
+"                 JOIN Customer ON [Order].customer_id = Customer.id\n" +
+"                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n" +
+"                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '6' )";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, shipper_name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listOrder.add(new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 ));
             }
         } catch (Exception e) {
@@ -186,7 +318,7 @@ public class OrderDAO {
                 + "FROM [Order] "
                 + "JOIN Customer ON [Order].Customer_id = Customer.id "
                 + "JOIN Delivery ON [Order].delivery_id = Delivery.id "
-                + "WHERE Delivery.[name] = ?";
+                + "WHERE Delivery.[name] = ? and [Order].Shipper_id is null";
         try {
             con = new DBContext().getConnection();
             ps = con.prepareStatement(sql);
@@ -202,6 +334,72 @@ public class OrderDAO {
             // Xử lý lỗi hoặc ghi log tại đây
         }
         return addresses;
+}
+
+    public List<Order> getOrdersByAddress(String address) {
+        listOrder = new Vector<Order>();
+        String sql = "SELECT [Order].*, Customer.[address], Customer.name as customerName, Customer.phone as phoneNumber "
+                + "FROM Customer "
+                + "JOIN [Order] ON [Order].Customer_id = Customer.id "
+                + "WHERE Customer.[address] LIKE ? AND [Order].Shipper_id IS NULL;";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + address + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listOrder.add(new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+
+        return listOrder;
+    }
+
+    public Order getOrderbyId(String id) {
+        String sql = "Select o.* , [address] as customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
+                + "from [Order] o\n"
+                + "JOIN Customer c ON c.id = o.Customer_id\n"
+                + "where o.id = ? ";
+        
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery(); 
+            while (rs.next()) {
+                order = new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                );              
+                return order;
+            }
+
+        } catch (Exception e) {
+            e.printStackTrace(); // In ra lỗi để dễ dàng debug
+        }
+        return null;
     }
 
     public List<Order> getListOrderByStatus(String status) {
@@ -224,7 +422,9 @@ public class OrderDAO {
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
-                        rs.getString(9)
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
                 );
                 listOrder.add(order);
             }
@@ -235,15 +435,16 @@ public class OrderDAO {
         return listOrder;
 
     }
-    public void updateStaff(String staffName,String id) {
+
+    public void updateStaff(String staffName, String id) {
         String sql = "UPDATE [Order] SET Staff_name = ? WHERE id = ?";
-        
-        try{
+
+        try {
             ps = con.prepareStatement(sql);
             ps.setString(1, staffName);
             ps.setString(2, id);
-            ps.executeUpdate();   
-        }catch(Exception ex){
+            ps.executeUpdate();
+        } catch (Exception ex) {
             status = "Error at OrderDetail " + ex.getMessage();
             System.out.println(status);
         }
@@ -255,4 +456,18 @@ public class OrderDAO {
 
     }
 
+    public float getRevenue() {
+        String sql = "SELECT SUM(totalprice) AS total_price\n"
+                + "FROM [Order] WHERE status = 5";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getFloat(1);
+            }
+        } catch (Exception e) {
+            System.out.println("getRevenue: " + e.getMessage());
+        }
+        return 0;
+    }
 }

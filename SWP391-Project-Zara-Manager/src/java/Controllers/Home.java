@@ -5,6 +5,7 @@
 package Controllers;
 
 import DAL.CategoryDAO;
+import DAL.OrderDAO;
 import DAL.ProductDAO;
 import DAL.UserDAO;
 import java.io.IOException;
@@ -23,27 +24,16 @@ public class Home extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        List<Category> listCategory = CategoryDAO.INSTANCE.getAllCategory();
-        List<Product> listNewArrival = ProductDAO.INSTANCE.getTop6NewArrival();
-        ArrayList<Models.Cart> cart_list = (ArrayList<Models.Cart>) request.getSession().getAttribute("cart-list");
-        int totalQ = 0;
-        if (cart_list != null) {
-//            request.setAttribute("cart_list", cart_list);
-            for (Models.Cart c : cart_list) {
-                totalQ += c.getQuantity();
-            }
-        }
+       
         HttpSession session = request.getSession();
         User user = (User) session.getAttribute("account");
         if (user == null) {
             request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
         }
+        request.setAttribute("totalProduct", ProductDAO.INSTANCE.getTotalProduct());
+        request.setAttribute("revenue", OrderDAO.INSTANCE.getRevenue());
         request.setAttribute("profile", UserDAO.INSTANCE.getUserById(user.getId()));
-
-        request.setAttribute("totalQ", totalQ);
-
-        request.setAttribute("listCategory", listCategory);
-        request.setAttribute("listNewArrival", listNewArrival);
+        request.setAttribute("totalStaff", UserDAO.INSTANCE.getTotalStaff());
         request.getRequestDispatcher("Views/Manager.jsp").forward(request, response);
     }
 

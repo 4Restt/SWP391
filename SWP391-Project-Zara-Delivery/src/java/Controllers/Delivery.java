@@ -64,6 +64,8 @@ public class Delivery extends HttpServlet {
 
             List<Order> unassignedOrders = OrderDAO.INSTANCE.getUnassignedOrders(deliveryName);
             List<Order> alreadyOrders = OrderDAO.INSTANCE.getAlShipperOrders(deliveryName);
+            List<Order> cancelledOrders = OrderDAO.INSTANCE.getCancelledOrdersbyDeliver(deliveryName);
+            List<Order> completedOrders = OrderDAO.INSTANCE.getCompletedOrdersbyDeliver(deliveryName);
             List<Shipper> compatibleShippers = (List) ShipperDAO.INSTANCE.compatibleShippers(deliveryName);
             List listOfAddresses = OrderDAO.INSTANCE.listOfAddresses(deliveryName);
             List<Shipper> listShipper = (List) ShipperDAO.INSTANCE.shipperList(deliveryName);
@@ -80,6 +82,8 @@ public class Delivery extends HttpServlet {
             request.setAttribute("delivery", DeliveryDAO.INSTANCE.getDeliverybyName(deliveryName));
             request.setAttribute("orders", unassignedOrders);
             request.setAttribute("alreadyOrders", alreadyOrders);
+            request.setAttribute("cancelledOrders", cancelledOrders);
+            request.setAttribute("completedOrders", completedOrders);
             request.setAttribute("shippers", compatibleShippers);
             request.setAttribute("listOfAddresses", listOfAddresses);
             request.setAttribute("listShipper", listShipper);
@@ -87,7 +91,17 @@ public class Delivery extends HttpServlet {
 
         }
             request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
-     
+//            request.getRequestDispatcher("Views/Test.jsp").forward(request, response);
+
+//        address = request.getParameterValues("selectedOrders");
+//            try ( PrintWriter out = response.getWriter()) {
+//                for (int i = 0; i < address.length; i++) {
+//                                out.println(address[i]);
+//
+//                }
+//
+//
+//        }
     }
 
     /**

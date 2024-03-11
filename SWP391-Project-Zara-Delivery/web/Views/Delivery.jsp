@@ -34,6 +34,9 @@
                     <li>
                         <a href="#" class="list-group-item list-group-item-action" onclick="loadCancel()">Load Cancelled Orders</a>
                     </li>
+                    <li>
+                        <a href="#" class="list-group-item list-group-item-action" onclick="loadCompleted()">Load Completed Orders</a>
+                    </li>
                 </ul>
             </div>
             <!-- Load Profile with onclick event -->
@@ -215,7 +218,7 @@
                     </c:forEach>
 
                     <!-- Button to Open the Modal -->
-                    
+
 
                     <div class="modal fade" id="addShipperModal" tabindex="-1" aria-labelledby="addShipperModalLabel" aria-hidden="true">
                         <div class="modal-dialog modal-lg">
@@ -282,9 +285,9 @@
                                     <td>${order.date}</td>
                                     <td>
                                         <c:choose>
-                                            <c:when test="${order.status == 1}">Prepare</c:when>
-                                            <c:when test="${order.status == 2}">Shipping</c:when>
-                                            <c:when test="${order.status == 3}">Cancelled</c:when>
+                                            <c:when test="${order.status == 4}">Shipping</c:when>
+                                            <c:when test="${order.status == 5}">Completed</c:when>
+                                            <c:when test="${order.status == 6}">Cancelled</c:when>
                                             <c:otherwise>Unknown</c:otherwise>
                                         </c:choose>
                                     </td>
@@ -327,9 +330,9 @@
                                         <td>${order.date}</td>
                                         <td>
                                             <c:choose>
-                                                <c:when test="${order.status == 1}">Prepare</c:when>
-                                                <c:when test="${order.status == 2}">Shipping</c:when>
-                                                <c:when test="${order.status == 3}">Cancelled</c:when>
+                                                <c:when test="${order.status == 4}">Shipping</c:when>
+                                                <c:when test="${order.status == 5}">Completed</c:when>
+                                                <c:when test="${order.status == 6}">Cancelled</c:when>
                                                 <c:otherwise>Unknown</c:otherwise>
                                             </c:choose>
                                         </td>
@@ -368,7 +371,68 @@
 
                 <!-- Đơn hàng đã hủy -->
                 <div id="cancelledOrdersContent" style="display:none;">
-                    <!-- Nội dung cho đơn hàng đã hủy -->
+                    <h3>Cancelled Orders</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Customer Address</th>
+                                <th>Total Price</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${cancelledOrders}" var="order" varStatus="status">
+                                <tr>
+                                    <td>${status.index + 1}</td>
+                                    <td>${order.customerAddress}</td>
+                                    <td>${order.totalprice}</td>
+                                    <td>${order.date}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${order.status == 4}">Shipping</c:when>
+                                            <c:when test="${order.status == 5}">Completed</c:when>
+                                            <c:when test="${order.status == 6}">Cancelled</c:when>
+                                            <c:otherwise>Unknown</c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                </div>
+                <div id="completedOrdersContent" style="display:none;">
+                    <h3>Completed Orders</h3>
+                    <table class="table">
+                        <thead>
+                            <tr>
+                                <th>STT</th>
+                                <th>Customer Address</th>
+                                <th>Total Price</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${completedOrders}" var="order" varStatus="status">
+                                <tr>
+                                    <td>${status.index + 1}</td>
+                                    <td>${order.customerAddress}</td>
+                                    <td>${order.totalprice}</td>
+                                    <td>${order.date}</td>
+                                    <td>
+                                        <c:choose>
+                                            <c:when test="${order.status == 4}">Shipping</c:when>
+                                            <c:when test="${order.status == 5}">Completed</c:when>
+                                            <c:when test="${order.status == 6}">Cancelled</c:when>
+                                            <c:otherwise>Unknown</c:otherwise>
+                                        </c:choose>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
                 </div>
             </div>
 
@@ -391,6 +455,7 @@
                 document.getElementById("assignedOrdersContent").style.display = "none";
                 document.getElementById("unassignedOrdersContent").style.display = "block";
                 document.getElementById("cancelledOrdersContent").style.display = "none";
+                document.getElementById("completedOrdersContent").style.display = "none";
 
                 document.getElementById("profileContent").style.display = "none";
             }
@@ -402,6 +467,7 @@
                 document.getElementById("assignedOrdersContent").style.display = "block";
                 document.getElementById("unassignedOrdersContent").style.display = "none";
                 document.getElementById("cancelledOrdersContent").style.display = "none";
+                document.getElementById("completedOrdersContent").style.display = "none";
 
                 document.getElementById("profileContent").style.display = "none";
             }
@@ -413,6 +479,7 @@
                 document.getElementById("assignedOrdersContent").style.display = "none";
                 document.getElementById("unassignedOrdersContent").style.display = "none";
                 document.getElementById("cancelledOrdersContent").style.display = "block";
+                document.getElementById("completedOrdersContent").style.display = "none";
 
                 document.getElementById("profileContent").style.display = "none";
             }
@@ -424,6 +491,7 @@
                 document.getElementById("assignedOrdersContent").style.display = "none";
                 document.getElementById("unassignedOrdersContent").style.display = "none";
                 document.getElementById("cancelledOrdersContent").style.display = "none";
+                document.getElementById("completedOrdersContent").style.display = "none";
 
                 document.getElementById("profileContent").style.display = "block";
             }
@@ -437,6 +505,17 @@
                 document.getElementById("unassignedOrdersContent").style.display = "none";
                 document.getElementById("cancelledOrdersContent").style.display = "none";
                 document.getElementById("shipperListContent").style.display = "block";
+                document.getElementById("completedOrdersContent").style.display = "none";
+            }
+            function loadCompleted() {
+                // Ẩn tất cả các phần nội dung khác
+                document.getElementById("orderContent").style.display = "none";
+                document.getElementById("profileContent").style.display = "none";
+                document.getElementById("assignedOrdersContent").style.display = "none";
+                document.getElementById("unassignedOrdersContent").style.display = "none";
+                document.getElementById("cancelledOrdersContent").style.display = "none";
+                document.getElementById("shipperListContent").style.display = "none";
+                document.getElementById("completedOrdersContent").style.display = "block";
             }
 
 

@@ -70,8 +70,8 @@
                                             <i class="uil uil-file-medical-alt h3 mb-0"></i>
                                         </div>
                                         <div class="flex-1 ms-2">
-                                            <h5 class="mb-0">$2164</h5>
-                                            <p class="text-muted mb-0">Avg. costs</p>
+                                            <h5 class="mb-0">$${revenue}</h5>
+                                            <p class="text-muted mb-0">Revenue</p>
                                         </div>
                                     </div>
                                 </div>
@@ -84,8 +84,8 @@
                                             <i class="uil uil-social-distancing h3 mb-0"></i>
                                         </div>
                                         <div class="flex-1 ms-2">
-                                            <h5 class="mb-0">112</h5>
-                                            <p class="text-muted mb-0">Staff Members</p>
+                                            <h5 class="mb-0">${totalStaff}</h5>
+                                            <p class="text-muted mb-0">Staff</p>
                                         </div>
                                     </div>
                                 </div>
@@ -95,11 +95,11 @@
                                 <div class="card features feature-primary rounded border-0 shadow p-4">
                                     <div class="d-flex align-items-center">
                                         <div class="icon text-center rounded-md">
-                                            <i class="uil uil-ambulance h3 mb-0"></i>
+                                            <i class="uil uil-shop h3 mb-0"></i>
                                         </div>
                                         <div class="flex-1 ms-2">
-                                            <h5 class="mb-0">16</h5>
-                                            <p class="text-muted mb-0">Vehicles</p>
+                                            <h5 class="mb-0">${totalProduct}</h5>
+                                            <p class="text-muted mb-0">Product</p>
                                         </div>
                                     </div>
                                     
@@ -110,7 +110,7 @@
                                 <div class="card features feature-primary rounded border-0 shadow p-4">
                                     <div class="d-flex align-items-center">
                                         <div class="icon text-center rounded-md">
-                                            <i class="uil uil-medkit h3 mb-0"></i>
+                                            <i class="uil  uil-user h3 mb-0"></i>
                                         </div>
                                         <div class="flex-1 ms-2">
                                             <h5 class="mb-0">220</h5>

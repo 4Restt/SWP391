@@ -100,7 +100,7 @@ public class ProductDAO {
         }
         return listProduct;
     }
-    
+
     public void SearchFilter(String[] style, String cateId, String sql) {
         listProduct = new Vector<Product>();
         try {
@@ -126,7 +126,7 @@ public class ProductDAO {
 
         }
     }
-    
+
     public void SearchFilter1(String cateId, String sql) {
         listProduct = new Vector<Product>();
         try {
@@ -352,7 +352,6 @@ public class ProductDAO {
         return null;
     }
 
-
     public List<Cart> getCartProduct(ArrayList<Cart> cartList) {
         List<Cart> productsCart = new ArrayList<>();
         try {
@@ -387,7 +386,7 @@ public class ProductDAO {
                         ct.setColor(rs.getString("color"));
                         ct.setName(rs.getString("name"));
                         ct.setQuantity(item.getQuantity());
-                        ct.setPrice(rs.getFloat("price")*item.getQuantity());
+                        ct.setPrice(rs.getFloat("price") * item.getQuantity());
                         ct.setImgDefault(rs.getString("imgDefault"));
                         productsCart.add(ct);
                     }
@@ -437,6 +436,7 @@ public class ProductDAO {
         }
         return sum;
     }
+
     public void Search1(String cateId, String txt, String sql, int size) {
         listProduct = new Vector<Product>();
         try {
@@ -519,6 +519,21 @@ public class ProductDAO {
         } catch (Exception e) {
             status = "Error at read Student " + e.getMessage();
         }
+    }
+
+    public int getTotalProduct() {
+        String sql = "SELECT Count(id)\n"
+                + "FROM [ProductInfor]";
+        try{
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while(rs.next()){
+                return rs.getInt(1);
+            }
+        }catch(Exception e){
+            System.out.println("getTotalProduct: " + e.getMessage());
+        }
+        return 0;
     }
 
     public static void main(String[] args) {

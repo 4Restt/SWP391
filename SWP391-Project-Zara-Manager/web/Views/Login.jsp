@@ -363,7 +363,7 @@
             <div class="row justify-content-center">
                 <div class="col-4">
                     <h2 class="section-title text-uppercase">Login</h2>
-                    <form id="form" class="form-group flex-wrap" action="login" method="post">
+                    <form id="form1" class="form-group flex-wrap" action="login" method="post">
                         <div class="text-danger">${warn}</div>
                         <div class="col-12 pb-3">
                             <label>Username or email address *</label>

@@ -61,7 +61,6 @@
         <servlet-class>Controllers.ForgotPass</servlet-class>
     </servlet>
     <servlet>
-
         <servlet-name>AddToCart</servlet-name>
         <servlet-class>Controllers.AddToCart</servlet-class>
     </servlet>
@@ -77,7 +76,7 @@
         <servlet-name>UpdateQuantity</servlet-name>
         <servlet-class>Controllers.UpdateQuantity</servlet-class>
     </servlet>
-    <servlet>    
+    <servlet>
         <servlet-name>Filter</servlet-name>
         <servlet-class>Controllers.Filter</servlet-class>
     </servlet>
@@ -90,7 +89,7 @@
         <servlet-class>Controllers.ViewListAddressController</servlet-class>
     </servlet>
     <servlet>
-       <servlet-name>ViewUserProfileController</servlet-name>
+        <servlet-name>ViewUserProfileController</servlet-name>
         <servlet-class>Controllers.ViewUserProfileController</servlet-class>
     </servlet>
     <servlet>
@@ -104,6 +103,82 @@
     <servlet>
         <servlet-name>AssignOrder</servlet-name>
         <servlet-class>Controllers.AssignOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DoctorList</servlet-name>
+        <servlet-class>Controllers.DoctorList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>SellerList</servlet-name>
+        <servlet-class>Controllers.SellerList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>stafflist</servlet-name>
+        <servlet-class>Controllers.StaffList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddStaff</servlet-name>
+        <servlet-class>Controllers.AddStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditStaff</servlet-name>
+        <servlet-class>Controllers.EditStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadImgAjax</servlet-name>
+        <servlet-class>Controllers.UploadImgAjax</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ActiveStaff</servlet-name>
+        <servlet-class>Controllers.ActiveStaff</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>status</servlet-name>
+        <servlet-class>Controllers.status</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditProfile</servlet-name>
+        <servlet-class>Controllers.EditProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Profile</servlet-name>
+        <servlet-class>Controllers.Profile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerList</servlet-name>
+        <servlet-class>Controllers.CustomerList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>CustomerStatus</servlet-name>
+        <servlet-class>Controllers.CustomerStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EditCustomer</servlet-name>
+        <servlet-class>Controllers.EditCustomer</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderList</servlet-name>
+        <servlet-class>Controllers.OrderList</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderStatus</servlet-name>
+        <servlet-class>Controllers.OrderStatus</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Process</servlet-name>
+        <servlet-class>Controllers.Process</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Accepted</servlet-name>
+        <servlet-class>Controllers.Accepted</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Prerared</servlet-name>
+        <servlet-class>Controllers.Prerared</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Delivered</servlet-name>
+        <servlet-class>Controllers.Delivered</servlet-class>
     </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
@@ -208,6 +283,82 @@
     <servlet-mapping>
         <servlet-name>AssignOrder</servlet-name>
         <url-pattern>/assignorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DoctorList</servlet-name>
+        <url-pattern>/doctorlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>SellerList</servlet-name>
+        <url-pattern>/sellerlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>stafflist</servlet-name>
+        <url-pattern>/stafflist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddStaff</servlet-name>
+        <url-pattern>/addstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditStaff</servlet-name>
+        <url-pattern>/editstaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadImgAjax</servlet-name>
+        <url-pattern>/uploadimgajax</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActiveStaff</servlet-name>
+        <url-pattern>/activestaff</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>status</servlet-name>
+        <url-pattern>/status</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditProfile</servlet-name>
+        <url-pattern>/editprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Profile</servlet-name>
+        <url-pattern>/profile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerList</servlet-name>
+        <url-pattern>/customerlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerStatus</servlet-name>
+        <url-pattern>/customerstatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EditCustomer</servlet-name>
+        <url-pattern>/editcustomer</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderList</servlet-name>
+        <url-pattern>/orderlist</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderStatus</servlet-name>
+        <url-pattern>/orderstatus</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Process</servlet-name>
+        <url-pattern>/process</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Accepted</servlet-name>
+        <url-pattern>/accepted</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Prerared</servlet-name>
+        <url-pattern>/prepared</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Delivered</servlet-name>
+        <url-pattern>/delivered</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

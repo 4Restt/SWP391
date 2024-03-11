@@ -30,9 +30,8 @@ public class Order{
     private int delivery_id;
     private String staff_name;
     private float totalprice;
-    private Date date;
+    private String date;
     private String status;
-
     private String customerAddress;
 
 }

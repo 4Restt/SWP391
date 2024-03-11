@@ -2,11 +2,11 @@
  * Click nbfs://nbhost/SystemFileSystem/Templates/Licenses/license-default.txt to change this license
  * Click nbfs://nbhost/SystemFileSystem/Templates/JSP_Servlet/Servlet.java to edit this template
  */
-
 package Controllers;
 
 import DAL.CategoryDAO;
 import DAL.ProductDAO;
+import DAL.UserDAO;
 import java.io.IOException;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
@@ -15,38 +15,47 @@ import jakarta.servlet.http.HttpServletResponse;
 import java.util.List;
 import Models.Category;
 import Models.Product;
+import Models.User;
+import jakarta.servlet.http.HttpSession;
 import java.util.ArrayList;
+
 public class Home extends HttpServlet {
 
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         List<Category> listCategory = CategoryDAO.INSTANCE.getAllCategory();
         List<Product> listNewArrival = ProductDAO.INSTANCE.getTop6NewArrival();
         ArrayList<Models.Cart> cart_list = (ArrayList<Models.Cart>) request.getSession().getAttribute("cart-list");
-        int totalQ = 0 ;
+        int totalQ = 0;
         if (cart_list != null) {
 //            request.setAttribute("cart_list", cart_list);
             for (Models.Cart c : cart_list) {
-                totalQ += c.getQuantity() ;
+                totalQ += c.getQuantity();
             }
         }
+        HttpSession session = request.getSession();
+        User user = (User) session.getAttribute("account");
+        if (user == null) {
+            request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
+        }
+        request.setAttribute("profile", UserDAO.INSTANCE.getUserById(user.getId()));
 
         request.setAttribute("totalQ", totalQ);
-        
+
         request.setAttribute("listCategory", listCategory);
         request.setAttribute("listNewArrival", listNewArrival);
         request.getRequestDispatcher("Views/Manager.jsp").forward(request, response);
-    } 
+    }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
-    } 
+    }
 
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
-    throws ServletException, IOException {
+            throws ServletException, IOException {
         processRequest(request, response);
     }
 

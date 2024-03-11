@@ -15,6 +15,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class User {
+    private String id;
     private String account;
     private String password;
     private int rollId;
@@ -22,4 +23,7 @@ public class User {
     private String phone;
     private String address;
     private String email;
+    private String image;
+    private String date;
+    private String status;
 }

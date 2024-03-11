@@ -1,5 +1,5 @@
-
 package Controllers;
+
 import DAL.CategoryDAO;
 import DAL.UserDAO;
 import java.io.IOException;
@@ -47,13 +47,15 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie arr[] = request.getCookies();
-        for (Cookie o : arr) {
-            if (o.getName().equals("userC")) {
-                request.setAttribute("username", o.getValue());
-            }
-            if (o.getName().equals("passC")) {
-                request.setAttribute("password", o.getValue());
+        
+        Cookie[] arr = request.getCookies();
+        if (arr == null) {
+            arr = new Cookie[0]; // Assign an empty array if arr is null
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == null) {
+                arr[i] = new Cookie("empty", " "); // If arr[i] is null, assign a cookie with a space
             }
         }
         List<Models.Category> listCategory = CategoryDAO.INSTANCE.getAllCategory();
@@ -87,10 +89,19 @@ public class Login extends HttpServlet {
             response.addCookie(c);
             response.addCookie(p);
 //            request.getRequestDispatcher("Home").forward(request, response);
-             if( UserDAO.INSTANCE.getUser().getRollId() == 1 ){
+            if (UserDAO.INSTANCE.getUser().getRollId() == 1) {
                 response.sendRedirect("dashboard");
             }
-            else response.sendRedirect("home");
+            if((UserDAO.INSTANCE.getUser().getRollId() == 2 && UserDAO.INSTANCE.getUser().getStatus().equals("Activated")) ||
+                (UserDAO.INSTANCE.getUser().getRollId() == 3 && UserDAO.INSTANCE.getUser().getStatus().equals("Activated"))){
+                response.sendRedirect("home");
+            }
+            if((UserDAO.INSTANCE.getUser().getRollId() == 2 && UserDAO.INSTANCE.getUser().getStatus().equals("Deactivated")) ||
+                (UserDAO.INSTANCE.getUser().getRollId() == 3 && UserDAO.INSTANCE.getUser().getStatus().equals("Deactivated"))){
+                warn = "This account has been deactivated";
+                request.setAttribute("warn", warn);
+                request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
+            }
             
 
         }
@@ -104,4 +115,3 @@ public class Login extends HttpServlet {
     }// </editor-fold>
 
 }
-

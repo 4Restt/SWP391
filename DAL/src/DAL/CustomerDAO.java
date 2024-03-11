@@ -61,7 +61,11 @@ public class CustomerDAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6)
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10)
                 );
             }
         } catch (Exception e) {
@@ -80,7 +84,11 @@ public class CustomerDAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6)
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10)
                 );
             }
         } catch (Exception e) {
@@ -99,7 +107,11 @@ public class CustomerDAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6)
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10)
                 );
             }
         } catch (Exception e) {
@@ -149,7 +161,11 @@ public class CustomerDAO {
                         rs.getString(3),
                         rs.getString(4),
                         rs.getString(5),
-                        rs.getString(6)
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10)
                 ));
             }
         } catch (Exception e) {
@@ -157,6 +173,39 @@ public class CustomerDAO {
         }
 
         return listCustomer;
+    }
+    public void updateStatus(String id, String status) {
+        String sql = "Update [Customer] set [status]= ? where id = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, status);
+            ps.setString(2, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+
+    }
+    public void editCustomer(String id, String username, String password, String name, String phone,
+            String address, String email, String image) {
+        String sql = "Update [Customer] set [name]= ?, [address]=?, [phone] = ?, [email] = ?, [account] = ?, "
+                + "[password] = ?, [image] = ? where id = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(8, id);
+            ps.setString(1, name);
+            ps.setString(2, address);
+            ps.setString(3, phone);
+            ps.setString(4, email);
+            ps.setString(5, username);
+            ps.setString(6, password);
+            ps.setString(7, image);
+
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+
     }
     
     public static void main(String[] args) {

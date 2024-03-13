@@ -201,7 +201,18 @@
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
                                             <a href="single-product.html">${lp.getName()}</a>
                                         </h5>
-                                        <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$${lp.getPrice()}</span></a>
+                                        <a href="#" class="text-decoration-none" data-after="Add to cart">
+                                            <c:set var="giaBanDau" value="${lp.priceDefault}" />
+                                            <c:set var="giaDiscount" value="${lp.price}" />
+                                            <c:if test="${giaDiscount lt giaBanDau}">
+                                                <span style="text-decoration: line-through;
+                                                      color: #777;">${lp.priceDefault}$</span>
+                                                <span style="color: red;font-weight: bold;margin-left: 10px;">${lp.price}$</span>
+                                            </c:if>
+                                            <c:if test="${giaDiscount eq giaBanDau}">
+                                                <span>${lp.priceDefault}$</span>
+                                            </c:if>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

@@ -104,7 +104,8 @@ public class ShipperDAO {
                         rs.getString("password"),
                         rs.getInt("location_id"),
                         rs.getString("phone"),
-                        rs.getString("location_name")
+                        rs.getString("location_name"),
+                        rs.getString("image")
                 );
                 System.out.println("OK");
             } else {
@@ -115,37 +116,144 @@ public class ShipperDAO {
         }
     }
 
-    public static void main(String[] args) {
-        //ShipperDAO.INSTANCE.login("Shipper 1", "shipperpass1");
-        System.out.println(ShipperDAO.INSTANCE.compatibleShippers("Grab"));
+    public List<Shipper> getShippersByAddress(String address) {
+        listShipper = new Vector<Shipper>();
+        String sql = "SELECT Shipper.*, [Location].name AS location_name "
+                + "FROM Shipper "
+                + "JOIN [Location] ON Shipper.location_id = [Location].id "
+                + "WHERE Shipper.location_id = (SELECT id FROM [Location] WHERE name LIKE ? )";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, "%" + address + "%");
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Shipper shipper = Shipper.builder()
+                        .id(rs.getInt("id"))
+                        .name(rs.getString("name"))
+                        .password(rs.getString("password"))
+                        .location_id(rs.getInt("location_id"))
+                        .phone(rs.getString("phone"))
+                        .location_name(rs.getString("location_name"))
+                        .build();
+                listShipper.add(shipper);
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
 
+        return listShipper;
+    }
+
+    public List<Shipper> shipperList(String delivery_name) {
+        listShipper = new Vector<>();
+        String sql = "SELECT Shipper.*, [Location].name AS location_name "
+                + "FROM Shipper "
+                + "JOIN [Location] ON Shipper.location_id = [Location].id "
+                + "WHERE Shipper.delivery_id = (SELECT id FROM Delivery WHERE Delivery.name = ? )";
+        try {
+            con = new DBContext().getConnection();
+            ps = con.prepareStatement(sql);
+            ps.setString(1, delivery_name);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Shipper shipper = Shipper.builder()
+                        .id(rs.getInt("id"))
+                        .name(rs.getString("name"))
+                        .password(rs.getString("password"))
+                        .location_id(rs.getInt("location_id"))
+                        .phone(rs.getString("phone"))
+                        .location_name(rs.getString("location_name"))
+                        .image(rs.getString("image"))
+                        .build();
+                listShipper.add(shipper);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+        return listShipper;
+    }
+
+    public void shipperProfile(String id, String name, String password, String location_name, String phone, String image) {
+        String sql = "UPDATE Shipper SET [name] = ? , [password] = ? , phone = ? , \n"
+                + "location_id = (select id from [Location] where [name] = ? ) , \n"
+                + "[image] = ? \n"
+                + "WHERE id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, password);
+            ps.setString(3, phone);
+            ps.setString(4, location_name);
+            ps.setString(5, image);
+            ps.setString(6, id);
+            ps.executeUpdate();
+            while (rs.next()) {
+                shipper = new Shipper(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                );
+            }
+            System.out.println("successfull");
+        } catch (Exception e) {
+        }
+
+    }
+    
+    public void cancelOrder(String id){
+        String sql = "update [Order] set [status] = '6' where id = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);           
+            ps.executeUpdate();
+            while (rs.next()) {
+                shipper = new Shipper(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                );
+            }
+            System.out.println("successfull");
+        } catch (Exception e) {
+        }
+    }
+    public void completedOrder(String id){
+        String sql = "update [Order] set [status] = '5' where id = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);           
+            ps.executeUpdate();
+            while (rs.next()) {
+                shipper = new Shipper(rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7)
+                );
+            }
+            System.out.println("successfull");
+        } catch (Exception e) {
+        }
+    }
+   
+
+    public static void main(String[] args) {
+        ShipperDAO shipperDAO = new ShipperDAO();
+        List<Shipper> shippers = shipperDAO.shipperList("Grab");
+        if (shippers.isEmpty()) {
+            System.out.println("No shippers found for the given address.");
+        } else {
+            shippers.forEach(System.out::println);
+        }
     }
 
 }
-
-//    public List<Shipper> shipperList(String delivery_name) {
-//        listShipper = new Vector<Shipper>();
-//        String sql = "select Shipper.*, [Location].[name] as location_name \n"
-//                + "from Shipper\n"
-//                + "JOIN Location ON Shipper.location_id = Location.id\n"
-//                + "where delivery_id = (select id from Delivery where Delivery.[name] = ? )";
-//        try {
-//            ps = con.prepareStatement(sql);
-//            ps.setString(1, delivery_name);
-//            rs = ps.executeQuery();
-//            while (rs.next()) {
-//                listShipper.add(new Shipper(
-//                        rs.getInt(1),
-//                        rs.getString(2),
-//                        rs.getString(3),
-//                        rs.getInt(4),
-//                        rs.getString(5),
-//                        rs.getString("location_name")
-//                ));
-//            }
-//        } catch (Exception e) {
-//            status = "Error at read Department " + e.getMessage();
-//        }
-//
-//        return listShipper;
-//    }

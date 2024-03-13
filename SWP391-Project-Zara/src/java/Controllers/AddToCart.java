@@ -6,6 +6,7 @@ package Controllers;
 
 import DAL.ProductDAO;
 import Models.Cart;
+import Models.Customer;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -49,8 +50,8 @@ public class AddToCart extends HttpServlet {
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
         response.setContentType("text/html; charSet=UTF-8");
-        User user = (User) request.getSession().getAttribute("account");
-        if (user == null) {
+        Customer customer = (Customer) request.getSession().getAttribute("account");
+        if (customer == null) {
             response.sendRedirect("login");
             return ;
         }
@@ -67,12 +68,12 @@ public class AddToCart extends HttpServlet {
             c.setColor(color);
 
             HttpSession session = request.getSession();
-            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"+user.getAccount());
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"+customer.getAccount());
 
             if (cart_list == null) {
                 c.setQuantity(1);
                 cartList.add(c);
-                session.setAttribute("cart-list"+user.getAccount(), cartList);
+                session.setAttribute("cart-list"+customer.getAccount(), cartList);
                 response.sendRedirect("home");
             } else {
                 cartList = cart_list;
@@ -95,7 +96,7 @@ public class AddToCart extends HttpServlet {
                     cartList.add(c);
 
                 }
-                session.setAttribute("cart-list"+user.getAccount(), cartList);
+                session.setAttribute("cart-list"+customer.getAccount(), cartList);
                 response.sendRedirect("home");
 
             }

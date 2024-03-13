@@ -171,7 +171,7 @@
             <div class="container">
                 <div class="row g-5">
                     <main class="main-content col-md-9">
-                        <div class="row py-2">
+<!--                        <div class="row py-2">
                             <div class="col-md-9">
                                 <span>Showing 1–12 of 55 results</span>
                             </div>
@@ -183,8 +183,9 @@
                                     <option value="3">Price</option>
                                 </select>
                             </div>
-                        </div>
+                        </div>-->
                         <div class="text-danger">${warn}</div>
+                    
                     <div class="row">
                         <c:forEach items="${listProduct}" var="lp">
                             <div class="col-md-4 mb-3 product-item link-effect">
@@ -201,12 +202,24 @@
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
                                             <a href="single-product.html">${lp.getName()}</a>
                                         </h5>
-                                        <a href="#" class="text-decoration-none" data-after="Add to cart"><span>$${lp.getPrice()}</span></a>
+                                        <a href="#" class="text-decoration-none" data-after="Add to cart">
+                                            <c:set var="giaBanDau" value="${lp.priceDefault}" />
+                                            <c:set var="giaDiscount" value="${lp.price}" />
+                                            <c:if test="${giaDiscount lt giaBanDau}">
+                                                <span style="text-decoration: line-through;
+                                                      color: #777;">${lp.priceDefault}$</span>
+                                                <span style="color: red;font-weight: bold;margin-left: 10px;">${lp.price}$</span>
+                                            </c:if>
+                                            <c:if test="${giaDiscount eq giaBanDau}">
+                                                <span>${lp.priceDefault}$</span>
+                                            </c:if>
+                                        </a>
                                     </div>
                                 </div>
                             </div>
                         </c:forEach>    
                     </div>
+                    
                     <nav aria-label="Page navigation" class="d-flex justify-content-center mt-5">
                         <ul class="pagination">
                             <li class="page-item">
@@ -228,21 +241,7 @@
                     </nav>
                 </main>
                 <aside class="col-md-3">
-                    <div class="sidebar">
-<!--                        <div class="sidebar-categories border-animation-left mb-5">
-                            <div class="text-dark text-uppercase">Browse By Categories:</div>
-
-                            <ul class="list-unstyled">
-                                <c:forEach items="${cat}" var="c">
-                                    <li><a href="search?id=$ {c.id}" class="item-anchor">
-                                            </a></li>
-                                            ${c.name}
-                                        </c:forEach>                                
-                            </ul>
-
-                        </div>-->
-<!--////////////////////////////////////////////////////-->
-    
+                    <div class="sidebar">   
                         <form action="filter" method="post">
                             <input name="txt" value="${txt}" hidden="">
                             
@@ -271,29 +270,6 @@
                                             </div>
                                         </div>
                                     </div>
-<!--                                    <div class="accordion-item">
-                                        <div class="accordion-header" id="heading-two">
-                                            <button class="accordion-button py-3" type="button" data-bs-toggle="collapse"
-                                                    data-bs-target="#collapse-two" aria-expanded="true" aria-controls="collapse-two">
-                                                <span class="accordion-title fs-3">Style</span>
-                                            </button>
-                                        </div>
-                                        <div id="collapse-two" class="accordion-collapse collapse show" aria-labelledby="heading-two">
-                                            <div class="accordion-body">
-
-                                                <c:forEach items="${style}" var="s">
-                                                    <div class="form-check">
-                                                        <label class="form-check-label" >
-                                                            ${s.name}
-                                                            <input class="form-check-input" type="checkbox" name="style" value="" >
-                                                            <span class="checkmark"></span>
-                                                        </label>
-                                                    </div>
-                                                </c:forEach>
-
-                                            </div>
-                                        </div>
-                                    </div>-->
 
                                     <div class="accordion-item">
                                         <div class="accordion-header" id="heading-three">
@@ -560,6 +536,8 @@
     crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
+    <!-- jQuery library -->
+
 </body>
 
 </html>

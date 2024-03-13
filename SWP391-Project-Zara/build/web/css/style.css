@@ -22,6 +22,16 @@ CSS STRUCTURE:
 2. GENERAL TYPOGRAPHY
 
 --------------------------------------------------------------*/
+  #discount-price {
+    text-decoration: line-through;
+    color: #777;
+  }
+  
+  #discount-price {
+    color: red;
+    font-weight: bold;
+    margin-left: 10px;
+  }
 body {
   --heading-font: "Marcellus", Roboto, sans-serif;
   --heading-font-weight: 400;

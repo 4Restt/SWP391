@@ -4,6 +4,7 @@
  */
 package Controllers;
 
+import DAL.CustomerDAO;
 import DAL.UserDAO;
 import jakarta.servlet.ServletContext;
 import java.util.Properties;
@@ -57,8 +58,8 @@ public class ForgotPass extends HttpServlet {
             throws ServletException, IOException {
 
         String email = request.getParameter("email");
-        UserDAO.INSTANCE.checkEmailExist(email);
-        if (UserDAO.INSTANCE.getUser() == null) {
+        CustomerDAO.INSTANCE.checkEmailExist(email);
+        if (CustomerDAO.INSTANCE.getCustomer() == null) {
             String warn = "Your email is not registered in the system";
             request.setAttribute("warn", warn);
             request.getRequestDispatcher("Views/ForgotPass.jsp").forward(request, response);

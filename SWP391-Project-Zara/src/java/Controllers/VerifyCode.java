@@ -4,7 +4,9 @@
  */
 package Controllers;
 
+import DAL.CustomerDAO;
 import DAL.UserDAO;
+import Models.Customer;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -46,13 +48,13 @@ public class VerifyCode extends HttpServlet {
         String email = (String)ses.getAttribute("email");
 
 //        User user = (User) ses.getAttribute("account");
-        UserDAO.INSTANCE.checkEmailExist(email);
+        CustomerDAO.INSTANCE.checkEmailExist(email);
         if (!newpass.equals(repassword)) {
             String warn = "Please Check again to confirm the new password ";
             request.setAttribute("warn", warn);
             request.getRequestDispatcher("Views/ChangePass.jsp").forward(request, response);
         } else {
-            UserDAO.INSTANCE.ChangeUser(newpass, UserDAO.INSTANCE.getUser().getAccount());
+            CustomerDAO.INSTANCE.ChangeUser(newpass, CustomerDAO.INSTANCE.getCustomer().getAccount());
             request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
         }
 //        try ( PrintWriter out = response.getWriter()) {
@@ -77,7 +79,7 @@ public class VerifyCode extends HttpServlet {
         HttpSession ses = request.getSession();
         String code = (String) ses.getAttribute("code");
         String code1 = request.getParameter("code");
-        User user = UserDAO.INSTANCE.checkEmailExist1(email);
+        Customer user = CustomerDAO.INSTANCE.checkEmailExist1(email);
         if (!code.equals(code1)) {
             String warn = "Please check again the Code we sent ";
             request.setAttribute("warn", warn);
@@ -87,7 +89,7 @@ public class VerifyCode extends HttpServlet {
                 request.setAttribute("email", email);
                 request.getRequestDispatcher("Views/ChangePass.jsp").forward(request, response);
             } else {
-                UserDAO.INSTANCE.signUp(username, password, name, phone, address, email);
+                CustomerDAO.INSTANCE.signUp(name, address, phone, email, username, password);
                 request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
             }
         }

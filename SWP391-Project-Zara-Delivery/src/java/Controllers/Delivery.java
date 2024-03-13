@@ -51,39 +51,48 @@ public class Delivery extends HttpServlet {
 
         request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
     }
-    List [] address = new List [1000];
+    List[] address = new List[1000];
+
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         HttpSession ses = request.getSession(false);
 
         if (ses != null) {
             String deliveryName = (String) ses.getAttribute("deliveryName");
-            
 
             List<Order> unassignedOrders = OrderDAO.INSTANCE.getUnassignedOrders(deliveryName);
             List<Order> alreadyOrders = OrderDAO.INSTANCE.getAlShipperOrders(deliveryName);
+            List<Order> cancelledOrders = OrderDAO.INSTANCE.getCancelledOrdersbyDeliver(deliveryName);
+            List<Order> completedOrders = OrderDAO.INSTANCE.getCompletedOrdersbyDeliver(deliveryName);
             List<Shipper> compatibleShippers = (List) ShipperDAO.INSTANCE.compatibleShippers(deliveryName);
             List listOfAddresses = OrderDAO.INSTANCE.listOfAddresses(deliveryName);
-            
-            
-            // Assign order
-            String orderId = request.getParameter("orderId");
-            String shipperId = request.getParameter("shipperId");
-            if(orderId != null && shipperId != null){
-                OrderDAO.INSTANCE.AssignOrdertoShipper(shipperId, orderId);
+            List<Shipper> listShipper = (List) ShipperDAO.INSTANCE.shipperList(deliveryName);
+            //Update profile, manage shipper
+            String content = (String) request.getAttribute("content");
+            if (content != null && content.equals("profile")) {
+                request.setAttribute("content", "profile");
+            }else if(content != null && content.equals("shipperList")){
+                request.setAttribute("content", "shipperList");
+            } else {
+                request.setAttribute("content", "unassignedOrders");
             }
-            
-
-            // Đặt danh sách đơn hàng vào attribute của request            
+            // Đặt danh sách đơn hàng vào attribute của request   
+            request.setAttribute("delivery", DeliveryDAO.INSTANCE.getDeliverybyName(deliveryName));
             request.setAttribute("orders", unassignedOrders);
             request.setAttribute("alreadyOrders", alreadyOrders);
+            request.setAttribute("cancelledOrders", cancelledOrders);
+            request.setAttribute("completedOrders", completedOrders);
             request.setAttribute("shippers", compatibleShippers);
             request.setAttribute("listOfAddresses", listOfAddresses);
+            request.setAttribute("listShipper", listShipper);
+            
 
         }
+            request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
+//            request.getRequestDispatcher("Views/Test.jsp").forward(request, response);
 
-        request.getRequestDispatcher("Views/Delivery.jsp").forward(request, response);
 //        address = request.getParameterValues("selectedOrders");
 //            try ( PrintWriter out = response.getWriter()) {
 //                for (int i = 0; i < address.length; i++) {

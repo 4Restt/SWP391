@@ -25,4 +25,5 @@ public class Product {
     private int quantity;
     private float price;
     private String imgDefault;
+    private float priceDefault;
 }

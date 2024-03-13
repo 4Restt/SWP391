@@ -21,13 +21,21 @@ public class Login extends HttpServlet {
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
 
-
     }
 
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie arr[] = request.getCookies();
+        Cookie[] arr = request.getCookies();
+        if (arr == null) {
+            arr = new Cookie[0]; // Assign an empty array if arr is null
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == null) {
+                arr[i] = new Cookie("empty", " "); // If arr[i] is null, assign a cookie with a space
+            }
+        }
         for (Cookie o : arr) {
             if (o.getName().equals("userC")) {
                 request.setAttribute("username", o.getValue());
@@ -104,7 +112,6 @@ public class Login extends HttpServlet {
                 request.getRequestDispatcher("/shipper").forward(request, response);
             }
         }
-
 
     }
 

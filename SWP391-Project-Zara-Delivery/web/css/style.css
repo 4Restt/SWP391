@@ -1539,3 +1539,7 @@ a.btn-link.text-light:after {
 .swiper-button-down::after {
     transform: translate(-50%, -50%) rotate(135deg);
 }
+div#dataTable_filter {
+float: right;
+margin-right: 15px;
+margin-top: 0px;   }

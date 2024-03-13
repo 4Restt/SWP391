@@ -43,6 +43,14 @@ public class Cart extends HttpServlet {
             request.setAttribute("total", total);
 
         }
+        int totalQ = 0 ;
+        if (cart_list != null) {
+            for (Models.Cart c : cart_list) {
+                totalQ += c.getQuantity() ;
+            }
+        }
+
+        request.setAttribute("totalQ", totalQ);
 
 //        request.setAttribute("cart_list", cart_list);
         request.getRequestDispatcher("Views/Cart.jsp").forward(request, response);

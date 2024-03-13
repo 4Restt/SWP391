@@ -49,7 +49,7 @@ public class CustomerDAO {
     }
 
     public void login(String username, String password) {
-        String sql = "select * from [Customer] where name = ? and [password] = ?";
+        String sql = "select * from [Customer] where account = ? and [password] = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, username);
@@ -211,5 +211,6 @@ public class CustomerDAO {
     public static void main(String[] args) {
         CustomerDAO.INSTANCE.listOfCustomers();
         System.out.println(CustomerDAO.INSTANCE.listOfCustomers());
+        
     }
 }

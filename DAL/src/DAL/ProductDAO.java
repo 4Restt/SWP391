@@ -219,7 +219,7 @@ public class ProductDAO {
     public List<Product> getTop6NewArrival() {
         listProduct = new Vector<Product>();
         String sql = "WITH RankedProducts AS (\n"
-                + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price, PI.img_default,\n"
+                + "    SELECT P.product_info_id, P.size,  i.color, P.name AS product_name, P.quantity, PI.price, PI.img_default,\n"
                 + "        ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
                 + "            CASE \n"
                 + "                WHEN P.size = 'S' THEN 0 \n"
@@ -233,6 +233,7 @@ public class ProductDAO {
                 + "    JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
                 + "    JOIN Style S ON PI.style_id = S.id\n"
                 + "    JOIN Category C ON S.cate_id = C.id\n"
+                + "    JOIN Image i on i.path = PI.img_default\n"
                 + ")\n"
                 + "SELECT TOP 6 product_info_id, size, color, product_name, quantity, price, img_default\n"
                 + "FROM RankedProducts\n"
@@ -261,13 +262,8 @@ public class ProductDAO {
     public List<String> getProductInfoImage(String productInfoId, String color) {
         List<String> listImgPath = new Vector<String>();
         String sql = "SELECT path\n"
-                + "FROM (\n"
-                + "    SELECT DISTINCT I.path\n"
-                + "    FROM Image AS I\n"
-                + "    INNER JOIN Product AS P ON I.product_info_id = P.product_info_id\n"
-                + "    WHERE P.product_info_id = ? AND P.color = ?\n"
-                + ") AS Subquery\n"
-                + "ORDER BY (SELECT MIN(I.id) FROM Image AS I WHERE I.path = Subquery.path);";
+                + "FROM Image\n"
+                + "WHERE product_info_id = ? AND color = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, productInfoId);
@@ -357,23 +353,11 @@ public class ProductDAO {
         try {
             if (cartList.size() > 0) {
                 for (Cart item : cartList) {
-                    String sql = "WITH RankedProducts AS (\n"
-                            + "            SELECT P.product_info_id as productInfoId, P.size,  P.color, P.name, P.quantity, PI.price, PI.img_default as imgDefault,\n"
-                            + "            ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
-                            + "            CASE \n"
-                            + "                             WHEN P.size = 'S' THEN 0 \n"
-                            + "                                WHEN P.size = 'M' THEN 1 \n"
-                            + "                               WHEN P.size = 'L' THEN 2 \n"
-                            + "                                WHEN P.size = 'XL' THEN 3 \n"
-                            + "                                ELSE 4\n"
-                            + "                            END\n"
-                            + "                        ) AS rn\n"
-                            + "                    FROM  Product P\n"
-                            + "                   JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
-                            + "                )\n"
-                            + "                SELECT productInfoId, size, color, name , quantity, price, imgDefault\n"
-                            + "                FROM RankedProducts\n"
-                            + "                WHERE productInfoId = ? and size = ? and color = ? ";
+                    String sql = "SELECT Top 1 P.product_info_id as productInfoId, P.size,  P.color, P.name, P.quantity, PI.price, i.path as imgDefault\n"
+                            + "FROM Product P\n"
+                            + "JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
+                            + "JOIN Image I on I.color = P.color and I.product_info_id = P.product_info_id \n"
+                            + "WHERE P.product_info_id = ? and P.size = ? and P.color = ? ";
                     ps = con.prepareStatement(sql);
                     ps.setInt(1, item.getProductInfoId());
                     ps.setString(2, item.getSize());
@@ -403,23 +387,11 @@ public class ProductDAO {
         try {
             if (cartList.size() > 0) {
                 for (Cart item : cartList) {
-                    String sql = "WITH RankedProducts AS (\n"
-                            + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price, PI.img_default,\n"
-                            + "        ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
-                            + "            CASE \n"
-                            + "                WHEN P.size = 'S' THEN 0 \n"
-                            + "                WHEN P.size = 'M' THEN 1 \n"
-                            + "                WHEN P.size = 'L' THEN 2 \n"
-                            + "                WHEN P.size = 'XL' THEN 3 \n"
-                            + "                ELSE 4\n"
-                            + "            END\n"
-                            + "        ) AS rn\n"
-                            + "    FROM  Product P\n"
-                            + "    JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
-                            + ")\n"
-                            + "SELECT price \n"
-                            + "FROM RankedProducts\n"
-                            + "WHERE rn = 1 and product_info_id = ? and size = ? and color = ? \n";
+                    String sql = "SELECT Top 1 PI.price\n"
+                            + "FROM Product P\n"
+                            + "JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
+                            + "JOIN Image I on I.color = P.color and I.product_info_id = P.product_info_id \n"
+                            + "WHERE P.product_info_id = ? and P.size = ? and P.color = ? ";
 
                     ps = con.prepareStatement(sql);
                     ps.setInt(1, item.getProductInfoId());
@@ -524,13 +496,13 @@ public class ProductDAO {
     public int getTotalProduct() {
         String sql = "SELECT Count(id)\n"
                 + "FROM [ProductInfor]";
-        try{
+        try {
             ps = con.prepareStatement(sql);
             rs = ps.executeQuery();
-            while(rs.next()){
+            while (rs.next()) {
                 return rs.getInt(1);
             }
-        }catch(Exception e){
+        } catch (Exception e) {
             System.out.println("getTotalProduct: " + e.getMessage());
         }
         return 0;

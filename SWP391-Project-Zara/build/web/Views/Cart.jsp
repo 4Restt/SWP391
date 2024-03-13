@@ -222,127 +222,59 @@
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
                                 <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle active" href="#" id="dropdownHome" data-bs-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">Home</a>
-                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownHome">
-                                        <li>
-                                            <a href="index.html" class="dropdown-item item-anchor">Home Layout 1</a>
-                                        </li>
-                                        <li>
-                                            <a href="home2.html" class="dropdown-item item-anchor">Home Layout 2 <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="home3.html" class="dropdown-item item-anchor">Home Layout 3 <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="home4.html" class="dropdown-item item-anchor">Home Layout 4 <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
-                                <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="dropdownShop" data-bs-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">Shop</a>
                                     <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownShop">
-                                        <li>
-                                            <a href="shop-sidebar.html" class="dropdown-item item-anchor">Shop Sidebar <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-three-column.html" class="dropdown-item item-anchor">Shop Three Column <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-three-column-wide.html" class="dropdown-item item-anchor">Shop Three Column Wide <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-four-column.html" class="dropdown-item item-anchor">Shop Four Column <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-four-column-wide.html" class="dropdown-item item-anchor">Shop Four Column Wide <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-six-column.html" class="dropdown-item item-anchor">Shop Six Column <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="shop-six-column-wide.html" class="dropdown-item item-anchor">Shop Six Column Wide <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="single-product.html" class="dropdown-item item-anchor">Single Product <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="single-product2.html" class="dropdown-item item-anchor">Single Product V2 <span class="badge bg-primary">PRO</span></a>
-                                        </li>
+                                        <c:forEach items="${listCategory}" var="lc">
+                                            <li>
+                                                <a href="category?cid=${lc.getId()}" class="dropdown-item item-anchor">${lc.getName()} </a>
+                                            </li>       
+                                        </c:forEach>
                                     </ul>
                                 </li>
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="dropdownBlog" data-bs-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">Blog</a>
-                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownBlog">
-                                        <li>
-                                            <a href="blog-classic.html" class="dropdown-item item-anchor">Blog Classic <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-grid-with-sidebar.html" class="dropdown-item item-anchor">Blog Grid with Sidebar <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-grid-four-column.html" class="dropdown-item item-anchor">Blog Grid Four Column <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-no-sidebar.html" class="dropdown-item item-anchor">Blog No Sidebar <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="blog-right-sidebar.html" class="dropdown-item item-anchor">Blog Right Sidebar <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="single-post.html" class="dropdown-item item-anchor">Single Post <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="single-post-no-sidebar.html" class="dropdown-item item-anchor">Single Post No Sidebar <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                    </ul>
-                                </li>
+                               
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">Pages</a>
                                     <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
                                         <li>
-                                            <a href="about.html" class="dropdown-item item-anchor">About <span class="badge bg-primary">PRO</span></a>
+                                            <a href="about.html" class="dropdown-item item-anchor">About </a>
                                         </li>
                                         <li>
-                                            <a href="cart.html" class="dropdown-item item-anchor">Cart <span class="badge bg-primary">PRO</span></a>
+                                            <a href="cart.html" class="dropdown-item item-anchor">Cart </a>
                                         </li>
                                         <li>
-                                            <a href="checkout.html" class="dropdown-item item-anchor">Checkout <span class="badge bg-primary">PRO</span></a>
+                                            <a href="checkout.html" class="dropdown-item item-anchor">Checkout </a>
                                         </li>
                                         <li>
-                                            <a href="coming-soon.html" class="dropdown-item item-anchor">Coming Soon <span class="badge bg-primary">PRO</span></a>
+                                            <a href="coming-soon.html" class="dropdown-item item-anchor">Coming Soon </a>
+                                        </li>
+
+                                        <li>
+                                            <a href="my-account.html" class="dropdown-item item-anchor">My Account </a>
                                         </li>
                                         <li>
-                                            <a href="contact.html" class="dropdown-item item-anchor">Contact <span class="badge bg-primary">PRO</span></a>
+                                            <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking </a>
                                         </li>
                                         <li>
-                                            <a href="error-page.html" class="dropdown-item item-anchor">Error Page <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="faqs.html" class="dropdown-item item-anchor">FAQs <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="my-account.html" class="dropdown-item item-anchor">My Account <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking <span class="badge bg-primary">PRO</span></a>
-                                        </li>
-                                        <li>
-                                            <a href="wishlist.html" class="dropdown-item item-anchor">Wishlist <span class="badge bg-primary">PRO</span></a>
+                                            <a href="wishlist.html" class="dropdown-item item-anchor">Wishlist </a>
                                         </li>
                                     </ul>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Blog</a>
+                                    <a class="nav-link" href="blog">Blog</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="nav-link" href="#">Contact</a>
+                                    <a class="nav-link" href="contact">Contact</a>
                                 </li>
                                 <li class="nav-item">
-                                    <a class="btn btn-outline-primary rounded-pill" href="https://templatesjungle.gumroad.com/l/kaira-bootstrap-ecommerce-template" target="_blank">Get PRO</a>
+                                    <a class="nav-link" href="faqs">FAQS</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-primary rounded-pill" href="login" >Login</a>
+                                </li>
+                                <li class="nav-item">
+                                    <a class="btn btn-outline-primary rounded-pill" href="signup" >Sign Up</a>
                                 </li>
                             </ul>
                         </div>
@@ -356,7 +288,7 @@
                             </a>
                         </li>
                         <li class="d-none d-lg-block">
-                            <a href="cart.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">Cart <span class="cart-count">(${ cart_list.size()>0? cart_list.size() : '0' })</span>
+                            <a href="cart.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">Cart <span class="cart-count">(0)</span>
                             </a>
                         </li>
                         <li class="d-lg-none">
@@ -376,9 +308,7 @@
                         </li>
                     </ul>
                 </div>
-
             </div>
-
         </div>
     </nav>
 
@@ -399,19 +329,20 @@
         <div class="container">
             <div class="row">
                 <div class="col-md-8">
-                    <div class="cart-table">
-                        <div class="cart-header">
-                            <div class="row d-flex">
-                                <h6 class="cart-title text-uppercase text-muted col-lg-4 pb-3">Product</h6>
-                                <h6 class="cart-title text-uppercase text-muted col-lg-3 pb-3">Quantity</h6>
-                                <h6 class="cart-title text-uppercase text-muted col-lg-4 pb-3">Subtotal</h6>
-                            </div>
-                        </div>
-                        
-                        <c:forEach items="${cartProduct}" var="cl">
-                            <div class="cart-item border-top border-bottom">
-                                <div class="row align-items-center"> 
-                                    <div class="col-lg-4 col-md-3">
+                    <table class="table">
+                        <thead>
+                            <tr class="cart-header">
+                                <th class="cart-title text-uppercase text-muted col-lg-4 pb-3">Product</th>
+                                <th class="cart-title text-uppercase text-muted col-lg-2 pb-3">Size</th>
+                                <th class="cart-title text-uppercase text-muted col-lg-2 pb-3">Quantity</th>
+                                <th class="cart-title text-uppercase text-muted col-lg-3 pb-3" style="padding-left: 60px">Subtotal</th>
+                                <th></th> <!-- Placeholder for delete button column -->
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${cartProduct}" var="cl">
+                                <tr class="cart-item border-top border-bottom">
+                                    <td class="align-middle">
                                         <div class="cart-info d-flex flex-wrap align-items-center mb-4">
                                             <div class="col-lg-5">
                                                 <div class="card-image">
@@ -421,40 +352,35 @@
                                             <div class="col-lg-7">
                                                 <div class="card-detail ps-3">
                                                     <h5 class="card-title">
-                                                        <a href="#" class="text-decoration-none">${cl.getName()}</a>
+                                                        <a href="detail?pifid=${cl.getProductInfoId()}&size=${cl.getSize()}&color=${cl.getColor()}" class="text-decoration-none">${cl.getName()}</a>
                                                     </h5>
-                                                    <div class="card-price">
-                                                        <span class="money text-dark" >${cl.getPrice()}</span>
-                                                    </div>
+                                                    
                                                 </div>
                                             </div>
                                         </div>
-                                    </div>
-                                    <div class="col-lg-6 col-md-7">
-                                        <div class="row d-flex">
-                                            <div class="col-md-4">
-                                                <div class="input-group product-qty">
-                                                    <span class="input-group-btn">
-                                                        <button type="button" class="quantity-left-minus btn btn-light btn-number"  data-type="minus" data-field="1">
-                                                            <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                                        </button>
-                                                    </span>
-                                                    <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="${cl.getQuantity()}" min="1" max="100">
-                                                    <span class="input-group-btn">
-                                                        <button type="button" class="quantity-right-plus btn btn-light btn-number" data-type="plus" data-field="">
-                                                            <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                                        </button>
-                                                    </span>
-                                                </div>
-                                            </div>
-                                            <div class="col-md-8 text-center">
-                                                <div class="total-price">
-                                                    <span class="money text-dark">$ ${cl.getPrice()}</span>
-                                                </div>
-                                            </div>   
-                                        </div>             
-                                    </div>      
-                                    <div class="col-lg-1 col-md-2">
+                                    </td>
+                                    <td class="align-middle">${cl.getSize()}</td>
+                                    <td class="align-middle">
+                                        <div class="input-group product-qty">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="quantity-left-minus btn btn-light btn-number"  data-type="minus" data-field="1">
+                                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
+                                                </button>
+                                            </span>
+                                            <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="${cl.getQuantity()}" min="1" max="100">
+                                            <span class="input-group-btn">
+                                                <button type="button" class="quantity-right-plus btn btn-light btn-number" data-type="plus" data-field="">
+                                                    <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
+                                                </button>
+                                            </span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="total-price">
+                                            <span class="money text-dark">$ ${cl.getPrice()}</span>
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center">
                                         <div class="cart-remove">
                                             <a href="deleteCart?pifid=${cl.getProductInfoId()}&size=${cl.getSize()}&color=${cl.getColor()}">
                                                 <svg width="32px">
@@ -462,15 +388,17 @@
                                                 </svg>
                                             </a>
                                         </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </c:forEach>
-                    </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+
+
                 </div>
-                
+
                 <div class="col-md-4">
-                    
+
                     <div class="cart-totals bg-grey py-5">
                         <h4 class="text-dark pb-4">Cart Total</h4>
                         <div class="total-price pb-5">
@@ -493,16 +421,16 @@
                             <div class="col-md-12"><a class="btn btn-primary text-uppercase btn-rounded-none w-100">Buy Now</a></div>
                         </div>
                     </div>
-                    
+
                 </div>
 
             </div>
         </div>
     </section> 
-                                            
 
 
-    
+
+
     <footer id="footer" class="mt-5">
         <div class="container">
             <div class="row d-flex flex-wrap justify-content-between py-5">

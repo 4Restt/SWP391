@@ -1,6 +1,7 @@
 
 package Controllers;
 import DAL.CategoryDAO;
+import DAL.CustomerDAO;
 import DAL.UserDAO;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -19,15 +20,15 @@ public class Login extends HttpServlet {
         String account = request.getParameter("username");
         String password = request.getParameter("password");
         String warn = "Your account or password is incorrect";
-        UserDAO.INSTANCE.logout();
-        UserDAO.INSTANCE.login(account, password);
+        CustomerDAO.INSTANCE.logout();
+        CustomerDAO.INSTANCE.login(account, password);
         String remember = request.getParameter("remember");
-        if (UserDAO.INSTANCE.getUser() == null) {
+        if (CustomerDAO.INSTANCE.getCustomer() == null) {
             request.setAttribute("warn", warn);
             request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
         } else {
             HttpSession ses = request.getSession();
-            ses.setAttribute("account", UserDAO.INSTANCE.getUser());
+            ses.setAttribute("account", CustomerDAO.INSTANCE.getCustomer());
             Cookie c = new Cookie("userC", account);
             Cookie p = new Cookie("passC", password);
             c.setMaxAge(60);
@@ -47,13 +48,14 @@ public class Login extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Cookie arr[] = request.getCookies();
-        for (Cookie o : arr) {
-            if (o.getName().equals("userC")) {
-                request.setAttribute("username", o.getValue());
-            }
-            if (o.getName().equals("passC")) {
-                request.setAttribute("password", o.getValue());
+        Cookie[] arr = request.getCookies();
+        if (arr == null) {
+            arr = new Cookie[0]; // Assign an empty array if arr is null
+        }
+
+        for (int i = 0; i < arr.length; i++) {
+            if (arr[i] == null) {
+                arr[i] = new Cookie("empty", " "); // If arr[i] is null, assign a cookie with a space
             }
         }
         List<Models.Category> listCategory = CategoryDAO.INSTANCE.getAllCategory();
@@ -67,15 +69,15 @@ public class Login extends HttpServlet {
         String account = request.getParameter("username");
         String password = request.getParameter("password");
         String warn = "Your account or password is incorrect";
-        UserDAO.INSTANCE.logout();
-        UserDAO.INSTANCE.login(account, password);
+        CustomerDAO.INSTANCE.logout();
+        CustomerDAO.INSTANCE.login(account, password);
         String remember = request.getParameter("remember");
-        if (UserDAO.INSTANCE.getUser() == null) {
+        if (CustomerDAO.INSTANCE.getCustomer()== null) {
             request.setAttribute("warn", warn);
             request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
         } else {
             HttpSession ses = request.getSession();
-            ses.setAttribute("account", UserDAO.INSTANCE.getUser());
+            ses.setAttribute("account", CustomerDAO.INSTANCE.getCustomer());
             Cookie c = new Cookie("userC", account);
             Cookie p = new Cookie("passC", password);
             c.setMaxAge(60);

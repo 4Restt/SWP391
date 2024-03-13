@@ -404,7 +404,7 @@ String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.na
 
     public List<Order> getListOrderByStatus(String status) {
         listOrder = new Vector<>();
-        String sql = "SELECT o.*, Customer.address AS customerAddress\n"
+        String sql = "SELECT o.*, Customer.address AS customerAddress, Customer.name, Customer.phone\n"
                 + "FROM [Order] o\n"
                 + "JOIN Customer ON o.customer_id = Customer.id\n"
                 + "WHERE o.status = ?";

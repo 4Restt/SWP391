@@ -116,7 +116,7 @@
                                                 <td class="p-3">${ls.getEmail()}</td>
                                                 <td class="p-3">${ls.getPhone()}</td>                                              
                                                 <td class="p-3">${ls.getDate()}</td>
-                                                <td class="p-3 ${ls.getStatus() == 'Activated' ? 'text-success' : 'text-danger'}">${ls.getStatus()}</td> 
+                                                <td id="status_${ls.getId()}" class="p-3 status-cell ${ls.getStatus() == 'Activated' ? 'text-success' : 'text-danger'}">${ls.getStatus()}</td> 
                                                 <td class="text-end p-3">
                                                     <a href="#" class="btn btn-icon btn-pills btn-soft-primary" data-bs-toggle="modal" data-bs-target="#viewstaff${ls.getId()}"><i class="uil uil-eye"></i></a>
                                                     <a href="#" class="btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#acceptstaff${ls.getId()}"><i class="uil uil-check-circle"></i></a>
@@ -371,6 +371,7 @@
                                 <p class="para-desc mx-auto text-muted mb-0">Great doctor if you need your family member to get immediate assistance, emergency treatment.</p>
                                 <div class="mt-4">
                                     <a href="status?action=active&id=${ls.getId()}" class="btn btn-soft-success">Active</a>
+                                    <button class="btn btn-soft-success" onclick="changeStatus(this, 'active', ${ls.getId()})">Active</button>
                                 </div>
                             </div>
                         </div>
@@ -394,6 +395,8 @@
                                 <p class="para-desc mx-auto text-muted mb-0">Great doctor if you need your family member to get immediate assistance, emergency treatment.</p>
                                 <div class="mt-4">
                                     <a href="status?action=deactive&id=${ls.getId()}" class="btn btn-soft-danger">Cancel</a>
+                                    <button class="btn btn-soft-danger" onclick="changeStatus(this, 'deactive', ${ls.getId()})">Cancel</button>
+
                                 </div>
                             </div>
                         </div>
@@ -537,6 +540,7 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.1/js/dataTables.bootstrap4.js"></script>
+
     <script>
                                         $(document).ready(function () {
                                             $('#userTable').DataTable({
@@ -544,8 +548,40 @@
                                                 "lengthChange": false
                                             });
                                         });
+    </script>        
+    <script>
+        function changeStatus(btn, status, id) {
+            $.ajax({
+                url: 'status',
+                type: 'GET',
+                data: {
+                    id: id,
+                    action: status
+                },
+                success: function (response) {
+                    // Update status cell content and classes
+                    var statusCell = $('#status_' + id);
+                    statusCell.text(response);
+                    statusCell.removeClass('text-success text-danger');
+                    if (response === 'Activated') {
+                        statusCell.addClass('text-success');
+                    } else {
+                        statusCell.addClass('text-danger');
+                    }
 
+                    // Close the modal
+                    $(btn).closest('.modal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
     </script>
+
+
+
+
 
 
 </body>

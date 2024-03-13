@@ -18,6 +18,7 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Product {
+
     private int productInfoId;
     private String size;
     private String color;
@@ -25,4 +26,6 @@ public class Product {
     private int quantity;
     private float price;
     private String imgDefault;
+    private float priceDefault;
+
 }

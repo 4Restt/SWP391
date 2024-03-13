@@ -20,15 +20,15 @@ public class Login extends HttpServlet {
         String account = request.getParameter("username");
         String password = request.getParameter("password");
         String warn = "Your account or password is incorrect";
-        UserDAO.INSTANCE.logout();
-        UserDAO.INSTANCE.login(account, password);
+        CustomerDAO.INSTANCE.logout();
+        CustomerDAO.INSTANCE.login(account, password);
         String remember = request.getParameter("remember");
-        if (UserDAO.INSTANCE.getUser() == null) {
+        if (CustomerDAO.INSTANCE.getCustomer() == null) {
             request.setAttribute("warn", warn);
             request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
         } else {
             HttpSession ses = request.getSession();
-            ses.setAttribute("account", UserDAO.INSTANCE.getUser());
+            ses.setAttribute("account", CustomerDAO.INSTANCE.getCustomer());
             Cookie c = new Cookie("userC", account);
             Cookie p = new Cookie("passC", password);
             c.setMaxAge(60);

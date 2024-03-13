@@ -116,6 +116,10 @@
         <servlet-name>EventEdit</servlet-name>
         <servlet-class>Controllers.EventEdit</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>AjaxSale</servlet-name>
+        <servlet-class>Controllers.AjaxSale</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -231,6 +235,10 @@
     <servlet-mapping>
         <servlet-name>EventEdit</servlet-name>
         <url-pattern>/eventedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AjaxSale</servlet-name>
+        <url-pattern>/ajaxsale</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

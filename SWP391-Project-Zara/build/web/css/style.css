@@ -22,6 +22,13 @@ CSS STRUCTURE:
 2. GENERAL TYPOGRAPHY
 
 --------------------------------------------------------------*/
+.d-flexc {
+    display: flex;
+    flex-direction: column; /* Đảm bảo các phần tử con được xếp theo chiều dọc */
+    align-items: center; /* Căn giữa theo chiều ngang */
+    text-align: center; /* Căn giữa văn bản */
+  }
+
 body {
   --heading-font: "Marcellus", Roboto, sans-serif;
   --heading-font-weight: 400;
@@ -132,6 +139,17 @@ h5,
   font-size: 1.4rem;
 }
 
+  .original-price {
+    text-decoration: line-through;
+    color: #777;
+  }
+  
+  .discount-price {
+    color: red;
+    font-weight: bold;
+    margin-left: 10px;
+  }
+  
 h6,
 .h6 {
   font-size: 1rem;

@@ -66,7 +66,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(7),
-                        rs.getString(8)
+                        rs.getString(8),
+                        rs.getFloat(9)
                 ));
 
             }
@@ -78,7 +79,7 @@ public class ProductDAO {
     public List<Product> getAllProduct() {
         listProduct = new Vector<Product>();
         String sql = "WITH RankedProducts AS (\n"
-                + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price_sale, PI.img_default,\n"
+                + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price_sale, PI.img_default,PI.price,\n"
                 + "        ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
                 + "            CASE \n"
                 + "                WHEN P.size = 'S' THEN 0 \n"
@@ -91,7 +92,7 @@ public class ProductDAO {
                 + "    FROM  Product P\n"
                 + "    JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
                 + ")\n"
-                + "SELECT product_info_id, size, color, product_name, quantity, price_sale, img_default\n"
+                + "SELECT product_info_id, size, color, product_name, quantity, price_sale, img_default,price\n"
                 + "FROM RankedProducts\n"
                 + "WHERE rn = 1\n"
                 + "ORDER BY product_info_id DESC";
@@ -106,7 +107,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getFloat(8)
                 ));
             }
         } catch (Exception e) {
@@ -132,7 +134,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getFloat(8)
                 ));
             }
         } catch (Exception e) {
@@ -155,7 +158,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getFloat(8)
                 ));
             }
         } catch (Exception e) {
@@ -177,7 +181,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getFloat(8)
                 ));
             }
         } catch (Exception e) {
@@ -189,7 +194,7 @@ public class ProductDAO {
     public List<Product> getProductByCid(String cid) {
         listProduct = new Vector<Product>();
         String sql = "WITH RankedProducts AS (\n"
-                + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price_sale, PI.img_default,\n"
+                + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price_sale, PI.img_default,PI.price,\n"
                 + "        ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
                 + "            CASE \n"
                 + "                WHEN P.size = 'S' THEN 0 \n"
@@ -205,7 +210,7 @@ public class ProductDAO {
                 + "    JOIN Category C ON S.cate_id = C.id\n"
                 + "    WHERE C.id = ? \n"
                 + ")\n"
-                + "SELECT product_info_id, size, color, product_name, quantity, price_sale, img_default\n"
+                + "SELECT product_info_id, size, color, product_name, quantity, price_sale, img_default,price\n"
                 + "FROM RankedProducts\n"
                 + "WHERE rn = 1"
                 + "ORDER BY product_info_id DESC";
@@ -221,7 +226,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getFloat(8)
                 ));
             }
         } catch (Exception e) {
@@ -233,7 +239,7 @@ public class ProductDAO {
     public List<Product> getTop6NewArrival() {
         listProduct = new Vector<Product>();
         String sql = "WITH RankedProducts AS (\n"
-                + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price_sale, PI.img_default,\n"
+                + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price_sale, PI.img_default,PI.price,\n"
                 + "        ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
                 + "            CASE \n"
                 + "                WHEN P.size = 'S' THEN 0 \n"
@@ -248,7 +254,7 @@ public class ProductDAO {
                 + "    JOIN Style S ON PI.style_id = S.id\n"
                 + "    JOIN Category C ON S.cate_id = C.id\n"
                 + ")\n"
-                + "SELECT TOP 6 product_info_id, size, color, product_name, quantity, price_sale, img_default\n"
+                + "SELECT TOP 6 product_info_id, size, color, product_name, quantity, price_sale, img_default,price\n"
                 + "FROM RankedProducts\n"
                 + "WHERE rn = 1\n"
                 + "ORDER BY product_info_id DESC";
@@ -263,7 +269,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getFloat(8)
                 ));
             }
         } catch (Exception e) {
@@ -338,7 +345,7 @@ public class ProductDAO {
     }
 
     public Product getProductByPSC(String product_info_id, String size, String color) {
-        String sql = "SELECT  P.product_info_id, P.size,  P.color, P.name, P.quantity, PI.price_sale, PI.img_default\n"
+        String sql = "SELECT  P.product_info_id, P.size,  P.color, P.name, P.quantity, PI.price_sale, PI.img_default,PI.price\n"
                 + "FROM Product P\n"
                 + "JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
                 + "WHERE product_info_id = ? AND size = ? AND color= ?\n"
@@ -357,7 +364,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getFloat(8)
                 ));
             }
         } catch (Exception e) {
@@ -373,7 +381,7 @@ public class ProductDAO {
             if (cartList.size() > 0) {
                 for (Cart item : cartList) {
                     String sql = "WITH RankedProducts AS (\n"
-                            + "            SELECT P.product_info_id as productInfoId, P.size,  P.color, P.name, P.quantity, PI.price_sale, PI.img_default as imgDefault,\n"
+                            + "            SELECT P.product_info_id as productInfoId, P.size,  P.color, P.name, P.quantity, PI.price_sale, PI.img_default as imgDefault,PI.price,\n"
                             + "            ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
                             + "            CASE \n"
                             + "                             WHEN P.size = 'S' THEN 0 \n"
@@ -386,7 +394,7 @@ public class ProductDAO {
                             + "                    FROM  Product P\n"
                             + "                   JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
                             + "                )\n"
-                            + "                SELECT productInfoId, size, color, name , quantity, price_sale, imgDefault\n"
+                            + "                SELECT productInfoId, size, color, name , quantity, price_sale, imgDefault,price \n"
                             + "                FROM RankedProducts\n"
                             + "                WHERE productInfoId = ? and size = ? and color = ? ";
                     ps = con.prepareStatement(sql);
@@ -401,7 +409,7 @@ public class ProductDAO {
                         ct.setColor(rs.getString("color"));
                         ct.setName(rs.getString("name"));
                         ct.setQuantity(item.getQuantity());
-                        ct.setPrice(rs.getFloat("price")*item.getQuantity());
+                        ct.setPrice(rs.getFloat("price_sale")*item.getQuantity());
                         ct.setImgDefault(rs.getString("imgDefault"));
                         productsCart.add(ct);
                     }
@@ -419,7 +427,7 @@ public class ProductDAO {
             if (cartList.size() > 0) {
                 for (Cart item : cartList) {
                     String sql = "WITH RankedProducts AS (\n"
-                            + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price_sale, PI.img_default,\n"
+                            + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price_sale, PI.img_default, PI.price,\n"
                             + "        ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
                             + "            CASE \n"
                             + "                WHEN P.size = 'S' THEN 0 \n"
@@ -442,7 +450,7 @@ public class ProductDAO {
                     ps.setString(3, item.getColor());
                     rs = ps.executeQuery();
                     while (rs.next()) {
-                        sum += rs.getFloat("price") * item.getQuantity();
+                        sum += rs.getFloat("price_sale") * item.getQuantity();
                     }
                 }
             }
@@ -468,7 +476,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(7),
-                        rs.getString(8)
+                        rs.getString(8),
+                        rs.getFloat(9)
                 ));
             }
         } catch (Exception e) {
@@ -493,7 +502,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(7),
-                        rs.getString(8)
+                        rs.getString(8),
+                        rs.getFloat(9)
                 ));
             }
         } catch (Exception e) {
@@ -505,7 +515,7 @@ public class ProductDAO {
     public void SearchByCategory(String CategoryId) {
         listProduct = new Vector<Product>();
         String sql = "WITH RankedProducts AS (\n"
-                + "	 SELECT P.id, P.product_info_id, P.size,  P.color, P.name, P.quantity, P.description, PI.price_sale, PI.img_default,\n"
+                + "	 SELECT P.id, P.product_info_id, P.size,  P.color, P.name, P.quantity, P.description, PI.price_sale, PI.img_default, PI.price,\n"
                 + "	ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY P.id) AS rn\n"
                 + "	FROM  Product P\n"
                 + "	JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
@@ -513,7 +523,7 @@ public class ProductDAO {
                 + "	JOIN Category C ON S.cate_id = ?\n"
                 + ")\n"
                 + "SELECT id, product_info_id, size, color, name, quantity, "
-                + "description, price_sale, img_default FROM RankedProducts"
+                + "description, price_sale, img_default, price FROM RankedProducts"
                 + " WHERE rn = 1";
         try {
             ps = con.prepareStatement(sql);
@@ -527,7 +537,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getFloat(8)
                 ));
             }
         } catch (Exception e) {
@@ -538,7 +549,7 @@ public class ProductDAO {
     public List<Product> getProductByPid(String cid) {
         listProduct = new Vector<Product>();
         String sql = "WITH RankedProducts AS (\n"
-                + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price, PI.img_default,\n"
+                + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price_sale, PI.img_default,PI.price,\n"
                 + "        ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
                 + "            CASE \n"
                 + "                WHEN P.size = 'S' THEN 0 \n"
@@ -554,7 +565,7 @@ public class ProductDAO {
                 + "    JOIN Category C ON S.cate_id = C.id\n"
                 + "    WHERE PI.id = ? \n"
                 + ")\n"
-                + "SELECT product_info_id, size, color, product_name, quantity, price, img_default\n"
+                + "SELECT product_info_id, size, color, product_name, quantity, price_sale, img_default, price\n"
                 + "FROM RankedProducts\n"
                 + "WHERE rn = 1"
                 + "ORDER BY product_info_id DESC";
@@ -570,7 +581,8 @@ public class ProductDAO {
                         rs.getString(4),
                         rs.getInt(5),
                         rs.getFloat(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getFloat(8)
                 ));
             }
         } catch (Exception e) {

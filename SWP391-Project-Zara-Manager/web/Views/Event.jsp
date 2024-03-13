@@ -229,28 +229,28 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Name of Event</label>
-                                                <input name="nameevent" id="nameevent" type="text" class="form-control" placeholder="Name of Event :">
+                                                <input required="" name="nameevent" id="nameevent" type="text" class="form-control" placeholder="Name of Event :">
                                             </div>
                                         </div><!--end col-->
 
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Start Date</label>
-                                                <input name="startdate" id="name2" type="date" class="form-control" placeholder="Start Date :">
+                                                <input required="" name="startdate" id="name2" type="date" class="form-control" placeholder="Start Date :">
                                             </div>
                                         </div><!--end col-->
 
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">End Date</label>
-                                                <input name="enddate" id="email" type="date" class="form-control" placeholder="End Date :">
+                                                <input required="" name="enddate" id="email" type="date" class="form-control" placeholder="End Date :">
                                             </div> 
                                         </div><!--end col-->
 
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Percent</label>
-                                                <input name="percent" id="email" type="text" class="form-control" 
+                                                <input  name="percent" id="email" type="text" class="form-control" 
                                                 placeholder="Percent :" required="" pattern="^(\d+(\.\d{1,2})?|1(\.0{1,2})?)$"
                                    title="Must enter a number greater than or equal to zero and less than one"
                                    oninvalid="setCustomValidity('Must enter a number greater than or equal to 0 and less than 1')"
@@ -258,17 +258,33 @@
                                             </div> 
                                         </div><!--end col-->
 
-                                        <div class="col-md-6">
+                                        <div class="col-md-12">
                                             <div class="mb-3">
-                                                <label class="form-label">Product no.</label>
-<!--                                                <input name="productid" id="number" type="text" class="form-control" placeholder="Product no. :">-->
-                                                
-                                                <select class="form-control department-name select2input" name="productid">
-                                                <c:forEach items="${listProduct}" var="ls">
-                                                    <option value="${ls.productInfoId}" >${ls.productInfoId}</option>
-                                                </c:forEach>
-                                                </select>
-                                            </div>                                                                               
+                                                <label class="form-label">Product Sale</label>                                            
+                                                    <table class="table" border="3px" id="userTable" >
+                                                        <thead>
+                                                            <tr>
+                                                                <th>STT</th>
+                                                                <th>Select</th>
+                                                                <th>Product InfoId</th>
+                                                                <th>Product Name</th>
+                                                                <th>Product Image</th>
+                                                            </tr>
+                                                        </thead>
+                                                        <tbody>
+                                                            <c:forEach items="${listProduct}" var="ls" varStatus="status">
+                                                                <tr>
+                                                                    <td>${status.index + 1}</td>
+                                                                    <td><input type="checkbox" name="selectedProducts" value="${ls.productInfoId}"/></td>
+                                                                    <td>${ls.productInfoId}</td>
+                                                                    <td>${ls.name}</td>
+                                                                    <td><img src="${ls.imgDefault}" style="width: 90px;height: auto" alt="alt"/></td>
+                                                                </tr>
+                                                            </c:forEach>
+                                                        </tbody>
+                                                    </table>
+                                            </div>     
+                                            
                                         </div><!--end col-->
                                         <button type="submit" class="btn btn-primary">Add Event</button>
                                     </div>
@@ -521,6 +537,67 @@
     <script src="js/feather.min.js"></script>
     <!-- Main Js -->
     <script src="js/app.js"></script>
+<!-- jQuery library -->
+<script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- simplebar -->
+    <script src="js/simplebar.min.js"></script>
+    <!-- Select2 -->
+    <script src="js/select2.min.js"></script>
+    <script src="js/select2.init.js"></script>
+    <!-- Datepicker -->
+    <script src="js/flatpickr.min.js"></script>
+    <script src="js/flatpickr.init.js"></script>
+    <!-- Datepicker -->
+    <script src="js/jquery.timepicker.min.js"></script> 
+    <script src="js/timepicker.init.js"></script> 
+    <!-- Icons -->
+    <script src="js/feather.min.js"></script>
+    <!-- Main Js -->
+    <script src="js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.1/js/dataTables.bootstrap4.js"></script>
+
+<!-- JavaScript code -->
+<script>
+    $(document).ready(function() {
+        // Lắng nghe sự kiện thay đổi giá trị của input
+        $('select[name="productid"]').change(function() {
+            // Lấy giá trị của input
+            var productId = $(this).val();
+
+            // Gửi yêu cầu Ajax
+            $.ajax({
+                type: 'POST', // hoặc 'GET' tùy thuộc vào phương thức của bạn
+                url: 'ajaxsale', // Đặt đường dẫn của servlet hoặc controller xử lý yêu cầu
+                data: { productId: productId }, // Truyền dữ liệu, nếu cần thiết
+                success: function(response) {
+                    // Xử lý kết quả trả về từ server
+                    // Ở đây, bạn có thể cập nhật thông tin sản phẩm trên giao diện người dùng
+                    console.log(response);
+                    // Ví dụ: Hiển thị thông tin sản phẩm trong một div có id là "productInfo"
+                    $('#productInfo').html(response);
+                },
+                error: function(error) {
+                    console.log('Error:', error);
+                }
+            });
+        });
+    });
+    
+</script>   
+<script>
+             $(document).ready(function () {
+         $('#userTable').DataTable({
+             "pageLength": 3,
+             "lengthChange": false
+         });
+     });
+</script>
 
 </body>
 

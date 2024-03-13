@@ -38,7 +38,7 @@ public class Filter extends HttpServlet {
 
         String sql = "WITH RankedProducts AS (\n"
                 + "	 SELECT P.product_info_id, P.size, P.color, P.name, P.quantity,\n"
-                + "	 PI.price_sale, PI.img_default,C.id as catid, S.id as [sid],\n"
+                + "	 PI.price_sale, PI.img_default,C.id as catid, S.id as [sid],PI.price,\n"
                 + "	ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY CASE \n"
                 + "                                    WHEN P.size = 'S' THEN 0 \n"
                 + "                                    WHEN P.size = 'M' THEN 1 \n"
@@ -52,7 +52,7 @@ public class Filter extends HttpServlet {
                 + "	JOIN Category C ON S.cate_id = C.id\n"
                 + ")\n"
                 + "SELECT product_info_id, size, color, name,\n"
-                + "quantity, price_sale, img_default, catid\n"
+                + "quantity, price_sale, img_default, price\n"
                 + "FROM RankedProducts WHERE rn = 1 and ";
         String s = "";
         String catid = request.getParameter("catid");
@@ -124,7 +124,7 @@ public class Filter extends HttpServlet {
         String key = request.getParameter("txt");
         String sql = "WITH RankedProducts AS (\n"
                 + "	 SELECT P.product_info_id, P.size, P.color, P.name, P.quantity,\n"
-                + "	 PI.description, PI.price_sale, PI.img_default,C.id as catid,\n"
+                + "	 PI.description, PI.price_sale, PI.img_default,C.id as catid,PI.price,\n"
                 + "	ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY CASE \n"
                 + "                                    WHEN P.size = 'S' THEN 0 \n"
                 + "                                    WHEN P.size = 'M' THEN 1 \n"
@@ -138,7 +138,7 @@ public class Filter extends HttpServlet {
                 + "	JOIN Category C ON S.cate_id = C.id\n"
                 + ")\n"
                 + "SELECT product_info_id, size, color, name,\n"
-                + "quantity, description, price_sale, img_default, catid\n"
+                + "quantity, description, price_sale, img_default, price\n"
                 + "FROM RankedProducts WHERE rn = 1 and ";
         String s = "";
         String catid = request.getParameter("category");

@@ -211,7 +211,18 @@
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
                                             <a href="detail?pifid=${lna.getProductInfoId()}&size=${lna.getSize()}&color=${lna.getColor()}">${lna.getName()}</a>
                                         </h5>
-                                        <a href="addToCart?pifid=${lna.getProductInfoId()}&size=${lna.getSize()}&color=${lna.getColor()}" class="text-decoration-none" data-after="Add to cart"><span>$ ${lna.getPrice()}</span></a>
+                                        <a href="addToCart?pifid=${lna.getProductInfoId()}&size=${lna.getSize()}&color=${lna.getColor()}"
+                                           class="text-decoration-none" data-after="Add to cart">
+                                            <c:set var="giaBanDau" value="${lna.priceDefault}" />
+                                            <c:set var="giaDiscount" value="${lna.price}" />
+                                            <c:if test="${giaDiscount lt giaBanDau}">
+                                                <span class="original-price">${lna.priceDefault}$</span>
+                                                <span class="discount-price">${lna.price}$</span>
+                                            </c:if>
+                                            <c:if test="${giaDiscount eq giaBanDau}">
+                                                <span>${lna.priceDefault}$</span>
+                                            </c:if>
+                                        </a>
                                     </div>
                                 </div>
                             </div>

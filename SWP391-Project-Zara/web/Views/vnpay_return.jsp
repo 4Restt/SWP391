@@ -100,6 +100,7 @@
                     </div> 
                 </div>
                 <p id="thongbao"></p>
+                <a href="home">Back to Home</a>
                 <div id="countdown"></div>
                 <p>
                     &nbsp;
@@ -113,9 +114,9 @@
             </div>
 
             <script>
-                document.addEventListener("DOMContentLoaded", function () {
-                    var status = document.getElementById("trangthai"); // Sửa từ "trangthai" thành "status"
-                    if (status.innerHTML.trim() === "thanh cong") {
+//                document.addEventListener("DOMContentLoaded", function () {
+//                    var status = document.getElementById("trangthai"); // Sửa từ "trangthai" thành "status"
+//                    if (status.innerHTML.trim() === "thanh cong") {
 
 //                        $.ajax({
 //                            type: 'POST',
@@ -150,12 +151,12 @@
 
 
 
-                    }
-                });
-                setTimeout(function () {
-                    window.location.href = 'Views/Home.jsp'; // Thay 'home.jsp' bằng đường dẫn của trang chủ
-                }, 10000);
-            </script>
+//                    }
+//                });
+//                setTimeout(function () {
+//                    window.location.href = 'SWP391-Project-Zara/home'; // Thay 'home.jsp' bằng đường dẫn của trang chủ
+//                }, 10000);
+//            </script>
 
 
 

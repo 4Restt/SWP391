@@ -21,7 +21,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class StaticMeThod {
 
     public static String vnp_PayUrl = "https://sandbox.vnpayment.vn/paymentv2/vpcpay.html";
-    public static String vnp_ReturnUrl = "http://localhost:9999/SWP391-Project-Zara-Copy/Views/vnpay_return.jsp";
+    public static String vnp_ReturnUrl = "http://localhost:9999/SWP391-Project-Zara/Views/vnpay_return.jsp";
     public static String vnp_TmnCode = "HDR3SMQD"; // khong giong nhau , can cai dat lai
     public static String secretKey = "YTBBCZDZDQDOFZPRBKGELMSGUUTAPZZT"; //khong giong nhau m,, setyup agiain 
     public static String vnp_ApiUrl = "https://sandbox.vnpayment.vn/merchant_webapi/api/transaction";

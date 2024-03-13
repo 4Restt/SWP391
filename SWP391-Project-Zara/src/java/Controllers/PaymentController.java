@@ -7,7 +7,6 @@ package Controllers;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
-import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
@@ -24,9 +23,6 @@ import java.util.Map;
 import java.util.TimeZone;
 import Helper.StaticMeThod;
 import jakarta.servlet.http.HttpSession;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
-import java.time.temporal.ChronoUnit;
 
 /**
  *
@@ -46,6 +42,7 @@ public class PaymentController extends HttpServlet {
             out.println("</head>");
             out.println("<body>");
             out.println("<h1>Servlet PaymentController at " + request.getContextPath() + "</h1>");
+            out.println(request.getAttribute("total"));
             out.println("</body>");
             out.println("</html>");
         }
@@ -63,7 +60,7 @@ public class PaymentController extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        long total = (long) ((Float.parseFloat(request.getParameter("total"))))*25000;
+        long total = (long) (Float.parseFloat((String) request.getAttribute("total"))) * 25000;
         String orderType = "other";
         String bankCode = request.getParameter("bankCode");
         String vnp_TxnRef = StaticMeThod.getRandomNumber(8);
@@ -143,22 +140,8 @@ public class PaymentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        PrintWriter out = response.getWriter();
-        Float total = (Float.parseFloat(request.getParameter("total")))*100;
+        long total = (long) (Float.parseFloat((String) request.getAttribute("total"))) * 25000;
         String orderType = "other";
-        //lay thong tin amount -- so tien phai nop
-//       HttpSession session = request.getSession();
-     //  long amount = (long) session.getAttribute("amount") * 100;
-        // lay thong tin startdate va enddate;
-     //   String startDate = request.getParameter("startdate");
-       // String endDate = request.getParameter("enddate");
-     //   String checkinDate = request.getParameter("checkindate");
-     //   session.setAttribute("startDate", startDate);
-     //   session.setAttribute("endDate", endDate);
-      //  session.setAttribute("checkinDate", checkinDate);
-
-//        String x = (String)session.getAttribute("amount");
-//        long amount = Integer.parseInt(x) * 100;
         String bankCode = request.getParameter("bankCode");
         String vnp_TxnRef = StaticMeThod.getRandomNumber(8);
         String vnp_IpAddr = StaticMeThod.getIpAddress(request);
@@ -224,7 +207,6 @@ public class PaymentController extends HttpServlet {
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = StaticMeThod.vnp_PayUrl + "?" + queryUrl;
         response.sendRedirect(paymentUrl);
-
     }
 
     /**

@@ -490,7 +490,7 @@
                         </div>
                         <div class="button-wrap row g-2">
                             <div class="col-md-12"><a class="btn btn-dark text-uppercase btn-rounded-none w-100"  href="home">Continue Shopping</a></div>
-                            <div class="col-md-12"><a class="btn btn-primary text-uppercase btn-rounded-none w-100" href="pay?total=${total}">Buy Now</a></div>
+                            <div class="col-md-12"><a class="btn btn-primary text-uppercase btn-rounded-none w-100" href="methodpayment?total=${total}">Buy Now</a></div>
                         </div>
                     </div>
                     

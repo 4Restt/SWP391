@@ -149,7 +149,22 @@ public class CustomerDAO {
         }
 
     }
-
+    
+    public void UpdateInfor(String name, String address, String phone, String email,int id){
+        String sql = "Update Customer set [name] = ?, set [address] = ?,"
+                + " set phone = ?, set email = ? where id = ?";
+            try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, address);
+            ps.setString(3, phone);
+            ps.setString(4, email);
+            ps.setInt(5, id);
+            ps.execute();
+        } catch (Exception e) {
+            status = "Error at Update Account" + e.getMessage();
+        }
+    }
     public List<Customer> listOfCustomers() {
         listCustomer = new Vector<Customer>();
         String sql = "select * from Customer";
@@ -245,4 +260,5 @@ public class CustomerDAO {
         }
         return null;
     }
+
 }

@@ -70,9 +70,10 @@ public class Event extends HttpServlet {
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");
         Float percent = Float.parseFloat(request.getParameter("percent"));
-        String proid = request.getParameter("productid");
-        ProductDAO.INSTANCE.getProductByPid(proid);
-        List<Product> listProducts = ProductDAO.INSTANCE.getListProduct();
+        String[] proid= request.getParameterValues("selectedProducts");
+        for (String id : proid) {
+//        ProductDAO.INSTANCE.getProductByPid(id);
+        List<Product> listProducts = ProductDAO.INSTANCE.getProductByPid(id);
 
         float newprice = 0;
 
@@ -88,12 +89,13 @@ public class Event extends HttpServlet {
         } else {
             newprice = listProducts.get(0).getPrice() * (1 - percent);
         }
-        ProductDAO.INSTANCE.UpdatePrice(newprice, Integer.parseInt(proid));
-        ProductDAO.INSTANCE.UpdatePrice(newprice, Integer.parseInt(proid));
+        ProductDAO.INSTANCE.UpdatePrice(newprice, Integer.parseInt(id));
         SaleDAO.INSTANCE.InsertSaleEvent(startdate, enddate, name);
         SaleDAO.INSTANCE.getIdSaleEvent(startdate, enddate, name);
         SaleEvent sale = SaleDAO.INSTANCE.getSale();
-        SaleDAO.INSTANCE.InsertSale(sale.getId(), proid, percent);
+        SaleDAO.INSTANCE.InsertSale(sale.getId(), id, percent);
+        }
+
         List<Product> listProduct = ProductDAO.INSTANCE.getAllProduct();
         request.setAttribute("listProduct", listProduct);
         request.getRequestDispatcher("Views/Event.jsp").forward(request, response);

@@ -60,14 +60,13 @@
                         </li>
 
                         <li class="sidebar-dropdown">
-                            <a href="javascript:void(0)"><i class="uil uil-shopping-cart me-2 d-inline-block"></i>Pharmacy</a>
+                            <a href="javascript:void(0)"><i class="uil uil-apps me-2 d-inline-block"></i>Sale Management</a>
                             <div class="sidebar-submenu">
-                                <ul>
-                                    <li><a href="shop.html">Shop</a></li>
-                                    <li><a href="product-detail.html">Shop Detail</a></li>
-                                    <li><a href="shopcart.html">Shopcart</a></li>
-                                    <li><a href="checkout.html">Checkout</a></li>
+                                <ul>                                
+                                    <li><a href="event">Create Sale</a></li>
+                                    <li><a href="eventedit">Edit Sale</a></li>
                                 </ul>
+                                
                             </div>
                         </li>
 

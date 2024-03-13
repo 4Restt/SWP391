@@ -105,6 +105,30 @@
         <servlet-name>AssignOrder</servlet-name>
         <servlet-class>Controllers.AssignOrder</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeliveryProfile</servlet-name>
+        <servlet-class>Controllers.DeliveryProfile</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderDetail</servlet-name>
+        <servlet-class>Controllers.OrderDetail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManageShipper</servlet-name>
+        <servlet-class>Controllers.ManageShipper</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ImageUpload</servlet-name>
+        <servlet-class>Controllers.ImageUpload</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>UploadImageAjax</servlet-name>
+        <servlet-class>Controllers.UploadImageAjax</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ReportCompletedOrder</servlet-name>
+        <servlet-class>Controllers.ReportCompletedOrder</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -208,6 +232,30 @@
     <servlet-mapping>
         <servlet-name>AssignOrder</servlet-name>
         <url-pattern>/assignorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeliveryProfile</servlet-name>
+        <url-pattern>/deliveryprofile</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderDetail</servlet-name>
+        <url-pattern>/orderdetail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManageShipper</servlet-name>
+        <url-pattern>/manageshipper</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ImageUpload</servlet-name>
+        <url-pattern>/imageupload</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UploadImageAjax</servlet-name>
+        <url-pattern>/uploadimgajax</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ReportCompletedOrder</servlet-name>
+        <url-pattern>/reportcompletedorder</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

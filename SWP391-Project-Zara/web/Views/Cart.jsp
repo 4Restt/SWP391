@@ -288,7 +288,7 @@
                             </a>
                         </li>
                         <li class="d-none d-lg-block">
-                            <a href="cart.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">Cart <span class="cart-count">(0)</span>
+                            <a href="cart.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">Cart <span class="cart-count">(${totalQ})</span>
                             </a>
                         </li>
                         <li class="d-lg-none">
@@ -418,7 +418,7 @@
                         </div>
                         <div class="button-wrap row g-2">
                             <div class="col-md-12"><a class="btn btn-dark text-uppercase btn-rounded-none w-100"  href="home">Continue Shopping</a></div>
-                            <div class="col-md-12"><a class="btn btn-primary text-uppercase btn-rounded-none w-100">Buy Now</a></div>
+                            <div class="col-md-12"><a class="btn btn-primary text-uppercase btn-rounded-none w-100" href="methodpayment?total=${total}">Buy Now</a></div>
                         </div>
                     </div>
 

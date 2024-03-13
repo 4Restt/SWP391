@@ -96,6 +96,14 @@
         <servlet-name>ChangeSize</servlet-name>
         <servlet-class>Controllers.ChangeSize</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MethodPayment</servlet-name>
+        <servlet-class>Controllers.MethodPayment</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>PaymentController</servlet-name>
+        <servlet-class>Controllers.PaymentController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -191,6 +199,14 @@
     <servlet-mapping>
         <servlet-name>ChangeSize</servlet-name>
         <url-pattern>/changesize</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MethodPayment</servlet-name>
+        <url-pattern>/methodpayment</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>PaymentController</servlet-name>
+        <url-pattern>/paymentcontroller</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

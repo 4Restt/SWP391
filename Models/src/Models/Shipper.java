@@ -27,6 +27,6 @@ public class Shipper {
     private String password;
     private int location_id;
     private String phone;
-    
+    private String image;
     private String location_name;
 }

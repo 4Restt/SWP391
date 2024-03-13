@@ -180,6 +180,18 @@
         <servlet-name>Delivered</servlet-name>
         <servlet-class>Controllers.Delivered</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>DeleteEvent</servlet-name>
+        <servlet-class>Controllers.DeleteEvent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>Event</servlet-name>
+        <servlet-class>Controllers.Event</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EventEdit</servlet-name>
+        <servlet-class>Controllers.EventEdit</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -359,6 +371,18 @@
     <servlet-mapping>
         <servlet-name>Delivered</servlet-name>
         <url-pattern>/delivered</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteEvent</servlet-name>
+        <url-pattern>/deleteevent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>Event</servlet-name>
+        <url-pattern>/event</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EventEdit</servlet-name>
+        <url-pattern>/eventedit</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

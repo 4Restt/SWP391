@@ -58,6 +58,14 @@ public class Login extends HttpServlet {
                 arr[i] = new Cookie("empty", " "); // If arr[i] is null, assign a cookie with a space
             }
         }
+        for (Cookie o : arr) {
+            if (o.getName().equals("userC")) {
+                request.setAttribute("username", o.getValue());
+            }
+            if (o.getName().equals("passC")) {
+                request.setAttribute("password", o.getValue());
+            }
+        }
         List<Models.Category> listCategory = CategoryDAO.INSTANCE.getAllCategory();
         request.setAttribute("listCategory", listCategory);
         request.getRequestDispatcher("Views/Login.jsp").forward(request, response);

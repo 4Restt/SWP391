@@ -56,11 +56,7 @@ public class Shipper extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        String orderId = request.getParameter("orderId");
-        String shipperId = request.getParameter("shipperId");
-        OrderDAO.INSTANCE.AssignOrdertoShipper(shipperId, orderId);
-        
-        
+
         request.getRequestDispatcher("Views/Shipper.jsp").forward(request, response);
     }
 
@@ -74,10 +70,15 @@ public class Shipper extends HttpServlet {
 
             String shipperName = (String) session.getAttribute("shipperName");
             List<Order> assignedOrders = OrderDAO.INSTANCE.getAssignedOrders((String) session.getAttribute("shipperName"));
-            //Lấy d? li?u t? Delivery.jsp
+            List<Order> completedOrders = OrderDAO.INSTANCE.getCompletedOrders((String) session.getAttribute("shipperName"));
+            List<Order> canceledOrders = OrderDAO.INSTANCE.getCancelledOrders((String) session.getAttribute("shipperName"));
+            
+            
 
             request.setAttribute("shipperName", shipperName);
             request.setAttribute("assignedOrders", assignedOrders);
+            request.setAttribute("completedOrders", completedOrders);
+            request.setAttribute("canceledOrders", canceledOrders);
         }
 
         // Chuyển hướng tới JSP với thông tin đã được đặt

@@ -119,12 +119,13 @@ public class OrderDAO {
 
         return listOrder;
     }
+
     public List<Order> getCompletedOrdersbyDeliver(String name) {
         listOrder = new Vector<Order>();
         String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
                 + "FROM [Order]\n"
                 + "JOIN Customer ON [Order].customer_id = Customer.id\n"
-+ "WHERE [Order].delivery_id = (SELECT id FROM Delivery WHERE name = ? ) and Shipper_id is not Null and [Order].[status] = '5';";
+                + "WHERE [Order].delivery_id = (SELECT id FROM Delivery WHERE name = ? ) and Shipper_id is not Null and [Order].[status] = '5';";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, name);
@@ -150,6 +151,7 @@ public class OrderDAO {
 
         return listOrder;
     }
+
     public List<Order> getCancelledOrdersbyDeliver(String name) {
         listOrder = new Vector<Order>();
         String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
@@ -199,11 +201,11 @@ public class OrderDAO {
 
     public List<Order> getAssignedOrders(String shipper_name) {
         listOrder = new Vector<Order>();
-String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n" +
-"                 FROM [Order]\n" +
-"                 JOIN Customer ON [Order].customer_id = Customer.id\n" +
-"                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n" +
-"                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '4' )";
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
+                + "                 FROM [Order]\n"
+                + "                 JOIN Customer ON [Order].customer_id = Customer.id\n"
+                + "                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n"
+                + "                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '4' )";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, shipper_name);
@@ -229,13 +231,14 @@ String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.na
 
         return listOrder;
     }
+
     public List<Order> getCompletedOrders(String shipper_name) {
         listOrder = new Vector<Order>();
-        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n" +
-"                 FROM [Order]\n" +
-"                 JOIN Customer ON [Order].customer_id = Customer.id\n" +
-"                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n" +
-"                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '5' )";
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
+                + "                 FROM [Order]\n"
+                + "                 JOIN Customer ON [Order].customer_id = Customer.id\n"
+                + "                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n"
+                + "                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '5' )";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, shipper_name);
@@ -261,13 +264,14 @@ String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.na
 
         return listOrder;
     }
+
     public List<Order> getCancelledOrders(String shipper_name) {
         listOrder = new Vector<Order>();
-        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n" +
-"                 FROM [Order]\n" +
-"                 JOIN Customer ON [Order].customer_id = Customer.id\n" +
-"                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n" +
-"                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '6' )";
+        String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.name as customerName, Customer.phone as phoneNumber\n"
+                + "                 FROM [Order]\n"
+                + "                 JOIN Customer ON [Order].customer_id = Customer.id\n"
+                + "                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n"
+                + "                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '6' )";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, shipper_name);
@@ -334,7 +338,25 @@ String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.na
             // Xử lý lỗi hoặc ghi log tại đây
         }
         return addresses;
-}
+
+    }
+
+    public String getEmailbyOrderId(String id) {
+        String sql = "select email from [Order] o\n"
+                + "Join Customer c on c.id = o.Customer_id\n"
+                + "where o.id = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            if (rs.next()) {
+                return rs.getString("email");
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+        return null;
+    }
 
     public List<Order> getOrdersByAddress(String address) {
         listOrder = new Vector<Order>();
@@ -374,11 +396,11 @@ String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.na
                 + "from [Order] o\n"
                 + "JOIN Customer c ON c.id = o.Customer_id\n"
                 + "where o.id = ? ";
-        
+
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, id);
-            rs = ps.executeQuery(); 
+            rs = ps.executeQuery();
             while (rs.next()) {
                 order = new Order(
                         rs.getInt(1),
@@ -392,7 +414,7 @@ String sql = "SELECT [Order].*, Customer.address AS customerAddress, Customer.na
                         rs.getString(9),
                         rs.getString(10),
                         rs.getString(11)
-                );              
+                );
                 return order;
             }
 

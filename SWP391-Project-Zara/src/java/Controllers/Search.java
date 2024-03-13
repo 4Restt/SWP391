@@ -7,13 +7,19 @@ package Controllers;
 import Models.Category;
 import DAL.CategoryDAO;
 import DAL.ProductDAO;
+import DAL.ProductSaleDAO;
 import DAL.StyleDAO;
+import Models.Product;
+import Models.ProductSale;
 import java.io.IOException;
 import java.io.PrintWriter;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -23,9 +29,30 @@ import java.util.List;
  */
 public class Search extends HttpServlet {
 
-    List<String> search = new ArrayList<>();  
+    List<String> search = new ArrayList<>();
+
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        List<Product> products = ProductDAO.INSTANCE.getAllProduct();
+        for (Product product : products) {
+            ProductSale productSale = ProductSaleDAO.INSTANCE.getProductSaleByProinfoId(product.getProductInfoId());
+            if (productSale != null) {
+                LocalDate startDate = LocalDate.parse(productSale.getStartdate(), dateFormatter);
+                LocalDate endDate = LocalDate.parse(productSale.getEnddate(), dateFormatter);
+
+                boolean isWithinTimeRange = currentTime.toLocalDate().isAfter(endDate)
+                        || currentTime.toLocalDate().isBefore(startDate);
+
+                if (isWithinTimeRange) {
+                    float newPrice = product.getPrice();
+                    ProductDAO.INSTANCE.UpdatePrice(newPrice, productSale.getProinforId());
+                }
+            }
+        }
+
         response.setContentType("text/html;charset=UTF-8");
         search.add("name");
         search.add("description");
@@ -34,7 +61,7 @@ public class Search extends HttpServlet {
         String txt = request.getParameter("txt");
         String sql = "WITH RankedProducts AS (\n"
                 + "	 SELECT P.product_info_id, P.size,  P.color, P.name, P.quantity,"
-                + " PI.description, PI.price, PI.img_default,\n"
+                + " PI.description, PI.price_sale, PI.img_default,PI.price,\n"
                 + "	ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY PI.id) AS rn\n"
                 + "	FROM  Product P\n"
                 + "	JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
@@ -42,7 +69,7 @@ public class Search extends HttpServlet {
                 + "	JOIN Category C ON S.cate_id = C.id\n"
                 + ")\n"
                 + "SELECT product_info_id, size, color, name, quantity, "
-                + "description, price, img_default FROM RankedProducts WHERE rn = 1 and (";
+                + "description, price_sale, img_default, price FROM RankedProducts WHERE rn = 1 and (";
         String s1 = "";
         for (String s2 : search) {
             s1 += "[" + s2 + "] like CONCAT ('%',?,'%') or ";
@@ -67,7 +94,7 @@ public class Search extends HttpServlet {
 //            out.println(txt);
 //            out.println(ProductDAO.INSTANCE.getListProduct().toString());
 //        }
-        
+
     }
 
     @Override

@@ -25,6 +25,14 @@
         <link
             href="https://fonts.googleapis.com/css2?family=Jost:ital,wght@0,300;0,400;0,500;0,700;1,300;1,400;1,500;1,700&family=Marcellus&display=swap"
             rel="stylesheet">
+        <style>
+            input[type="number"]::-webkit-inner-spin-button,
+            input[type="number"]::-webkit-outer-spin-button {
+                -webkit-appearance: none;
+                appearance: none;
+                margin: 0;
+            }
+        </style>
     </head>
 
     <body class="homepage">
@@ -466,8 +474,9 @@
                                     <div class="swiper-wrapper">
                                         <c:forEach items="${listImgPath}" var="lip">
                                             <div class="swiper-slide">
-                                                <div class="image-zoom" data-scale="2.5" data-image="${lip}"><img
-                                                        src="${lip}" alt="product-large" class="img-fluid"></div>
+                                                <div class="image-zoom" data-scale="2.5" data-image="${lip}">
+                                                    <img src="${lip}" alt="product-large" class="img-fluid">
+                                                </div>
                                             </div>
                                         </c:forEach>
                                     </div>
@@ -519,52 +528,69 @@
                                 consequat eu tortor. Orci, cras lectus mauris, cras egestas quam venenatis neque.</p>
                             <div class="color-product-options mt-4">
                                 <div class="color-toggle" data-option-index="0">
-                                    <div class="item-title">Color: <span>${product.getColor()}</span>
-                                    </div>
-                                    <c:forEach items="${listColor}" var="lc">
-                                        <div class="color-item" data-val="${lc}" title="${lc}">
-                                            <span class="color-inner" style="background-color: ${lc}"></span>
-                                        </div>
+                                    <div class="item-title">Color: <span>${product.getColor()}</span></div>
+                                    <c:forEach items="${listColor}" var="lc" varStatus="loop">
+                                        <button id="color-${loop.index}"  class="color-item" data-val="${lc}" title="${lc}" style="background-color: ${lc}">
+
+                                        </button>
                                     </c:forEach>
                                 </div>
                             </div>
 
+
                             <div class="swatch d-flex flex-wrap option-1 mt-4" data-option-index="1">
                                 <div class="item-title">Size: ${product.getSize()}</div>
                                 <c:forEach items="${listSize}" var="ls">
-                                    <div data-value="${ls}" class="swatch-element">                                     
-                                        <a class="swatch-label square-only" href="detail?pifid=${product.getProductInfoId()}&size=${ls}&color=${product.getColor()}">${ls}</a>
+                                    <div data-value="${ls}" class="swatch-element">
+                                        <c:choose>
+                                            <c:when test="${ls eq product.getSize()}">
+                                                <button class="swatch-label square-only bg-primary" data-size="${ls}">
+                                                    ${ls}
+                                                </button>
+                                            </c:when>
+                                            <c:otherwise>
+                                                <button class="swatch-label square-only" data-size="${ls}">
+                                                    ${ls}
+                                                </button>
+                                            </c:otherwise>
+                                        </c:choose>
                                     </div>
                                 </c:forEach>
                             </div>
 
+
+
                             <div class="product-action mt-4">
-                                <div class="item-title">${product.getQuantity()} in stock</div>
+                                <div class="item-title" id="product-quantity">${product.getQuantity()} in stock</div>
                                 <div class="product-quantity d-flex flex-wrap">
                                     <div class="input-group product-qty me-3" style="max-width: 150px;">
                                         <span class="input-group-btn">
                                             <button type="button" class="quantity-left-minus btn btn-light btn-number" data-type="minus"
-                                                    data-field="">
+                                                    data-field="quantity" id="minusBtn">
                                                 <svg width="16" height="16">
                                                 <use xlink:href="#minus"></use>
                                                 </svg>
                                             </button>
                                         </span>
-                                        <input type="text" id="quantity" name="quantity" class="form-control input-number text-center"
-                                               value="1" min="1" max="${product.getQuantity()}">
+                                        <input type="number" id="quantityInput" name="quantity" class="form-control text-center"
+                                               value="0" min="0" max="${product.getQuantity()}">
                                         <span class="input-group-btn">
                                             <button type="button" class="quantity-right-plus btn btn-light btn-number" data-type="plus"
-                                                    data-field="">
+                                                    data-field="quantity" id="plusBtn">
                                                 <svg width="16" height="16">
                                                 <use xlink:href="#plus"></use>
                                                 </svg>
                                             </button>
                                         </span>
                                     </div>
-                                    <button type="submit" name="add" id="add-to-cart"
-                                            class="btn btn-dark product-cart-submit btn-lg text-uppercase me-3">
-                                        <span id="add-to-cart">Add to cart</span>
-                                    </button>
+                                    <div id="notification" style="color: red;"></div>
+
+
+
+                                    <a href="addToCart?pifid=${product.getProductInfoId()}&size=${product.getSize()}&color=${product.getColor()}" id="add-to-cart" class="btn btn-dark product-cart-submit btn-lg text-uppercase me-3">
+                                        <span>Add to cart</span>
+                                    </a>
+
                                     <button href="#" class="btn btn-dark wish-list-button bg-dark">
                                         <svg width="24" height="24" viewBox="0 0 24 24">
                                         <use xlink:href="#heart"></use>
@@ -1188,7 +1214,137 @@
     crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
-    
+    <script>
+                                                            $(document).ready(function () {
+                                                                // Set the initial max value
+                                                                $('#quantityInput').attr('max', "${product.getQuantity()}");
+                                                                $('#quantityInput').on('input', function () {
+                                                                    // Get the entered value
+                                                                    var enteredValue = parseInt($(this).val());
+                                                                    // Get the maximum allowed quantity
+                                                                    var maxQuantity = parseInt($('#quantityInput').attr('max'));
+                                                                    // If the entered value is greater than the maximum allowed quantity,
+                                                                    // set it to the maximum allowed quantity and show an alert
+                                                                    if (enteredValue > maxQuantity) {
+                                                                        $(this).val(maxQuantity);
+                                                                        alert("Quantity cannot exceed available stock.");
+                                                                    }
+                                                                    if (enteredValue < 0) {
+                                                                        $(this).val(0);
+                                                                        alert("Quantity cannot be less than 0.");
+                                                                    }
+                                                                });
+                                                                $('#plusBtn').click(function (e) {
+                                                                    // Stop default button action
+                                                                    e.preventDefault();
+                                                                    // Get the current value and maximum allowed quantity
+                                                                    var currentValue = parseInt($('#quantityInput').val());
+                                                                    var maxQuantity = parseInt($('#quantityInput').attr('max'));
+                                                                    // Increment the value if it's less than the maximum allowed quantity
+                                                                    if (currentValue < maxQuantity) {
+                                                                        $('#quantityInput').val(currentValue + 1);
+                                                                    }
+                                                                });
+                                                                $('#minusBtn').click(function (e) {
+                                                                    // Stop default button action
+                                                                    e.preventDefault();
+                                                                    // Get the current value
+                                                                    var currentValue = parseInt($('#quantityInput').val());
+                                                                    // Decrement the value if it's greater than 0
+                                                                    if (currentValue > 0) {
+                                                                        $('#quantityInput').val(currentValue - 1);
+                                                                    }
+                                                                });
+                                                            });
+                                                            $(document).ready(function () {
+                                                                $('.color-item').click(function () {
+                                                                    var productInfoId = "${product.getProductInfoId()}";
+                                                                    var color = $(this).data('val');
+                                                                    var sizeIndex = $('.swatch-element button.bg-primary').parent().index();
+                                                                    var size = $('.swatch-element button.bg-primary').data('size');
+                                                                    // Construct the new URL based on the selected color
+                                                                    var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?pifid=' + productInfoId + '&size=' + size + '&color=' + color;
+                                                                    var href = 'addToCart?pifid=' + productInfoId + '&size=' + size + '&color=' + color;
+                                                                    document.getElementById('add-to-cart').href = href; 
+                                                                    $('.color-toggle .item-title span').text(color); // Update the span text to the selected color
+                                                                    // Change the URL displayed in the browser's address bar without reloading the page
+                                                                    history.pushState(null, null, newURL);
+                                                                    $.ajax({
+                                                                        type: 'POST', // Change the method to POST since you're sending sensitive data
+                                                                        url: 'detail', // Specify the URL of your servlet
+                                                                        data: {
+                                                                            pifid: productInfoId,
+                                                                            size: size,
+                                                                            color: color
+                                                                        },
+                                                                        success: function (response) {
+                                                                            // Update the images in the product-large-slider with the new images from the response
+                                                                            $('.product-large-slider .swiper-slide').each(function (index) {
+                                                                                var imagePath = response.listImgPath[index];
+                                                                                $(this).find('.image-zoom img').attr('src', imagePath);
+                                                                                // Update the corresponding thumbnail image in the product-thumbnail-slider
+                                                                                $('.product-thumbnail-slider .swiper-slide').eq(index).find('img').attr('src', imagePath);
+                                                                            });
+
+                                                                            // Update the product quantity displayed on the page
+                                                                            $('#product-quantity').html(response.productQuantity + ' in stock');
+
+                                                                            // Update the maximum quantity allowed in the quantity input field
+                                                                            $('#quantityInput').attr('max', response.productQuantity);
+
+                                                                            // Update the background image URL of the .photo div (if needed)
+                                                                            var newBackgroundImageUrl = response.backgroundImageUrl; // Assuming you have a property like this in your AJAX response
+                                                                            $('.photo').css('background-image', 'url(' + newBackgroundImageUrl + ')');
+                                                                        },
+
+                                                                        error: function (xhr, status, error) {
+                                                                            // Handle error here, if needed
+                                                                        }
+                                                                    });
+                                                                });
+                                                            });
+
+                                                            $(document).ready(function () {
+                                                                // Size selection button click event handler
+                                                                $('.swatch-element button').click(function () {
+                                                                    // Remove bg-primary class from all buttons
+                                                                    $('.swatch-element button').removeClass('bg-primary');
+
+                                                                    // Add bg-primary class to the clicked button
+                                                                    $(this).addClass('bg-primary');
+
+                                                                    var productInfoId = "${product.getProductInfoId()}";
+                                                                    var color = document.querySelector('.color-toggle .item-title span').innerText;
+                                                                    var size = $(this).data('size');
+                                                                    var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?pifid=' + productInfoId + '&size=' + size + '&color=' + color;
+                                                                    var href = 'addToCart?pifid=' + productInfoId + '&size=' + size + '&color=' + color;
+                                                                    document.getElementById('add-to-cart').href = href;
+                                                                    history.pushState(null, null, newURL);
+                                                                    // Make AJAX request
+
+                                                                    $.ajax({
+                                                                        type: 'POST',
+                                                                        url: 'changesize',
+                                                                        data: {
+                                                                            pifid: productInfoId,
+                                                                            size: size,
+                                                                            color: color
+                                                                        },
+                                                                        success: function (response) {
+                                                                            // Update product details and quantity
+                                                                            $('#product-quantity').html(response.productQuantity + ' in stock');
+                                                                            $('#quantityInput').attr('max', response.productQuantity);
+
+                                                                            // Handle other updates if needed
+                                                                        },
+                                                                        error: function (xhr, status, error) {
+                                                                            // Handle error here, if needed
+                                                                        }
+                                                                    });
+                                                                });
+                                                            });
+    </script>
+
 
 </body>
 

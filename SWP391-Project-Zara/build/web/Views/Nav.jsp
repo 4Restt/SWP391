@@ -122,35 +122,24 @@
                                 </ul>
                             </li>
 
+                            <c:if test="${sessionScope.account != null}"> 
+                                <li class="nav-item dropdown">
+                                    <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
+                                       aria-haspopup="true" aria-expanded="false">My Account</a>
+                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">                                   
+                                        <li>
+                                            <a href="cart" class="dropdown-item item-anchor">Cart </a>
+                                        </li>
+                                        <li>
+                                            <a href="viewprofile" class="dropdown-item item-anchor">My Profile</a>
+                                        </li>
+                                        <li>
+                                            <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking </a>
+                                        </li>
 
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
-                                   aria-haspopup="true" aria-expanded="false">Pages</a>
-                                <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
-                                    <li>
-                                        <a href="about" class="dropdown-item item-anchor">About </a>
-                                    </li>
-                                    <li>
-                                        <a href="cart.html" class="dropdown-item item-anchor">Cart </a>
-                                    </li>
-                                    <li>
-                                        <a href="checkout.html" class="dropdown-item item-anchor">Checkout </a>
-                                    </li>
-                                    <li>
-                                        <a href="coming-soon.html" class="dropdown-item item-anchor">Coming Soon </a>
-                                    </li>
-
-                                    <li>
-                                        <a href="viewprofile" class="dropdown-item item-anchor">My Account </a>
-                                    </li>
-                                    <li>
-                                        <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking </a>
-                                    </li>
-                                    <li>
-                                        <a href="wishlist.html" class="dropdown-item item-anchor">Wishlist </a>
-                                    </li>
-                                </ul>
-                            </li>
+                                    </ul>
+                                </li>
+                            </c:if>
                             <li class="nav-item">
                                 <a class="nav-link" href="blog">Blog</a>
                             </li>
@@ -191,7 +180,7 @@
                         </a>
                     </li>
                     <li class="d-none d-lg-block">
-                        <a href="cart" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">Cart <span class="cart-count">(${totalQ})</span>
+                        <a href="cart" class="text-uppercase mx-3"  aria-controls="offcanvasCart">Cart <span class="cart-count">(${totalQ})</span>
                         </a>
                     </li>
                     <li class="d-lg-none">
@@ -217,18 +206,18 @@
     </div>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script>
-                function search() {
-                    $.ajax({
-                        url: "/SWP391-Project-Zara/searchtest",
-                        type: "get",
-                        success: function (response) {
-                        },
-                        error: function () {
-                            alert("error");
-                        }
-                    });
-
+        function search() {
+            $.ajax({
+                url: "/SWP391-Project-Zara/searchtest",
+                type: "get",
+                success: function (response) {
+                },
+                error: function () {
+                    alert("error");
                 }
+            });
+
+        }
     </script>
 </nav>
 <!-- Navbar End -->

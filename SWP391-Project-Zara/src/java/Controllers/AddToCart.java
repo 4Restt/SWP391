@@ -61,7 +61,9 @@ public class AddToCart extends HttpServlet {
             int pifid = Integer.parseInt(request.getParameter("pifid"));
             String size = request.getParameter("size");
             String color = request.getParameter("color");
+            int quantity = Integer.parseInt(request.getParameter("quantity")) ;
             int amount = Integer.parseInt(request.getParameter("amount")) ;
+            
             String returnUrl = request.getParameter("returnUrl") ;
             
             Cart c = new Cart();

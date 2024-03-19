@@ -211,7 +211,7 @@
                                         <h5 class="element-title text-uppercase fs-5 mt-3">
                                             <a href="detail?pifid=${lna.getProductInfoId()}&size=${lna.getSize()}&color=${lna.getColor()}">${lna.getName()}</a>
                                         </h5>
-                                        <a href="addToCart?pifid=${lna.getProductInfoId()}&size=${lna.getSize()}&color=${lna.getColor()}"
+                                        <a href="addToCart?pifid=${lna.getProductInfoId()}&size=${lna.getSize()}&color=${lna.getColor()}&amount=1"
                                            class="text-decoration-none" data-after="Add to cart">
                                             <c:set var="giaBanDau" value="${lna.priceDefault}" />
                                             <c:set var="giaDiscount" value="${lna.price}" />

@@ -39,7 +39,7 @@ public class StaffList extends HttpServlet {
         request.setAttribute("profile", UserDAO.INSTANCE.getUserById(user.getId()));
         List<User> listStaff = UserDAO.INSTANCE.getListStaff();
          response.setContentType("text/html;charset=UTF-8");
-
+//
         request.setAttribute("listStaff", listStaff);
         request.getRequestDispatcher("Views/StaffList.jsp").forward(request, response);
     } 

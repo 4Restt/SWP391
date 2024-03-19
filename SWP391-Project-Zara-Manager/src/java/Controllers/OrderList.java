@@ -5,9 +5,11 @@
 
 package Controllers;
 
+import DAL.CustomerDAO;
 import DAL.OrderDAO;
 import DAL.OrderDetailDAO;
 import DAL.UserDAO;
+import Models.Customer;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -16,6 +18,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -37,8 +40,10 @@ public class OrderList extends HttpServlet {
         if (user == null) {
             request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
         }
-        request.setAttribute("profile", UserDAO.INSTANCE.getUserById(user.getId()));
         String status = request.getParameter("status");
+        List<Customer> listCustomer = CustomerDAO.INSTANCE.listOfCustomers();
+        request.setAttribute("listCustomer", listCustomer);
+        request.setAttribute("profile", UserDAO.INSTANCE.getUserById(user.getId()));        
         request.setAttribute("listOrderDetail", OrderDetailDAO.INSTANCE.getListDetail());
         request.setAttribute("listOrder", OrderDAO.INSTANCE.getListOrderByStatus(status));
         request.getRequestDispatcher("Views/OrderList.jsp").forward(request, response);

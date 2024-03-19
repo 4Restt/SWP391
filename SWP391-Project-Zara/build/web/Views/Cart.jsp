@@ -232,7 +232,7 @@
                                         </c:forEach>
                                     </ul>
                                 </li>
-                               
+
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">Pages</a>
@@ -354,7 +354,7 @@
                                                     <h5 class="card-title">
                                                         <a href="detail?pifid=${cl.getProductInfoId()}&size=${cl.getSize()}&color=${cl.getColor()}" class="text-decoration-none">${cl.getName()}</a>
                                                     </h5>
-                                                    
+
                                                 </div>
                                             </div>
                                         </div>
@@ -363,15 +363,12 @@
                                     <td class="align-middle">
                                         <div class="input-group product-qty">
                                             <span class="input-group-btn">
-                                                <button type="button" class="quantity-left-minus btn btn-light btn-number"  data-type="minus" data-field="1">
-                                                    <svg width="16" height="16"><use xlink:href="#minus"></use></svg>
-                                                </button>
+                                                <a type="button"  class="btn btn-light btn-number fs-2" href="addToCart?pifid=${cl.getProductInfoId()}&size=${cl.getSize()}&color=${cl.getColor()}&amount=-1&returnUrl=cart">-</a>
                                             </span>
                                             <input type="text" id="quantity" name="quantity" class="form-control input-number text-center" value="${cl.getQuantity()}" min="1" max="100">
                                             <span class="input-group-btn">
-                                                <button type="button" class="quantity-right-plus btn btn-light btn-number" data-type="plus" data-field="">
-                                                    <svg width="16" height="16"><use xlink:href="#plus"></use></svg>
-                                                </button>
+                                                <a type="button"  class="btn btn-light btn-number fs-2" href="addToCart?pifid=${cl.getProductInfoId()}&size=${cl.getSize()}&color=${cl.getColor()}&amount=1&returnUrl=cart">+</a>
+
                                             </span>
                                         </div>
                                     </td>

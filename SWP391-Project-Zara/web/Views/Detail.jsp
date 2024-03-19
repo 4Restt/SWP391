@@ -587,7 +587,7 @@
 
 
 
-                                    <a href="addToCart?pifid=${product.getProductInfoId()}&size=${product.getSize()}&color=${product.getColor()}" id="add-to-cart" class="btn btn-dark product-cart-submit btn-lg text-uppercase me-3">
+                                    <a href="addToCart?pifid=${product.getProductInfoId()}&size=${product.getSize()}&color=${product.getColor()}&amount=1" id="add-to-cart" class="btn btn-dark product-cart-submit btn-lg text-uppercase me-3">
                                         <span>Add to cart</span>
                                     </a>
 
@@ -1263,8 +1263,8 @@
                                                                     var sizeIndex = $('.swatch-element button.bg-primary').parent().index();
                                                                     var size = $('.swatch-element button.bg-primary').data('size');
                                                                     // Construct the new URL based on the selected color
-                                                                    var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?pifid=' + productInfoId + '&size=' + size + '&color=' + color;
-                                                                    var href = 'addToCart?pifid=' + productInfoId + '&size=' + size + '&color=' + color;
+                                                                    var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?pifid=' + productInfoId + '&size=' + size + '&color=' + color + "&amount=1";
+                                                                    var href = 'addToCart?pifid=' + productInfoId + '&size=' + size + '&color=' + color + "&amount=1";
                                                                     document.getElementById('add-to-cart').href = href; 
                                                                     $('.color-toggle .item-title span').text(color); // Update the span text to the selected color
                                                                     // Change the URL displayed in the browser's address bar without reloading the page
@@ -1316,8 +1316,8 @@
                                                                     var productInfoId = "${product.getProductInfoId()}";
                                                                     var color = document.querySelector('.color-toggle .item-title span').innerText;
                                                                     var size = $(this).data('size');
-                                                                    var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?pifid=' + productInfoId + '&size=' + size + '&color=' + color;
-                                                                    var href = 'addToCart?pifid=' + productInfoId + '&size=' + size + '&color=' + color;
+                                                                    var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?pifid=' + productInfoId + '&size=' + size + '&color=' + color + "&amount=1";
+                                                                    var href = 'addToCart?pifid=' + productInfoId + '&size=' + size + '&color=' + color + "&amount=1";
                                                                     document.getElementById('add-to-cart').href = href;
                                                                     history.pushState(null, null, newURL);
                                                                     // Make AJAX request

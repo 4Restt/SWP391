@@ -459,7 +459,7 @@ public class OrderDAO {
     }
 
     public void updateStaff(String staffName, String id) {
-        String sql = "UPDATE [Order] SET Staff_name = ? WHERE id = ?";
+        String sql = "UPDATE [Order] SET User_id = ? WHERE id = ?";
 
         try {
             ps = con.prepareStatement(sql);

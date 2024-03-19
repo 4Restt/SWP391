@@ -4,9 +4,11 @@
  */
 package Controllers;
 
+import DAL.CustomerDAO;
 import DAL.OrderDAO;
 import DAL.OrderDetailDAO;
 import DAL.UserDAO;
+import Models.Customer;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -15,6 +17,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.util.List;
 
 /**
  *
@@ -38,6 +41,10 @@ public class Process extends HttpServlet {
         if (user == null) {
             request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
         }
+        List<Customer> listCustomer = CustomerDAO.INSTANCE.listOfCustomers();
+        List<User> listStaff = UserDAO.INSTANCE.getAllUser();
+        request.setAttribute("listUser", listStaff);
+        request.setAttribute("listCustomer", listCustomer);
         request.setAttribute("profile", UserDAO.INSTANCE.getUserById(user.getId()));
         request.setAttribute("listOrderDetail", OrderDetailDAO.INSTANCE.getListDetail());
         request.setAttribute("listOrder", OrderDAO.INSTANCE.getListOrderByStatus("0"));

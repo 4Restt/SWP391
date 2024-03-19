@@ -28,7 +28,7 @@ public class Order{
     private int customer_id;
     private int shipper_id;
     private int delivery_id;
-    private String staff_name;
+    private String user_id;
     private float totalprice;
     private String date;
     private String status;

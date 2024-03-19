@@ -280,6 +280,7 @@ public class CustomerDAO {
     public static void main(String[] args) {
         
         System.out.println(CustomerDAO.INSTANCE.checkAccountGoogleExist("116104562155113340961"));
+        System.out.println(CustomerDAO.INSTANCE.listOfCustomers());
         
     }
 }

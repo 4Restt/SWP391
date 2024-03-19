@@ -47,7 +47,7 @@ public class OrderStatus extends HttpServlet {
             OrderDetailDAO.INSTANCE.updateStatus(id, "deactive");
         }
         
-        OrderDAO.INSTANCE.updateStaff(user.getName(), id);
+        OrderDAO.INSTANCE.updateStaff(user.getId(), id);
         request.setAttribute("listOrderDetail", OrderDetailDAO.INSTANCE.getListDetail());
         request.setAttribute("listOrder", OrderDAO.INSTANCE.getListOrderByStatus(status));
         request.getRequestDispatcher("Views/OrderList.jsp").forward(request, response);

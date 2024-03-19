@@ -53,7 +53,7 @@ public class AddToCart extends HttpServlet {
         Customer customer = (Customer) request.getSession().getAttribute("account");
         if (customer == null) {
             response.sendRedirect("login");
-            return ;
+            return;
         }
         try ( PrintWriter out = response.getWriter()) {
             ArrayList<Cart> cartList = new ArrayList<>();
@@ -61,19 +61,22 @@ public class AddToCart extends HttpServlet {
             int pifid = Integer.parseInt(request.getParameter("pifid"));
             String size = request.getParameter("size");
             String color = request.getParameter("color");
+            int amount = Integer.parseInt(request.getParameter("amount"));
 
             Cart c = new Cart();
             c.setProductInfoId(pifid);
             c.setSize(size);
             c.setColor(color);
 
+            String returnUrl = request.getParameter("returnUrl");
+
             HttpSession session = request.getSession();
-            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list"+customer.getAccount());
+            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list" + customer.getAccount());
 
             if (cart_list == null) {
                 c.setQuantity(1);
                 cartList.add(c);
-                session.setAttribute("cart-list"+customer.getAccount(), cartList);
+                session.setAttribute("cart-list" + customer.getAccount(), cartList);
                 response.sendRedirect("home");
             } else {
                 cartList = cart_list;
@@ -82,11 +85,8 @@ public class AddToCart extends HttpServlet {
                 for (Cart cart : cart_list) {
                     if (cart.getProductInfoId() == pifid && cart.getSize().equals(size) && cart.getColor().equals(color)) {
                         exist = true;
-                        cart.setQuantity(cart.getQuantity() + 1);
+                        cart.setQuantity(cart.getQuantity() + amount);
 
-//                        cartList.add(c) ;
-//                        out.println("<h3 style='color:crimson; text-align:center;'>Item already exist in Cart.<a href='cart'>Go to Cart Page</a></h3>");
-//                        response.sendRedirect("home");
                         break;
                     }
                 }
@@ -96,8 +96,8 @@ public class AddToCart extends HttpServlet {
                     cartList.add(c);
 
                 }
-                session.setAttribute("cart-list"+customer.getAccount(), cartList);
-                response.sendRedirect("home");
+                session.setAttribute("cart-list" + customer.getAccount(), cartList);
+                response.sendRedirect(returnUrl==null?"home" : returnUrl);
 
             }
         }

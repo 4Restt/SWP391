@@ -47,6 +47,7 @@
                 /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
                 background: linear-gradient(to top left, rgba(205, 156, 242, 1), rgba(246, 243, 255, 1))
             }
+
         </style>
     </head>
 
@@ -104,6 +105,7 @@
                                             <tr>
                                                 <th class="border-bottom p-3" style="min-width: 50px; ">Order Id</th>
                                                 <th class="border-bottom p-3" style="min-width: 50px;">Customer Id</th>
+                                                <th class="border-bottom p-3" style="min-width: 50px;">User Id</th>
                                                 <th class="border-bottom p-3" style="min-width: 150px;">Date</th>
                                                 <th class="border-bottom p-3" style="min-width: 150px;">Total Price</th>
                                                 <th class="border-bottom p-3" style="min-width: 100px;">Status</th>
@@ -115,7 +117,23 @@
                                         <c:forEach items="${listOrder}" var="lo" varStatus="loop">
                                             <tr>
                                                 <th class="p-3">${lo.getId()}</th>
-                                                <td class="p-3">${lo.getCustomer_id()}</td>
+                                                <td class="p-3 ">
+                                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                        <span>${lo.getCustomer_id()}</span>
+                                                        <a href="#" class="btn btn-icon btn-pills btn-soft-primary" data-bs-toggle="modal" data-bs-target="#viewcus${lo.getCustomer_id()}">
+                                                            <i class="uil uil-eye"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+                                                <td class="p-3 ">
+                                                    <div style="display: flex; justify-content: space-between; align-items: center;">
+                                                        <span>${lo.getUser_id()}</span>
+                                                        <a href="#" class="btn btn-icon btn-pills btn-soft-primary" data-bs-toggle="modal" data-bs-target="#viewuser${lo.getUser_id()}">
+                                                            <i class="uil uil-eye"></i>
+                                                        </a>
+                                                    </div>
+                                                </td>
+
                                                 <td class="p-3">${lo.getDate()}</td>
                                                 <td class="p-3">${lo.getTotalprice()}</td>                                              
                                                 <td class="p-3">
@@ -218,106 +236,130 @@
     <!-- Offcanvas End -->
 
     <!-- Modal start -->
-    <!-- Add New Appointment Start -->
-    <div class="modal fade" id="appointmentform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-bottom p-3">
-                    <h5 class="modal-title" id="exampleModalLabel">Book an Appointment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-3 pt-4">
-                    <form>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label class="form-label">Patient Name <span class="text-danger">*</span></label>
-                                    <input name="name" id="name" type="text" class="form-control" placeholder="Patient Name :">
+    <c:forEach items="${listOrder}" var="lo" varStatus="loop">
+        <!-- View Cus info Start -->
+        <div class="modal fade" id="viewcus${lo.getCustomer_id()}" tabindex="-1" aria-labelledby="exampleModalLabel${lo.getCustomer_id()}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom p-3">
+                        <h5 class="modal-title" id="exampleModalLabel${lo.getCustomer_id()}">Cus Detail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <c:forEach items="${listCustomer}" var="lc"> 
+                        <c:if test="${lo.getCustomer_id() eq lc.getId()}">
+                            <div class="modal-body p-3 pt-4">
+                                <div class="d-flex align-items-center">
+                                    <img src="${lc.getImage()}" class="avatar avatar-small rounded-pill" alt="">
+                                    <h5 class="mb-0 ms-3">${lc.getName()}</h5>
                                 </div>
-                            </div><!--end col-->
+                                <ul class="list-unstyled mb-0 d-md-flex justify-content-between mt-4">
+                                    <li>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="d-flex">
+                                                <h6>Username: </h6>
+                                                <p class="text-muted ms-2">${lc.getAccount()}</p>
+                                            </li>
 
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Departments</label>
-                                    <select class="form-control department-name select2input">
-                                        <option value="EY">Eye Care</option>
-                                        <option value="GY">Gynecologist</option>
-                                        <option value="PS">Psychotherapist</option>
-                                        <option value="OR">Orthopedic</option>
-                                        <option value="DE">Dentist</option>
-                                        <option value="GA">Gastrologist</option>
-                                        <option value="UR">Urologist</option>
-                                        <option value="NE">Neurologist</option>
-                                    </select>
-                                </div>
-                            </div><!--end col-->
+                                            <li class="d-flex">
+                                                <h6>Password: </h6>
+                                                <p class="text-muted ms-2">${lc.getPassword()}</p>
+                                            </li>
 
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Doctor</label>
-                                    <select class="form-control doctor-name select2input">
-                                        <option value="CA">Dr. Calvin Carlo</option>
-                                        <option value="CR">Dr. Cristino Murphy</option>
-                                        <option value="AL">Dr. Alia Reddy</option>
-                                        <option value="TO">Dr. Toni Kovar</option>
-                                        <option value="JE">Dr. Jessica McFarlane</option>
-                                        <option value="EL">Dr. Elsie Sherman</option>
-                                        <option value="BE">Dr. Bertha Magers</option>
-                                        <option value="LO">Dr. Louis Batey</option>
-                                    </select>
-                                </div>
-                            </div><!--end col-->
+                                            <li class="d-flex">
+                                                <h6 class="mb-0">Phone:</h6>
+                                                <p class="text-muted ms-2 mb-0">${lc.getPhone()}</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="d-flex">
+                                                <h6>Email: </h6>
+                                                <p class="text-muted ms-2">${lc.getEmail()}</p>
+                                            </li>
 
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Your Email <span class="text-danger">*</span></label>
-                                    <input name="email" id="email" type="email" class="form-control" placeholder="Your email :">
-                                </div> 
-                            </div><!--end col-->
+                                            <li class="d-flex">
+                                                <h6>Date: </h6>
+                                                <p class="text-muted ms-2">${lc.getDate()}</p>
+                                            </li>
 
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Your Phone <span class="text-danger">*</span></label>
-                                    <input name="phone" id="phone" type="tel" class="form-control" placeholder="Your Phone :">
-                                </div> 
-                            </div><!--end col-->
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label"> Date : </label>
-                                    <input name="date" type="text" class="flatpickr flatpickr-input form-control" id="checkin-date">
-                                </div>
-                            </div><!--end col-->
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="input-time">Time : </label>
-                                    <input name="time" type="text" class="form-control timepicker" id="input-time" placeholder="03:30 PM">
-                                </div> 
-                            </div><!--end col-->
-
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label class="form-label">Comments <span class="text-danger">*</span></label>
-                                    <textarea name="comments" id="comments" rows="4" class="form-control" placeholder="Your Message :"></textarea>
-                                </div>
-                            </div><!--end col-->
-
-                            <div class="col-lg-12">
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary">Book An Appointment</button>
-                                </div>
-                            </div><!--end col-->
-                        </div><!--end row-->
-                    </form>
+                                            <li class="d-flex">
+                                                <h6 class="mb-0">Address: </h6>
+                                                <p class="text-muted ms-2 mb-0">${lc.getAddress()}</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </c:if>
+                    </c:forEach>  
                 </div>
             </div>
         </div>
-    </div>
-    <!-- Add New Appointment End -->
+        <!-- View Cus info  End -->
+        
+        <!-- View staff info Start -->
+        <div class="modal fade" id="viewuser${lo.getUser_id()}" tabindex="-1" aria-labelledby="exampleModalLabel${lo.getUser_id()}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
+                <div class="modal-content">
+                    <div class="modal-header border-bottom p-3">
+                        <h5 class="modal-title" id="exampleModalLabel${lo.getUser_id()}">User Detail</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <c:forEach items="${listUser}" var="lu"> 
+                        <c:if test="${lo.getUser_id() eq lu.getId()}">
+                            <div class="modal-body p-3 pt-4">
+                                <div class="d-flex align-items-center">
+                                    <img src="${lu.getImage()}" class="avatar avatar-small rounded-pill" alt="">
+                                    <h5 class="mb-0 ms-3">${lu.getName()}</h5>
+                                </div>
+                                <ul class="list-unstyled mb-0 d-md-flex justify-content-between mt-4">
+                                    <li>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="d-flex">
+                                                <h6>Username: </h6>
+                                                <p class="text-muted ms-2">${lu.getAccount()}</p>
+                                            </li>
 
-    <!-- View Appintment Start -->
-    <c:forEach items="${listOrder}" var="lo" varStatus="loop">
+                                            <li class="d-flex">
+                                                <h6>Password: </h6>
+                                                <p class="text-muted ms-2">${lu.getPassword()}</p>
+                                            </li>
+
+                                            <li class="d-flex">
+                                                <h6 class="mb-0">Phone:</h6>
+                                                <p class="text-muted ms-2 mb-0">${lu.getPhone()}</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                    <li>
+                                        <ul class="list-unstyled mb-0">
+                                            <li class="d-flex">
+                                                <h6>Email: </h6>
+                                                <p class="text-muted ms-2">${lu.getEmail()}</p>
+                                            </li>
+
+                                            <li class="d-flex">
+                                                <h6>Date: </h6>
+                                                <p class="text-muted ms-2">${lu.getDate()}</p>
+                                            </li>
+
+                                            <li class="d-flex">
+                                                <h6 class="mb-0">Address: </h6>
+                                                <p class="text-muted ms-2 mb-0">${lu.getAddress()}</p>
+                                            </li>
+                                        </ul>
+                                    </li>
+                                </ul>
+                            </div>
+                        </c:if>
+                    </c:forEach>  
+                </div>
+            </div>
+        </div>
+        <!-- View staff info  End -->
+        <!-- View Appintment Start -->
+
         <div class="modal fade" id="vieworder${lo.getId()}" tabindex="-1" aria-labelledby="exampleModalLabel${lo.getId()}" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl">
                 <div class="modal-content">
@@ -398,12 +440,12 @@
 
                                                 <div class="d-flex justify-content-between pt-2">
                                                     <p class="text-muted mb-0">Order Id : ${lo.getId()}</p>
-                                                    
+
                                                 </div>
 
                                                 <div class="d-flex justify-content-between">
                                                     <p class="text-muted mb-0">Order Date : ${lo.getDate()}</p>
-                                                    
+
                                                 </div>
 
                                                 <div class="d-flex justify-content-between mb-5">
@@ -485,7 +527,7 @@
                     </div>
                     <div class="modal-body p-3 pt-4">
                         <div class="card border-0 p-4 rounded shadow">
-                            
+
                             <form method="post" action="editcustomer?id=${lo.getId()}">
                                 <div class="row">
                                     <div class="col-lg-6">
@@ -578,6 +620,7 @@
                                             "lengthChange": false
                                         });
                                     });
+
 
     </script>
 

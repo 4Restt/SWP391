@@ -1,8 +1,4 @@
-<%-- 
-    Document   : userprofile
-    Created on : Feb 8, 2024, 8:39:27 AM
-    Author     : Admin
---%>
+
 
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
@@ -49,14 +45,7 @@
                     <div class="col-md-3 pt-0">
                         <div class="list-group list-group-flush account-settings-links">
                             <a class="list-group-item list-group-item-action ${message == null ? 'active' : ''}" data-toggle="list"
-                               href="#account-general">General</a>
-
-                            <c:if test="${sessionScope.account.rollId eq 3}">
-                                <a href="home" class="list-group-item list-group-item-action" >Back to Home</a>
-                            </c:if>
-                            <c:if test="${sessionScope.account.rollId eq 1}">
-                                <a href="dashboard" class="list-group-item list-group-item-action " >Back to Home</a>
-                            </c:if>
+                               href="#account-general">General</a>                          
                         </div>
                     </div>
                     <div class="col-md-9">
@@ -67,7 +56,7 @@
                                 <form action="viewprofile" method="post" >
                                     <div class="card-body media align-items-center">
                                         <img src="https://cdn-icons-png.flaticon.com/512/1077/1077114.png" alt
-                                             class="d-block ui-w-80">
+                                             class="d-block ui-w-80"  style="width: 80px; height: auto">
                                     </div>
                                     <hr class="border-light m-0">
                                     <div class="card-body">
@@ -75,77 +64,21 @@
                                             <label class="form-label">Full Name: </label>
                                             <input type="text" class="form-control mb-1" value="${user.name}" name="name">
                                         </div>
-                                        <div class="form-group">
-                                            <!--                                            <label class="form-label">Address: </label>
-                                                                                        <select id="id" class="form-control">
-                                            <c:forEach items="${listAddress}" var="a">
-                                                <option value="${a}">${a}</option>
-                                            </c:forEach>
-                                        </select>
-                                        <button type="button" style="margin-top: 10px" class="btn btn-primary" data-toggle="modal" data-target="#addUserModal">
-                                            Add Address
-                                        </button>
-                                        <a href="listaddress" type="button" style="margin-top: 10px" class="btn btn-primary">
-                                            Update Address
-                                        </a>-->
-                                            <label class="form-label">Address:</label>
-                                            <div class="row"> 
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <select name="tinh" class="form-control">
-                                                            <c:forEach items="${tinh}" var="x">
-                                                                <option value="${x.address}" 
-                                                                        ${fn:length(user.address.split(', ')) > 3 
-                                                                          ? (user.address.split(', ')[3] == x.address ? "selected" : "") : ''}
-                                                                        >${x.address}</option>
-                                                            </c:forEach>
-                                                        </select>
-                                                        <!--<input class="form-control" value="${fn:length(user.address.split(', ')) > 2 ? user.address.split(', ')[2] : ''}" name="huyen" placeholder="huyện"/>-->
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <select name="huyen" class="form-control">
-                                                            <c:forEach items="${huyen}" var="x">
-                                                                <option value="${x.address}" 
-                                                                        ${fn:length(user.address.split(', ')) > 2 
-                                                                          ? (user.address.split(', ')[2] == x.address ? "selected" : "") : ''}
-                                                                        >${x.address}</option>
-                                                            </c:forEach>
-                                                        </select>
-                                                        <!--<input class="form-control" value="${fn:length(user.address.split(', ')) > 3 ? user.address.split(', ')[3] : ''}" name="tinh" placeholder="tỉnh"/>-->
-                                                    </div>
-                                                </div>
-                                                <div class="col-md-4">
-                                                    <div class="form-group">
-                                                        <select name="xa" class="form-control">
-                                                            <c:forEach items="${xa}" var="x">
-                                                                <option value="${x.address}" 
-                                                                        ${fn:length(user.address.split(', ')) > 1 
-                                                                          ? (user.address.split(', ')[1] == x.address ? "selected" : "") : ''}
-                                                                        >${x.address}</option>
-                                                            </c:forEach>
-                                                        </select>
-                                                        <!--<input class="form-control" value="${fn:length(user.address.split(', ')) > 1 ? user.address.split(', ')[1] : ''}" name="xa" placeholder="xã"/>-->
-                                                    </div>
-                                                </div>
-                                                
-                                                
-                                            </div>
-                                            <div class="form-group">
-                                                <input class="form-control" value="${user.address.split(", ")[0]}" name="diachicuthe" placeholder="địa chỉ cụ thể"/>
-                                            </div>
+                                       <div class="form-group">
+                                            <label class="form-label">Address</label>
+
+                                            <input type="text" class="form-control" value="${user.address}" name="address" >
                                         </div>
                                         <div class="form-group">
                                             <label class="form-label">Phone</label>
 
-                                            <input type="text" class="form-control" value="${user.phone}" name="phone" readonly>
+                                            <input type="text" class="form-control" value="${user.phone}" name="phone" >
                                             <a href="Views/change-phonenumber.jsp">Change phone number</a>
                                         </div>
                                             <div class="form-group">
                                             <label class="form-label">E-mail</label>
-                                            <input type="text" class="form-control mb-1"  value="${user.email}" name="email" readonly>
-                                            <a href="Views/changeEmail.jsp">Change </a>
+                                            <input type="text" class="form-control mb-1"  value="${user.email}" name="email" >
+                                            <a href="Views/changeEmail.jsp">Change email </a>
                                         </div>
                                     </div>
                                     <div class="text-right mt-3">
@@ -234,4 +167,5 @@
                                             }
             </script>
     </body>
+
 </html>

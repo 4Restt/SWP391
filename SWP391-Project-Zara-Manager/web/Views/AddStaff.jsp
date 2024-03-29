@@ -43,7 +43,7 @@
             <!-- Start Page Content -->
             <main class="page-content bg-light">
                 <!-- header -->
-                <jsp:include page="HeaderManager.jsp"></jsp:include>
+            <jsp:include page="HeaderManager.jsp"></jsp:include>
                 <!-- end header -->
 
                 <div class="container-fluid">
@@ -83,10 +83,18 @@
                                 </form>
 
                                 <div id="status"></div>
-                                <form class="mt-4" action="addstaff" method="post">
+                                <div id="loadingSpinner" style="display: none;">
+        <!-- Loading spinner -->
+        <div class="spinner-border text-primary" role="status">
+            <span class="visually-hidden">Loading...</span>
+        </div>
+    </div>
+                                <form id="addStaffForm" class="mt-4" action="addstaff" method="post">
 
                                     <div class="row">
-
+                                        <div id="errorMessage" class="col-md-12">
+                                            <!-- Error message will be displayed here -->
+                                        </div>
                                         <div class="col-md-12">
                                             <div class="mb-3">
                                                 <label class="form-label"> Name</label>
@@ -101,14 +109,14 @@
                                                 <input name="username" id="username" type="text" class="form-control" placeholder="Username: ">
                                             </div> 
                                         </div><!--end col-->
-                                        
+
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Password</label>
                                                 <input name="password" id="password" type="password" class="form-control" placeholder="Password :">
                                             </div> 
                                         </div><!--end col-->
-                                        
+
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Your Email</label>
@@ -140,23 +148,23 @@
                                 <div class="p-4 border-bottom">
                                     <h5 class="mb-0">Staff List</h5>
                                 </div>
-                            
+
                                 <ul class="list-unstyled mb-0 p-4" data-simplebar style="height: 664px;">
                                     <c:forEach items="${listStaff}" var="ls" varStatus="loop">
                                         <c:if test="${loop.index < 7}">
-                                        <li class="d-md-flex align-items-center text-center text-md-start">
-                                            <img src="${ls.getImage()}" class="avatar avatar-small rounded-md shadow" alt="">
+                                            <li class="d-md-flex align-items-center text-center text-md-start">
+                                                <img src="${ls.getImage()}" class="avatar avatar-small rounded-md shadow" alt="">
 
-                                            <div class="ms-md-3 mt-4 mt-sm-0">
-                                                <a href="#" class="text-dark h6">${ls.getName()}</a>
-                                                <p class="text-muted my-1">${ls.getAddress()}</p>
-                                                <p class="text-muted mb-0">${ls.getPhone()}</p>
-                                            </div>
-                                        </li>
+                                                <div class="ms-md-3 mt-4 mt-sm-0">
+                                                    <a href="#" class="text-dark h6">${ls.getName()}</a>
+                                                    <p class="text-muted my-1">${ls.getAddress()}</p>
+                                                    <p class="text-muted mb-0">${ls.getPhone()}</p>
+                                                </div>
+                                            </li>
                                         </c:if>
                                     </c:forEach>
 
-                                    
+
 
                                     <li class="mt-4">
                                         <a href="stafflist" class="btn btn-primary">All Staffs</a>
@@ -347,8 +355,8 @@
     <script src="js/feather.min.js"></script>
     <!-- Main Js -->
     <script src="js/app.js"></script>
-    
-        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 
     <script>
                                     function uploadImage() {
@@ -372,7 +380,36 @@
                                             }
                                         });
                                     }
-
+                                   $(document).ready(function() {
+    $('#addStaffForm').submit(function(e) {
+        e.preventDefault();
+        $('#errorMessage').empty(); // Clear any previous error messages
+        // Show loading spinner
+        $('#loadingSpinner').show();
+        $.ajax({
+            type: 'POST',
+            url: 'addstaff',
+            data: $(this).serialize(),
+            success: function(response) {
+                if (response.trim() === 'success') {
+                    // If success, redirect or do anything you want
+                    alert('Staff member added successfully!');
+                    window.location.href = 'addstaff';
+                } else {
+                    // If error, display error message
+                    $('#errorMessage').html('<div class="alert alert-danger mt-3 col-lg-6">' + response + '</div>');
+                }
+            },
+            error: function(xhr, status, error) {
+                console.error(xhr.responseText);
+            },
+            complete: function() {
+                // Hide loading spinner when request is complete
+                $('#loadingSpinner').hide();
+            }
+        });
+    });
+});
     </script>
 
 </body>

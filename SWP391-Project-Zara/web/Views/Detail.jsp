@@ -349,6 +349,7 @@
 
                         <div class="offcanvas-body">
                             <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
+
                                 <li class="nav-item dropdown">
                                     <a class="nav-link dropdown-toggle" href="#" id="dropdownShop" data-bs-toggle="dropdown"
                                        aria-haspopup="true" aria-expanded="false">Shop</a>
@@ -361,34 +362,24 @@
                                     </ul>
                                 </li>
 
-                                <li class="nav-item dropdown">
-                                    <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
-                                       aria-haspopup="true" aria-expanded="false">Pages</a>
-                                    <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">
-                                        <li>
-                                            <a href="about.html" class="dropdown-item item-anchor">About </a>
-                                        </li>
-                                        <li>
-                                            <a href="cart.html" class="dropdown-item item-anchor">Cart </a>
-                                        </li>
-                                        <li>
-                                            <a href="checkout.html" class="dropdown-item item-anchor">Checkout </a>
-                                        </li>
-                                        <li>
-                                            <a href="coming-soon.html" class="dropdown-item item-anchor">Coming Soon </a>
-                                        </li>
+                                <c:if test="${sessionScope.account != null}"> 
+                                    <li class="nav-item dropdown">
+                                        <a class="nav-link dropdown-toggle" href="#" id="dropdownPages" data-bs-toggle="dropdown"
+                                           aria-haspopup="true" aria-expanded="false">My Account</a>
+                                        <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownPages">                                   
+                                            <li>
+                                                <a href="cart" class="dropdown-item item-anchor">Cart </a>
+                                            </li>
+                                            <li>
+                                                <a href="viewprofile" class="dropdown-item item-anchor">My Profile</a>
+                                            </li>
+                                            <li>
+                                                <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking </a>
+                                            </li>
 
-                                        <li>
-                                            <a href="my-account.html" class="dropdown-item item-anchor">My Account </a>
-                                        </li>
-                                        <li>
-                                            <a href="order-tracking.html" class="dropdown-item item-anchor">Order Tracking </a>
-                                        </li>
-                                        <li>
-                                            <a href="wishlist.html" class="dropdown-item item-anchor">Wishlist </a>
-                                        </li>
-                                    </ul>
-                                </li>
+                                        </ul>
+                                    </li>
+                                </c:if>
                                 <li class="nav-item">
                                     <a class="nav-link" href="blog">Blog</a>
                                 </li>
@@ -398,12 +389,25 @@
                                 <li class="nav-item">
                                     <a class="nav-link" href="faqs">FAQS</a>
                                 </li>
-                                <li class="nav-item">
-                                    <a class="btn btn-outline-primary rounded-pill" href="login" >Login</a>
-                                </li>
-                                <li class="nav-item">
-                                    <a class="btn btn-outline-primary rounded-pill" href="signup" >Sign Up</a>
-                                </li>
+                                <c:if test="${sessionScope.account != null}">  
+                                    <li class="nav-item">
+                                        <a class="btn btn-outline-primary rounded-pill" 
+                                           href="logout">Log out</a>
+                                    </li>
+                                </c:if>
+
+                                <c:if test="${sessionScope.account == null}">
+                                    <li class="nav-item">
+                                        <a class="btn btn-outline-primary rounded-pill" 
+                                           href="login">Login</a>
+                                    </li>                                
+                                </c:if> 
+                                <c:if test="${sessionScope.account == null}">
+                                    <li class="nav-item">
+                                        <a class="btn btn-outline-primary rounded-pill" 
+                                           href="signup">Sign Up</a>
+                                    </li>                                
+                                </c:if>
                             </ul>
                         </div>
                     </div>
@@ -416,7 +420,7 @@
                             </a>
                         </li>
                         <li class="d-none d-lg-block">
-                            <a href="cart.html" class="text-uppercase mx-3" data-bs-toggle="offcanvas" data-bs-target="#offcanvasCart" aria-controls="offcanvasCart">Cart <span class="cart-count">(0)</span>
+                            <a href="cart" class="text-uppercase mx-3"  aria-controls="offcanvasCart">Cart <span class="cart-count">(${totalQ})</span>
                             </a>
                         </li>
                         <li class="d-lg-none">
@@ -436,7 +440,9 @@
                         </li>
                     </ul>
                 </div>
+
             </div>
+
         </div>
     </nav>
 
@@ -490,35 +496,35 @@
                         <div class="product-info">
                             <div class="element-header">
                                 <h2 itemprop="name" class="product-title text-uppercase">${product.getName()}</h2>
-                                <div class="rating-container d-flex align-items-center">
+<!--                                <div class="rating-container d-flex align-items-center">
                                     <div class="rating" data-rating="1" onclick=rate(1)>
                                         <svg width="32" height="32">
-                                        <use xlink:href="#star-solid"></use>
+                                        <use xlink:href="#s tar-solid"></use>
                                         </svg>
                                     </div>
                                     <div class="rating" data-rating="2" onclick=rate(1)>
                                         <svg width="32" height="32">
-                                        <use xlink:href="#star-solid"></use>
+                                        <use xlink:href="#s tar-solid"></use>
                                         </svg>
                                     </div>
                                     <div class="rating" data-rating="3" onclick=rate(1)>
                                         <svg width="32" height="32">
-                                        <use xlink:href="#star-solid"></use>
+                                        <use xlink:href="#s tar-solid"></use>
                                         </svg>
                                     </div>
                                     <div class="rating" data-rating="4" onclick=rate(1)>
                                         <svg width="32" height="32">
-                                        <use xlink:href="#star-outline"></use>
+                                        <use xlink:href="#s tar-outline"></use>
                                         </svg>
                                     </div>
                                     <div class="rating" data-rating="5" onclick=rate(1)>
                                         <svg width="32" height="32">
-                                        <use xlink:href="#star-outline"></use>
+                                        <use xlink:href="#s tar-outline"></use>
                                         </svg>
                                     </div>
                                     <span class="rating-count">(3.5)</span>
                                 </div>
-                            </div>
+                            </div>-->
                             <div class="product-price">
                                 <span class="fs-2">${product.getPrice()}$</span>
                                 <!--<del>$54.00</del>-->
@@ -1216,59 +1222,22 @@
     <script src="js/script.js"></script>
     <script>
                                                             $(document).ready(function () {
-                                                                // Set the initial max value
-                                                                $('#quantityInput').attr('max', "${product.getQuantity()}");
-                                                                $('#quantityInput').on('input', function () {
-                                                                    // Get the entered value
-                                                                    var enteredValue = parseInt($(this).val());
-                                                                    // Get the maximum allowed quantity
-                                                                    var maxQuantity = parseInt($('#quantityInput').attr('max'));
-                                                                    // If the entered value is greater than the maximum allowed quantity,
-                                                                    // set it to the maximum allowed quantity and show an alert
-                                                                    if (enteredValue > maxQuantity) {
-                                                                        $(this).val(maxQuantity);
-                                                                        alert("Quantity cannot exceed available stock.");
-                                                                    }
-                                                                    if (enteredValue < 0) {
-                                                                        $(this).val(0);
-                                                                        alert("Quantity cannot be less than 0.");
-                                                                    }
-                                                                });
-                                                                $('#plusBtn').click(function (e) {
-                                                                    // Stop default button action
-                                                                    e.preventDefault();
-                                                                    // Get the current value and maximum allowed quantity
-                                                                    var currentValue = parseInt($('#quantityInput').val());
-                                                                    var maxQuantity = parseInt($('#quantityInput').attr('max'));
-                                                                    // Increment the value if it's less than the maximum allowed quantity
-                                                                    if (currentValue < maxQuantity) {
-                                                                        $('#quantityInput').val(currentValue + 1);
-                                                                    }
-                                                                });
-                                                                $('#minusBtn').click(function (e) {
-                                                                    // Stop default button action
-                                                                    e.preventDefault();
-                                                                    // Get the current value
-                                                                    var currentValue = parseInt($('#quantityInput').val());
-                                                                    // Decrement the value if it's greater than 0
-                                                                    if (currentValue > 0) {
-                                                                        $('#quantityInput').val(currentValue - 1);
-                                                                    }
-                                                                });
-                                                            });
-                                                            $(document).ready(function () {
                                                                 $('.color-item').click(function () {
                                                                     var productInfoId = "${product.getProductInfoId()}";
                                                                     var color = $(this).data('val');
                                                                     var sizeIndex = $('.swatch-element button.bg-primary').parent().index();
                                                                     var size = $('.swatch-element button.bg-primary').data('size');
-                                                                    // Construct the new URL based on the selected color
-                                                                    var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?pifid=' + productInfoId + '&size=' + size + '&color=' + color + "&amount=1";
-                                                                    var href = 'addToCart?pifid=' + productInfoId + '&size=' + size + '&color=' + color + "&amount=1";
-                                                                    document.getElementById('add-to-cart').href = href; 
+                                                                    var amount = $('#quantityInput').val(); // Get the current quantity value
+
+                                                                    // Construct the new URL based on the selected color and quantity
+                                                                    var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?pifid=' + productInfoId + '&size=' + size + '&color=' + color + "&amount=" + amount;
+                                                                    var href = 'addToCart?pifid=' + productInfoId + '&size=' + size + '&color=' + color + "&amount=" + amount;
+                                                                    document.getElementById('add-to-cart').href = href;
                                                                     $('.color-toggle .item-title span').text(color); // Update the span text to the selected color
+
                                                                     // Change the URL displayed in the browser's address bar without reloading the page
                                                                     history.pushState(null, null, newURL);
+
                                                                     $.ajax({
                                                                         type: 'POST', // Change the method to POST since you're sending sensitive data
                                                                         url: 'detail', // Specify the URL of your servlet
@@ -1296,15 +1265,12 @@
                                                                             var newBackgroundImageUrl = response.backgroundImageUrl; // Assuming you have a property like this in your AJAX response
                                                                             $('.photo').css('background-image', 'url(' + newBackgroundImageUrl + ')');
                                                                         },
-
                                                                         error: function (xhr, status, error) {
                                                                             // Handle error here, if needed
                                                                         }
                                                                     });
                                                                 });
-                                                            });
 
-                                                            $(document).ready(function () {
                                                                 // Size selection button click event handler
                                                                 $('.swatch-element button').click(function () {
                                                                     // Remove bg-primary class from all buttons
@@ -1316,11 +1282,12 @@
                                                                     var productInfoId = "${product.getProductInfoId()}";
                                                                     var color = document.querySelector('.color-toggle .item-title span').innerText;
                                                                     var size = $(this).data('size');
-                                                                    var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?pifid=' + productInfoId + '&size=' + size + '&color=' + color + "&amount=1";
-                                                                    var href = 'addToCart?pifid=' + productInfoId + '&size=' + size + '&color=' + color + "&amount=1";
+                                                                    var amount = $('#quantityInput').val(); // Get the current quantity value
+
+                                                                    var newURL = window.location.protocol + '//' + window.location.host + window.location.pathname + '?pifid=' + productInfoId + '&size=' + size + '&color=' + color + "&amount=" + amount;
+                                                                    var href = 'addToCart?pifid=' + productInfoId + '&size=' + size + '&color=' + color + '&amount=' + amount;
                                                                     document.getElementById('add-to-cart').href = href;
                                                                     history.pushState(null, null, newURL);
-                                                                    // Make AJAX request
 
                                                                     $.ajax({
                                                                         type: 'POST',
@@ -1342,7 +1309,65 @@
                                                                         }
                                                                     });
                                                                 });
+
+                                                                // Function to update amount based on quantity
+                                                                function updateAmountFromQuantity() {
+                                                                    var amount = $('#quantityInput').val(); // Get the current quantity value
+                                                                    $('#add-to-cart').attr('href', function (i, val) {
+                                                                        return val.replace(/amount=\d+/, 'amount=' + amount);
+                                                                    });
+                                                                }
+
+                                                                // Quantity input change event handler
+                                                                $('#quantityInput').on('input', function () {
+                                                                    // Get the entered value
+                                                                    var enteredValue = parseInt($(this).val());
+                                                                    // Get the maximum allowed quantity
+                                                                    var maxQuantity = parseInt($(this).attr('max'));
+                                                                    // If the entered value is greater than the maximum allowed quantity,
+                                                                    // set it to the maximum allowed quantity and show an alert
+                                                                    if (enteredValue > maxQuantity) {
+                                                                        $(this).val(maxQuantity);
+                                                                        alert("Quantity cannot exceed available stock.");
+                                                                    }
+                                                                    if (enteredValue < 0) {
+                                                                        $(this).val(0);
+                                                                        alert("Quantity cannot be less than 0.");
+                                                                    }
+                                                                    // Update the amount based on quantity
+                                                                    updateAmountFromQuantity();
+                                                                });
+
+                                                                // Plus button click event handler
+                                                                $('#plusBtn').click(function (e) {
+                                                                    // Stop default button action
+                                                                    e.preventDefault();
+                                                                    // Get the current value and maximum allowed quantity
+                                                                    var currentValue = parseInt($('#quantityInput').val());
+                                                                    var maxQuantity = parseInt($('#quantityInput').attr('max'));
+                                                                    // Increment the value if it's less than the maximum allowed quantity
+                                                                    if (currentValue < maxQuantity) {
+                                                                        $('#quantityInput').val(currentValue + 1);
+                                                                        // Update the amount based on quantity
+                                                                        updateAmountFromQuantity();
+                                                                    }
+                                                                });
+
+                                                                // Minus button click event handler
+                                                                $('#minusBtn').click(function (e) {
+                                                                    // Stop default button action
+                                                                    e.preventDefault();
+                                                                    // Get the current value
+                                                                    var currentValue = parseInt($('#quantityInput').val());
+                                                                    // Decrement the value if it's greater than 0
+                                                                    if (currentValue > 0) {
+                                                                        $('#quantityInput').val(currentValue - 1);
+                                                                        // Update the amount based on quantity
+                                                                        updateAmountFromQuantity();
+                                                                    }
+                                                                });
                                                             });
+
     </script>
 
 

@@ -15,6 +15,9 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 
 /**
@@ -45,15 +48,23 @@ public class DeleteEvent extends HttpServlet {
             throws ServletException, IOException {
         int saleid = Integer.parseInt(request.getParameter("saleid"));
         ProductSale pro = ProductSaleDAO.INSTANCE.getProductSaleBySaleEventId(saleid);
-        try {
-            SaleDAO.INSTANCE.DeleteSale(pro.getId(), pro.getProinforId(), pro.getPercent());
-        } catch (Exception e) {
-            System.out.println(e.getMessage());
+        String startdate = request.getParameter("startdate");
+        String enddate = request.getParameter("enddate");
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        LocalDate startDate = LocalDate.parse(startdate, dateFormatter);
+        LocalDate endDate = LocalDate.parse(enddate, dateFormatter);
+        boolean isWithinTimeRange = currentTime.toLocalDate().isAfter(endDate)
+                || currentTime.toLocalDate().isBefore(startDate);
+        if (isWithinTimeRange) {
+            SaleDAO.INSTANCE.DeactivateSale(saleid);
+        } else {
+          request.setAttribute("warn", "An active SaleEvent cannot be Deactivated");
         }
-        SaleDAO.INSTANCE.DeleteSaleEvent(saleid);
-        ProductDAO.INSTANCE.UpdatePrice(pro.getPrice(), pro.getProinforId());
+        
         List<Product> listProduct = ProductDAO.INSTANCE.getAllProduct();
         request.setAttribute("listProduct", listProduct);
+        request.setAttribute("sale", SaleDAO.INSTANCE.getAllListEvent());
         request.setAttribute("prosale", ProductSaleDAO.INSTANCE.listAllProductSale());
         request.getRequestDispatcher("Views/SaleList.jsp").forward(request, response);
     }
@@ -61,7 +72,17 @@ public class DeleteEvent extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        processRequest(request, response);
+        int saleid = Integer.parseInt(request.getParameter("saleid"));
+        ProductSale pro = ProductSaleDAO.INSTANCE.getProductSaleBySaleEventId(saleid);
+        String startdate = request.getParameter("startdate");
+        String enddate = request.getParameter("enddate");
+        SaleDAO.INSTANCE.ActivateSale(saleid);
+        List<Product> listProduct = ProductDAO.INSTANCE.getAllProduct();
+        request.setAttribute("listProduct", listProduct);
+        request.setAttribute("sale", SaleDAO.INSTANCE.getAllListEvent());
+        request.setAttribute("prosale", ProductSaleDAO.INSTANCE.listAllProductSale());
+        request.getRequestDispatcher("Views/SaleList.jsp").forward(request, response);
+
     }
 
     /**

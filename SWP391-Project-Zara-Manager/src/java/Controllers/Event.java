@@ -58,6 +58,24 @@ public class Event extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        LocalDateTime currentTime = LocalDateTime.now();
+        DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
+        List<Product> products = ProductDAO.INSTANCE.getAllProduct();
+        for (Product product : products) {
+            ProductSale productSale = ProductSaleDAO.INSTANCE.getProductSaleByProinfoId(product.getProductInfoId());
+            if (productSale != null) {
+                LocalDate startDate = LocalDate.parse(productSale.getStartdate(), dateFormatter);
+                LocalDate endDate = LocalDate.parse(productSale.getEnddate(), dateFormatter);
+
+                boolean isWithinTimeRange = currentTime.toLocalDate().isAfter(endDate)
+                        || currentTime.toLocalDate().isBefore(startDate);
+
+                if (isWithinTimeRange) {
+                    float newPrice = product.getPrice();
+                    ProductDAO.INSTANCE.UpdatePrice(newPrice, productSale.getProinforId());
+                }
+            }
+        }
         List<Product> listProduct = ProductDAO.INSTANCE.getAllProduct();
         request.setAttribute("listProduct", listProduct);
         request.getRequestDispatcher("Views/Event.jsp").forward(request, response);
@@ -66,35 +84,37 @@ public class Event extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+
         String name = request.getParameter("nameevent");
         String startdate = request.getParameter("startdate");
         String enddate = request.getParameter("enddate");
-        Float percent = Float.parseFloat(request.getParameter("percent"));
-        String[] proid= request.getParameterValues("selectedProducts");
-        for (String id : proid) {
-//        ProductDAO.INSTANCE.getProductByPid(id);
-        List<Product> listProducts = ProductDAO.INSTANCE.getProductByPid(id);
-
-        float newprice = 0;
-
+        
+        String percent1 = request.getParameter("percent");
+        percent1 = percent1.substring(0, percent1.length() - 1);
+        Float percent = Float.parseFloat(percent1) / 100;
+        String[] proid = request.getParameterValues("selectedProducts");
         LocalDateTime currentTime = LocalDateTime.now();
         DateTimeFormatter dateFormatter = DateTimeFormatter.ofPattern("yyyy-MM-dd");
         LocalDate startDate = LocalDate.parse(startdate, dateFormatter);
         LocalDate endDate = LocalDate.parse(enddate, dateFormatter);
-        boolean isWithinTimeRange = currentTime.toLocalDate().isAfter(endDate)
-                || currentTime.toLocalDate().isBefore(startDate);
-        if (isWithinTimeRange) {
-            newprice = listProducts.get(0).getPrice();
 
-        } else {
-            newprice = listProducts.get(0).getPrice() * (1 - percent);
-        }
-        ProductDAO.INSTANCE.UpdatePrice(newprice, Integer.parseInt(id));
         SaleDAO.INSTANCE.InsertSaleEvent(startdate, enddate, name);
-        SaleDAO.INSTANCE.getIdSaleEvent(startdate, enddate, name);
-        SaleEvent sale = SaleDAO.INSTANCE.getSale();
-        SaleDAO.INSTANCE.InsertSale(sale.getId(), id, percent);
+
+        for (String id : proid) {
+            List<Product> listProducts = ProductDAO.INSTANCE.getProductByPid(id);
+            float newprice = 0;
+            boolean isWithinTimeRange = currentTime.toLocalDate().isAfter(endDate)
+                    || currentTime.toLocalDate().isBefore(startDate);
+            if (isWithinTimeRange) {
+                newprice = listProducts.get(0).getPrice();
+            } else {
+                newprice = listProducts.get(0).getPrice() * (1 - percent);
+            }
+            ProductDAO.INSTANCE.UpdatePrice(newprice, Integer.parseInt(id));
+            SaleEvent sale = SaleDAO.INSTANCE.getIdSaleEvent(startdate, enddate, name);
+            SaleDAO.INSTANCE.InsertSale(sale.getId(), id, percent);
         }
+
 
         List<Product> listProduct = ProductDAO.INSTANCE.getAllProduct();
         request.setAttribute("listProduct", listProduct);

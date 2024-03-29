@@ -1,6 +1,12 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <style>
+    .list-group-item {
+        margin-right: 30px; 
+    }
+</style>
   <title>Kaira - Bootstrap 5 Fashion Store HTML CSS Template</title>
   <meta charset="utf-8">
   <meta http-equiv="X-UA-Compatible" content="IE=edge">
@@ -115,43 +121,6 @@
   </svg>
 
   <div class="preloader text-white fs-6 text-uppercase overflow-hidden"></div>
-
-<!--  <div class="search-popup">
-    <div class="search-popup-container">
-
-      <form role="search" method="get" class="form-group" action="index.html">
-        <input type="search" id="search-form" class="form-control border-0 border-bottom" placeholder="Type and press enter" value="" name="s" />
-        <button type="submit" class="search-submit border-0 position-absolute bg-white" style="top: 15px;right: 15px;"><svg class="search" width="24" height="24"><use xlink:href="#search"></use></svg></button>
-      </form>
-
-      <h5 class="cat-list-title">Browse Categories</h5>
-      
-      <ul class="cat-list">
-        <li class="cat-list-item">
-          <a href="#" title="Jackets">Jackets</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="T-shirts">T-shirts</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Handbags">Handbags</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Accessories">Accessories</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Cosmetics">Cosmetics</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Dresses">Dresses</a>
-        </li>
-        <li class="cat-list-item">
-          <a href="#" title="Jumpsuits">Jumpsuits</a>
-        </li>
-      </ul>
-
-    </div>
-  </div>-->
 
   <div class="offcanvas offcanvas-end" data-bs-scroll="true" tabindex="-1" id="offcanvasCart">
     <div class="offcanvas-header justify-content-center">
@@ -393,10 +362,10 @@
   <section class="checkout-wrap pb-5">
     <div class="container">
         
-        
+        <h6>${warn}</h6>    
     <form action="methodpayment" method="post"class="form-group">
         <div class="row g-5">
-          <div class="col-lg-6">
+          <div class="col-lg-5">
             <h4 class="text-dark pb-4">Billing Details</h4>
             <div class="billing-details">
               <label for="fname">First Name*</label>
@@ -407,18 +376,43 @@
               <input type="text" id="cname" name="address" class="form-control mt-2 mb-4">
               <label for="email">Phone *</label>
               <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3">
-              <label for="email">Email address *</label>
-              <input type="email" id="email" name="email" class="form-control mt-2 mb-4 ps-3">
             </div>
           </div>
-          <div class="col-lg-6">
-<!--            <h4 class="text-dark pb-4">Additional Information</h4>
-            <div class="billing-details">
-              <label for="fname">Order notes (optional)</label>
-              <textarea class="form-control pt-3 pb-3 ps-3 mt-2" placeholder="Notes about your order. Like special notes for delivery."></textarea>
-            </div>-->
+          <div class="col-lg-7">
             <div class="your-order mt-5">
               <h4 class="display-7 text-dark pb-4">Cart Totals</h4>
+                    <table class="table" id="userTable">
+                        <thead>
+                            <tr class="cart-header">
+                                <th class="cart-title text-uppercase text-muted col-lg-4 pb-3">Product</th>
+                                <th class="cart-title text-uppercase text-muted col-lg-2 pb-3">Size</th>
+                                <th class="cart-title text-uppercase text-muted col-lg-2 pb-3">Quantity</th>
+                                <th class="cart-title text-uppercase text-muted col-lg-3 pb-3" style="padding-left: 60px">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${cartProduct}" var="cl">
+                                <tr class="cart-item border-top border-bottom">
+                                    <td class="align-middle">
+                                        <div class="card-image">
+                                            <img src="${cl.getImgDefault()}" alt="cloth" class="img-fluid" style="width: 100px; height: 120px">
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">${cl.getSize()}</td>
+                                    <td class="align-middle">
+                                        <div class="input-group product-qty">
+                                            ${cl.getQuantity()}
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="total-price">
+                                            <span class="money text-dark">$ ${cl.getPrice()}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
               <div class="total-price">
                 <table cellspacing="0" class="table">
                   <tbody>
@@ -433,8 +427,25 @@
                       </td>
                     </tr>
                   </tbody>
-                </table>
+                </table> 
+                        
+                    <div class="list-group mt-5 mb-3 ">
+                        <h4>Delivery</h4> 
+                        <div class="d-flex flex-wrap">
+                            <c:forEach items="${de}" var="dev">
+                                <label class="list-group-item d-flex align-items-center gap-2 border-0 ">
+                                    <input class="form-check-input flex-shrink-0" type="radio" name="delivery" id="listGroupRadios3" value="${dev.id}" required="">
+                                    <span>
+                                        <strong class="text-uppercase">${dev.name}</strong>
+                                    </span>
+                                </label>
+                            </c:forEach>
+                        </div>
+                    </div>
+
                 <div class="list-group mt-5 mb-3">
+                    <h4>PayMent</h4> 
+
                   <label class="list-group-item d-flex gap-2 border-0">
                       <input class="form-check-input flex-shrink-0" type="radio" name="payment" id="listGroupRadios3" value="received" required="">
                     <span>
@@ -657,5 +668,36 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script src="js/script.js"></script>
+  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
+    <script src="js/jquery.min.js"></script>
+    <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- simplebar -->
+    <script src="js/simplebar.min.js"></script>
+    <!-- Select2 -->
+    <script src="js/select2.min.js"></script>
+    <script src="js/select2.init.js"></script>
+    <!-- Datepicker -->
+    <script src="js/flatpickr.min.js"></script>
+    <script src="js/flatpickr.init.js"></script>
+    <!-- Datepicker -->
+    <script src="js/jquery.timepicker.min.js"></script> 
+    <script src="js/timepicker.init.js"></script> 
+    <!-- Icons -->
+    <script src="js/feather.min.js"></script>
+    <!-- Main Js -->
+    <script src="js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.1/js/dataTables.bootstrap4.js"></script>
+  <script>
+             $(document).ready(function () {
+         $('#userTable').DataTable({
+             "pageLength": 2,
+             "lengthChange": false
+         });
+     });
+  </script><!-- comment -->
 </body>
 </html>

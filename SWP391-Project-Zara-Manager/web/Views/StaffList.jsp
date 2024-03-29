@@ -121,7 +121,6 @@
                                                     <a href="#" class="btn btn-icon btn-pills btn-soft-primary" data-bs-toggle="modal" data-bs-target="#viewstaff${ls.getId()}"><i class="uil uil-eye"></i></a>
                                                     <a href="#" class="btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#acceptstaff${ls.getId()}"><i class="uil uil-check-circle"></i></a>
                                                     <a href="#" class="btn btn-icon btn-pills btn-soft-danger" data-bs-toggle="modal" data-bs-target="#cancelstaff${ls.getId()}"><i class="uil uil-times-circle"></i></a>
-                                                    <a href="#" class="btn btn-icon btn-pills btn-soft-muted" data-bs-toggle="modal" data-bs-target="#editstaff${ls.getId()}"><i class="uil uil-user"></i></a>
                                                 </td>
                                             </tr>
                                         </c:forEach>    
@@ -319,12 +318,10 @@
                                         <h6>Username: </h6>
                                         <p class="text-muted ms-2">${ls.getAccount()}</p>
                                     </li>
-
                                     <li class="d-flex">
-                                        <h6>Password: </h6>
-                                        <p class="text-muted ms-2">${ls.getPassword()}</p>
+                                        <h6>Email: </h6>
+                                        <p class="text-muted ms-2">${ls.getEmail()}</p>
                                     </li>
-
                                     <li class="d-flex">
                                         <h6 class="mb-0">Phone:</h6>
                                         <p class="text-muted ms-2 mb-0">${ls.getPhone()}</p>
@@ -334,15 +331,9 @@
                             <li>
                                 <ul class="list-unstyled mb-0">
                                     <li class="d-flex">
-                                        <h6>Email: </h6>
-                                        <p class="text-muted ms-2">${ls.getEmail()}</p>
-                                    </li>
-
-                                    <li class="d-flex">
                                         <h6>Date: </h6>
                                         <p class="text-muted ms-2">${ls.getDate()}</p>
                                     </li>
-
                                     <li class="d-flex">
                                         <h6 class="mb-0">Address: </h6>
                                         <p class="text-muted ms-2 mb-0">${ls.getAddress()}</p>
@@ -351,9 +342,25 @@
                             </li>
                         </ul>
                     </div>
+
+                    <!-- New content to be added inside the modal -->
+                    <div class="card-footer border-0 px-4 py-5 d-flex justify-content-between align-items-center" style=" border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+
+                        <a href="#" class="btn btn-lg btn-success d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#acceptstaff${ls.getId()}" style="border-radius: 50px;">
+                            <i class="uil uil-check-circle me-2"></i> Activated
+                        </a>
+
+                        <!-- Cancel Order Button -->
+                        <a href="#" class="btn btn-lg btn-danger d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#cancelstaff${ls.getId()}" style="border-radius: 50px;">
+                            <i class="uil uil-times-circle me-2"></i> Deactivated
+                        </a>
+
+                    </div>
                 </div>
             </div>
         </div>
+
+
 
         <!-- View Appintment End -->
 
@@ -370,7 +377,7 @@
                                 <h4>Active staff</h4>
                                 <p class="para-desc mx-auto text-muted mb-0">Great doctor if you need your family member to get immediate assistance, emergency treatment.</p>
                                 <div class="mt-4">
-                                    <a href="status?action=active&id=${ls.getId()}" class="btn btn-soft-success">Active</a>
+
                                     <button class="btn btn-soft-success" onclick="changeStatus(this, 'active', ${ls.getId()})">Active</button>
                                 </div>
                             </div>
@@ -394,7 +401,7 @@
                                 <h4>Deactive Staff</h4>
                                 <p class="para-desc mx-auto text-muted mb-0">Great doctor if you need your family member to get immediate assistance, emergency treatment.</p>
                                 <div class="mt-4">
-                                    <a href="status?action=deactive&id=${ls.getId()}" class="btn btn-soft-danger">Cancel</a>
+
                                     <button class="btn btn-soft-danger" onclick="changeStatus(this, 'deactive', ${ls.getId()})">Cancel</button>
 
                                 </div>

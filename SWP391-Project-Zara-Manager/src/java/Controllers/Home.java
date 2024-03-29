@@ -5,6 +5,7 @@
 package Controllers;
 
 import DAL.CategoryDAO;
+import DAL.CustomerDAO;
 import DAL.OrderDAO;
 import DAL.ProductDAO;
 import DAL.UserDAO;
@@ -31,6 +32,11 @@ public class Home extends HttpServlet {
             request.getRequestDispatcher("Views/Login.jsp").forward(request, response);
         }
         request.setAttribute("totalProduct", ProductDAO.INSTANCE.getTotalProduct());
+        request.setAttribute("totalCustomer", CustomerDAO.INSTANCE.getTotalCustomer());
+        request.setAttribute("totalOrder", OrderDAO.INSTANCE.getTotalOrder());
+        request.setAttribute("totalOrderProcess", OrderDAO.INSTANCE.getTotalOrderProcess());
+        request.setAttribute("listOrderProcess", OrderDAO.INSTANCE.getListOrderByStatus("0"));
+        request.setAttribute("listCustomer", CustomerDAO.INSTANCE.listOfCustomers());
         request.setAttribute("revenue", OrderDAO.INSTANCE.getRevenue());
         request.setAttribute("profile", UserDAO.INSTANCE.getUserById(user.getId()));
         request.setAttribute("totalStaff", UserDAO.INSTANCE.getTotalStaff());

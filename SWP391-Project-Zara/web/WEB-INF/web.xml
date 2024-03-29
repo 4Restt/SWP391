@@ -104,6 +104,30 @@
         <servlet-name>PaymentController</servlet-name>
         <servlet-class>Controllers.PaymentController</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>MyOrder</servlet-name>
+        <servlet-class>Controllers.MyOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeEmail</servlet-name>
+        <servlet-class>Controllers.ChangeEmail</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangePhoneController</servlet-name>
+        <servlet-class>Controllers.ChangePhoneController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>EnterOtp</servlet-name>
+        <servlet-class>Controllers.EnterOtp</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>NewEmailController</servlet-name>
+        <servlet-class>Controllers.NewEmailController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>OrderCancle</servlet-name>
+        <servlet-class>Controllers.OrderCancle</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -207,6 +231,30 @@
     <servlet-mapping>
         <servlet-name>PaymentController</servlet-name>
         <url-pattern>/paymentcontroller</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyOrder</servlet-name>
+        <url-pattern>/myorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeEmail</servlet-name>
+        <url-pattern>/changeEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangePhoneController</servlet-name>
+        <url-pattern>/changephone</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>EnterOtp</servlet-name>
+        <url-pattern>/enterotp</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>NewEmailController</servlet-name>
+        <url-pattern>/newEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>OrderCancle</servlet-name>
+        <url-pattern>/ordercancle</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

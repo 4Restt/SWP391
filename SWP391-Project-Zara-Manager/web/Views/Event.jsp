@@ -39,38 +39,13 @@
         <main class="page-content bg-light">
         <jsp:include page="HeaderManager.jsp"></jsp:include>
 
-            <div class="container-fluid">
+            
                 <div class="layout-specing">
-                    <div class="d-md-flex justify-content-between">
-                        <h5 class="mb-0">Add New Doctor</h5>
-
-                        <nav aria-label="breadcrumb" class="d-inline-block mt-4 mt-sm-0">
-                            <ul class="breadcrumb bg-transparent rounded mb-0 p-0">
-                                <li class="breadcrumb-item"><a href="index.html">Doctris</a></li>
-                                <li class="breadcrumb-item"><a href="doctors.html">Doctors</a></li>
-                                <li class="breadcrumb-item active" aria-current="page">Add Doctor</li>
-                            </ul>
-                        </nav>
-                    </div>
 
                     <div class="row">
                         <div>
                             <div class="card border-0 p-4 rounded shadow">
-                                <div class="row align-items-center">
-                                    <div class="col-lg-2 col-md-4">
-                                        <img src="images/doctors/01.jpg" class="avatar avatar-md-md rounded-pill shadow mx-auto d-block" alt="">
-                                    </div><!--end col-->
 
-                                    <div class="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
-                                        <h5 class="">Upload your picture</h5>
-                                        <p class="text-muted mb-0">For best results, use an image at least 600px by 600px in either .jpg or .png format</p>
-                                    </div><!--end col-->
-
-                                    <div class="col-lg-5 col-md-12 text-lg-end text-center mt-4 mt-lg-0">
-                                        <a href="#" class="btn btn-primary">Upload</a>
-                                        <a href="#" class="btn btn-soft-primary ms-2">Remove</a>
-                                    </div><!--end col-->
-                                </div><!--end row-->
 
                                 
                                 
@@ -86,24 +61,24 @@
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Start Date</label>
-                                                <input required="" name="startdate" id="name2" type="date" class="form-control" placeholder="Start Date :">
+                                                <input required="" name="startdate" id="startdate" type="date" class="form-control" placeholder="Start Date :">
                                             </div>
                                         </div><!--end col-->
 
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">End Date</label>
-                                                <input required="" name="enddate" id="email" type="date" class="form-control" placeholder="End Date :">
+                                                <input required="" name="enddate" id="enddate" type="date" class="form-control" placeholder="End Date :">
                                             </div> 
                                         </div><!--end col-->
 
                                         <div class="col-md-6">
                                             <div class="mb-3">
                                                 <label class="form-label">Percent</label>
-                                                <input  name="percent" id="email" type="text" class="form-control" 
-                                                placeholder="Percent :" required="" pattern="^(\d+(\.\d{1,2})?|1(\.0{1,2})?)$"
-                                   title="Must enter a number greater than or equal to zero and less than one"
-                                   oninvalid="setCustomValidity('Must enter a number greater than or equal to 0 and less than 1')"
+                                                <input  name="percent" id="percent" type="text" class="form-control" 
+                                                placeholder="Percent :" required="" pattern="^100(\.0{1,2})?%$|^\d{1,2}(\.0{1,2})?%$"
+                                   title="Sales percentage must be greater than 0% and less than 100%"
+                                   oninvalid="setCustomValidity('Sales percentage must be greater than 0% and less than 100%')"
                                    oninput="setCustomValidity('')">
                                             </div> 
                                         </div><!--end col-->
@@ -111,7 +86,7 @@
                                         <div class="col-md-12">
                                             <div class="mb-3">
                                                 <label class="form-label">Product Sale</label>                                            
-                                                    <table class="table" border="3px" id="userTable" >
+                                                <table class="table" border="3px" id="userTable">
                                                         <thead>
                                                             <tr>
                                                                 <th>STT</th>
@@ -352,32 +327,72 @@
 
 <!-- JavaScript code -->
 <script>
-    $(document).ready(function() {
-        // Lắng nghe sự kiện thay đổi giá trị của input
-        $('select[name="productid"]').change(function() {
-            // Lấy giá trị của input
-            var productId = $(this).val();
+    document.addEventListener("DOMContentLoaded", function() {
+        const form = document.getElementById("productForm");
+        const selectedProducts = new FormData(); // Sử dụng FormData thay vì mảng để lưu trữ các sản phẩm đã được chọn
 
-            // Gửi yêu cầu Ajax
-            $.ajax({
-                type: 'POST', // hoặc 'GET' tùy thuộc vào phương thức của bạn
-                url: 'ajaxsale', // Đặt đường dẫn của servlet hoặc controller xử lý yêu cầu
-                data: { productId: productId }, // Truyền dữ liệu, nếu cần thiết
-                success: function(response) {
-                    // Xử lý kết quả trả về từ server
-                    // Ở đây, bạn có thể cập nhật thông tin sản phẩm trên giao diện người dùng
-                    console.log(response);
-                    // Ví dụ: Hiển thị thông tin sản phẩm trong một div có id là "productInfo"
-                    $('#productInfo').html(response);
-                },
-                error: function(error) {
-                    console.log('Error:', error);
+        // Sự kiện thay đổi của các checkbox
+        form.addEventListener("change", function(event) {
+            const target = event.target;
+            if (target.tagName === 'INPUT' && target.type === 'checkbox' && target.name === 'selectedProducts') {
+                const productId = target.value;
+                if (target.checked) {
+                    // Nếu checkbox được chọn, thêm sản phẩm vào FormData
+                    selectedProducts.append('selectedProducts', productId);
+                } else {
+                    // Nếu checkbox được bỏ chọn, loại bỏ sản phẩm khỏi FormData
+                    selectedProducts.delete('selectedProducts', productId);
                 }
+            }
+        });
+
+        form.addEventListener("submit", function(event) {
+            event.preventDefault(); // Ngăn chặn hành động mặc định của form
+
+            // Lấy dữ liệu từ các trường input
+            const nameevent = document.getElementById("nameevent").value;
+            const startdate = document.getElementById("startdate").value;
+            const enddate = document.getElementById("enddate").value;
+            const percent = document.getElementById("percent").value;
+
+            // Tạo một đối tượng FormData chứa tất cả dữ liệu
+            const formData = new URLSearchParams();
+            formData.append('nameevent', nameevent);
+            formData.append('startdate', startdate);
+            formData.append('enddate', enddate);
+            formData.append('percent', percent);
+            
+            // Thêm các sản phẩm đã được chọn vào FormData
+            for (const pair of selectedProducts.entries()) {
+                formData.append(pair[0], pair[1]);
+            }
+
+            // Gửi dữ liệu đến servlet
+            fetch('http://localhost:9999/SWP391-Project-Zara-Manager/event', {
+                method: 'POST',
+                body: formData
+            })
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+               window.location.reload();
+            })
+            .then(data => {
+                console.log('Success:', data);
+         ;
+                // Xử lý phản hồi từ server (nếu cần)
+            })
+            .catch(error => {
+                console.error('Error:', error);
+                // Xử lý lỗi (nếu cần)
             });
         });
     });
-    
-</script>   
+</script>
+
+
+
 <script>
              $(document).ready(function () {
          $('#userTable').DataTable({
@@ -386,6 +401,32 @@
          });
      });
 </script>
+<script>
+document.addEventListener("DOMContentLoaded", function() {
+    const startDateInput = document.querySelector('input[name="startdate"]');
+    const endDateInput = document.querySelector('input[name="enddate"]');
+
+    function validateDates() {
+        const startDate = new Date(startDateInput.value);
+        const endDate = new Date(endDateInput.value);
+
+        // Kiểm tra nếu startDate không hợp lệ hoặc endDate không hợp lệ
+        if (!startDate.getTime() || !endDate.getTime()) {
+            return; // Bỏ qua kiểm tra nếu một trong hai ngày không được chọn
+        }
+
+        if (startDate > endDate) {
+            alert("Start Date must be before End Date.");
+            // Tùy chỉnh để hiển thị thông báo lỗi theo ý muốn
+            // Ví dụ: thêm một thông báo lỗi trong HTML
+        }
+    }
+
+    startDateInput.addEventListener("change", validateDates);
+    endDateInput.addEventListener("change", validateDates);
+});
+</script>
+
 
 </body>
 

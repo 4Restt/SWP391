@@ -5,8 +5,10 @@
 package Controllers;
 
 import DAL.ProductDAO;
+import Helper.MemCached;
 import Models.Cart;
 import Models.Customer;
+import Models.Product;
 import Models.User;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -56,7 +58,7 @@ public class AddToCart extends HttpServlet {
             return;
         }
         try ( PrintWriter out = response.getWriter()) {
-            ArrayList<Cart> cartList = new ArrayList<>();
+            List<Cart> cartList = new ArrayList<>();
 
             int pifid = Integer.parseInt(request.getParameter("pifid"));
             String size = request.getParameter("size");
@@ -71,12 +73,12 @@ public class AddToCart extends HttpServlet {
             String returnUrl = request.getParameter("returnUrl");
 
             HttpSession session = request.getSession();
-            ArrayList<Cart> cart_list = (ArrayList<Cart>) session.getAttribute("cart-list" + customer.getAccount());
+            List<Cart> cart_list = MemCached.mem.get(customer.getId());
 
             if (cart_list == null) {
                 c.setQuantity(1);
                 cartList.add(c);
-                session.setAttribute("cart-list" + customer.getAccount(), cartList);
+                MemCached.mem.put(customer.getId(), cartList);
                 response.sendRedirect("home");
             } else {
                 cartList = cart_list;
@@ -85,22 +87,44 @@ public class AddToCart extends HttpServlet {
                 for (Cart cart : cart_list) {
                     if (cart.getProductInfoId() == pifid && cart.getSize().equals(size) && cart.getColor().equals(color)) {
                         exist = true;
-                        cart.setQuantity(cart.getQuantity() + amount);
+
+                        int newQuantity = cart.getQuantity() + amount;
+                        int productQuantity = getProductQuantity(pifid);
+
+                        if (cart.getQuantity() <= 0) {
+                            cart.setQuantity(1);
+                        } else if (newQuantity >= productQuantity) {
+                            cart.setQuantity(productQuantity);
+                        } else {
+                            cart.setQuantity(newQuantity);
+                        }
 
                         break;
                     }
                 }
 
                 if (!exist) {
-                    c.setQuantity(1);
+                    c.setQuantity(amount);
                     cartList.add(c);
 
                 }
-                session.setAttribute("cart-list" + customer.getAccount(), cartList);
-                response.sendRedirect(returnUrl==null?"home" : returnUrl);
+//                session.setAttribute("cart-list" + customer.getAccount(), cartList);
+                MemCached.mem.put(customer.getId(), cartList);
+                response.sendRedirect(returnUrl == null ? "home" : returnUrl);
 
             }
+
         }
+    }
+
+    private int getProductQuantity(int productId) {
+        List<Product> products = ProductDAO.INSTANCE.getAllProduct();
+        for (Product product : products) {
+            if (product.getProductInfoId() == productId) {
+                return product.getQuantity();
+            }
+        }
+        return 0;
     }
 
     /**

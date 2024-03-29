@@ -5,6 +5,7 @@
 package Controllers;
 
 import DAL.ProductDAO;
+import Helper.MemCached;
 import Models.Customer;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -13,6 +14,7 @@ import jakarta.servlet.http.HttpServlet;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -33,21 +35,24 @@ public class Cart extends HttpServlet {
      */
     protected void processRequest(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        Customer customer = (Customer) request.getSession().getAttribute("account") ;
-        ArrayList<Models.Cart> cart_list = (ArrayList<Models.Cart>) request.getSession().getAttribute("cart-list" + (customer==null?"":customer.getAccount()));
+        Customer customer = (Customer) request.getSession().getAttribute("account");
+        List<Models.Cart> cart_list = customer == null ? null : MemCached.mem.get(customer.getId());
+
         List<Models.Cart> cartProduct = null;
 
         if (cart_list != null) {
-            cartProduct = ProductDAO.INSTANCE.getCartProduct(cart_list);
-            float total = ProductDAO.INSTANCE.getTotalCartPrice(cart_list);
+            cartProduct = ProductDAO.INSTANCE.getCartProduct((ArrayList<Models.Cart>) cart_list);
+            float total = ProductDAO.INSTANCE.getTotalCartPrice((ArrayList<Models.Cart>) cart_list);
+            DecimalFormat df = new DecimalFormat("#.##");
+            String formattedTotal = df.format(total);
             request.setAttribute("cartProduct", cartProduct);
-            request.setAttribute("total", total);
+            request.setAttribute("total", formattedTotal);
 
         }
-        int totalQ = 0 ;
+        int totalQ = 0;
         if (cart_list != null) {
             for (Models.Cart c : cart_list) {
-                totalQ += c.getQuantity() ;
+                totalQ += c.getQuantity();
             }
         }
 

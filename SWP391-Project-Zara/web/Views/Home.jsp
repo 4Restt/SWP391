@@ -116,63 +116,63 @@
     </defs>
     </svg>
     <jsp:include page="Nav.jsp"></jsp:include>
-    <section class="text-white">
-        <div class="slideshow slide-in" style="height: 100vh;">
-            <div class="swiper-wrapper">
-                <div class="swiper-slide d-flex align-items-center" style="background-image:url(images/banner-large-4.jpg);">
-                    <div class="banner-content w-100">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6 offset-md-3 text-center">
-                                    <h2 class="display-1">Cripcrop style</h2>
-                                    <p class="caption">Tortor eget placerat arcu integer. Lectus fames egestas tincidunt aliquet vivamus nibh lorem nulla.</p>
-                                    <div class="btn-left btn-swiper">
-                                        <a href="shop" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
+        <section class="text-white">
+            <div class="slideshow slide-in" style="height: 100vh;">
+                <div class="swiper-wrapper">
+                    <div class="swiper-slide d-flex align-items-center" style="background-image:url(images/banner-large-4.jpg);">
+                        <div class="banner-content w-100">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3 text-center">
+                                        <h2 class="display-1">Cripcrop style</h2>
+                                        <p class="caption">Tortor eget placerat arcu integer. Lectus fames egestas tincidunt aliquet vivamus nibh lorem nulla.</p>
+                                        <div class="btn-left btn-swiper">
+                                            <a href="shop" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="swiper-slide d-flex align-items-center" style="background-image:url(images/banner-large-3.jpg);">
-                    <div class="banner-content w-100">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6 offset-md-3 text-center">
-                                    <h2 class="display-1">Cripcrop style</h2>
-                                    <p class="caption">Tortor eget placerat arcu integer. Lectus fames egestas tincidunt aliquet vivamus nibh lorem nulla.</p>
-                                    <div class="btn-left btn-swiper">
-                                        <a href="shop" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
+                    <div class="swiper-slide d-flex align-items-center" style="background-image:url(images/banner-large-3.jpg);">
+                        <div class="banner-content w-100">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3 text-center">
+                                        <h2 class="display-1">Cripcrop style</h2>
+                                        <p class="caption">Tortor eget placerat arcu integer. Lectus fames egestas tincidunt aliquet vivamus nibh lorem nulla.</p>
+                                        <div class="btn-left btn-swiper">
+                                            <a href="shop" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                </div>
-                <div class="swiper-slide d-flex align-items-center" style="background-image:url(images/banner-large-2.jpg);">
-                    <div class="banner-content w-100">
-                        <div class="container">
-                            <div class="row">
-                                <div class="col-md-6 offset-md-3 text-center">
-                                    <h2 class="display-1">Modern style</h2>
-                                    <p class="caption">Tortor eget placerat arcu integer. Lectus fames egestas tincidunt aliquet vivamus nibh lorem nulla.</p>
-                                    <div class="btn-left btn-swiper">
-                                        <a href="Shop" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
+                    <div class="swiper-slide d-flex align-items-center" style="background-image:url(images/banner-large-2.jpg);">
+                        <div class="banner-content w-100">
+                            <div class="container">
+                                <div class="row">
+                                    <div class="col-md-6 offset-md-3 text-center">
+                                        <h2 class="display-1">Modern style</h2>
+                                        <p class="caption">Tortor eget placerat arcu integer. Lectus fames egestas tincidunt aliquet vivamus nibh lorem nulla.</p>
+                                        <div class="btn-left btn-swiper">
+                                            <a href="Shop" class="btn btn-light text-uppercase mt-3">Shop Collection</a>
+                                        </div>
                                     </div>
                                 </div>
                             </div>
                         </div>
                     </div>
+                    <div class="swiper-pagination"></div>
                 </div>
-                <div class="swiper-pagination"></div>
+                <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#angle-left"></use></svg></div>
+                <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#angle-right"></use></svg></div>
             </div>
-            <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#angle-left"></use></svg></div>
-            <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#angle-right"></use></svg></div>
-        </div>
-    </section>
+        </section>
 
-    <section class="categories full-width-container overflow-hidden py-5">
-        <div class="row d-flex flex-wrap">
+        <section class="categories full-width-container overflow-hidden py-5">
+            <div class="row d-flex flex-wrap">
             <c:forEach items="${listCategory}" var="lc">
                 <div class="col-md-4 col-sm-6">
                     <div class="cat-item image-zoom-effect position-relative">
@@ -242,124 +242,47 @@
         <div class="container">
             <div class="d-flex flex-wrap justify-content-between align-items-center mt-5 mb-3"> 
                 <h4 class="text-uppercase">Best Selling Items</h4>
-                <a href="shop-sidebar.html" class="btn-link">View All Products</a>
+                <a href="shop" class="btn-link">View All Products</a>
             </div>
             <div class="swiper product-swiper open-up" data-aos="zoom-out">
                 <div class="swiper-wrapper d-flex">
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="single-product.html">
-                                    <img src="images/product-item12.jpg" alt="categories" class="product-image img-fluid">
-                                </a>
-                                <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="single-product.html">Dark florish onepiece</a>
-                                    </h5>
-                                    <a href="cart.html" class="text-decoration-none" data-after="Add to cart"><span>$95.00</span></a>
+                    <c:forEach items="${listBestSelling}" var="lbs">
+                        <div class="swiper-slide">
+                            <div class="product-item image-zoom-effect link-effect">
+                                <div class="image-holder position-relative">
+                                    <a href="detail?pifid=${lbs.getProductInfoId()}&size=${lbs.getSize()}&color=${lbs.getColor()}">
+                                        <img src="${lbs.getImgDefault()}" alt="categories" class="product-image img-fluid">
+                                    </a>
+                                    <a href="wishlist.html" class="btn-icon btn-wishlist">
+                                        <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
+                                    </a>
+                                    <div class="product-content">
+                                        <h5 class="element-title text-uppercase fs-5 mt-3">
+                                            <a href="detail?pifid=${lbs.getProductInfoId()}&size=${lbs.getSize()}&color=${lbs.getColor()}">${lbs.getName()}</a>
+                                        </h5>
+                                        <a href="addToCart?pifid=${lbs.getProductInfoId()}&size=${lbs.getSize()}&color=${lbs.getColor()}&amount=1"
+                                           class="text-decoration-none" data-after="Add to cart">
+                                            <c:set var="giaBanDau" value="${lbs.priceDefault}" />
+                                            <c:set var="giaDiscount" value="${lbs.price}" />
+                                            <c:if test="${giaDiscount lt giaBanDau}">
+                                                <span style="text-decoration: line-through;
+                                                      color: #777;">${lbs.priceDefault}$</span>
+                                                <span style="color: red;font-weight: bold;margin-left: 10px;">${lbs.price}$</span>
+                                            </c:if>
+                                            <c:if test="${giaDiscount eq giaBanDau}">
+                                                <span>${lbs.priceDefault}$</span>
+                                            </c:if>
+                                        </a>
+                                    </div>
                                 </div>
                             </div>
                         </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="single-product.html">
-                                    <img src="images/product-item13.jpg" alt="product" class="product-image img-fluid">
-                                </a>
-                                <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="single-product.html">Baggy Shirt</a>
-                                    </h5>
-                                    <a href="cart.html" class="text-decoration-none" data-after="Add to cart"><span>$55.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="single-product.html">
-                                    <img src="images/product-item14.jpg" alt="categories" class="product-image img-fluid">
-                                </a>
-                                <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="single-product.html">Cotton off-white shirt</a>
-                                    </h5>
-                                    <a href="cart.html" class="text-decoration-none" data-after="Add to cart"><span>$65.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="single-product.html">
-                                    <img src="images/product-item15.jpg" alt="categories" class="product-image img-fluid">
-                                </a>
-                                <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="single-product.html">Handmade crop sweater</a>
-                                    </h5>
-                                    <a href="cart.html" class="text-decoration-none" data-after="Add to cart"><span>$50.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="single-product.html">
-                                    <img src="images/product-item9.jpg" alt="categories" class="product-image img-fluid">
-                                </a>
-                                <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="single-product.html">Dark florish onepiece</a>
-                                    </h5>
-                                    <a href="cart.html" class="text-decoration-none" data-after="Add to cart"><span>$70.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="swiper-slide">
-                        <div class="product-item image-zoom-effect link-effect">
-                            <div class="image-holder">
-                                <a href="single-product.html">
-                                    <img src="images/product-item10.jpg" alt="categories" class="product-image img-fluid">
-                                </a>
-                                <a href="wishlist.html" class="btn-icon btn-wishlist">
-                                    <svg width="24" height="24" viewBox="0 0 24 24"><use xlink:href="#heart"></use></svg>
-                                </a>
-                                <div class="product-content">
-                                    <h5 class="text-uppercase fs-5 mt-3">
-                                        <a href="single-product.html">Cotton off-white shirt</a>
-                                    </h5>
-                                    <a href="cart.html" class="text-decoration-none" data-after="Add to cart"><span>$70.00</span></a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    </c:forEach>
+
                 </div>
-                <div class="swiper-pagination"></div>
+                <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#angle-left"></use></svg></div>
+                <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#angle-right"></use></svg></div>
             </div>
-            <div class="icon-arrow icon-arrow-left"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#angle-left"></use></svg></div>
-            <div class="icon-arrow icon-arrow-right"><svg width="50" height="50" viewBox="0 0 24 24"><use xlink:href="#angle-right"></use></svg></div>
-        </div>
     </section>
 
     <section class="video py-5 overflow-hidden">
@@ -734,6 +657,36 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
     <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
     <script src="js/script.js"></script>
+        <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            // Function to reload the page and keep the scroll position
+            function reloadPage() {
+                // Save the current scroll position
+                var scrollPosition = window.scrollY;
+
+                // Reload the page
+                location.reload();
+
+                // Restore the scroll position after the page has reloaded
+                window.scrollTo(0, scrollPosition);
+            }
+
+            // Bind the reloadPage function to the scroll event
+            window.addEventListener("scroll", function () {
+                // Save the scroll position to sessionStorage
+                sessionStorage.setItem("scrollPosition", window.scrollY);
+            });
+
+            // Check if there is a saved scroll position in sessionStorage
+            var savedScrollPosition = sessionStorage.getItem("scrollPosition");
+            if (savedScrollPosition !== null) {
+                // If there is a saved scroll position, scroll to it
+                window.scrollTo(0, savedScrollPosition);
+            }
+
+        });
+    </script>
+
 
 </body>
 </html>

@@ -55,6 +55,10 @@ public class EventEdit extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
+        
+        request.setAttribute("sale", SaleDAO.INSTANCE.getAllListEvent());
+        List<Product> listProduct = ProductDAO.INSTANCE.getAllProduct();
+        request.setAttribute("listProduct", listProduct);
         request.setAttribute("prosale", ProductSaleDAO.INSTANCE.listAllProductSale());
         request.getRequestDispatcher("Views/SaleList.jsp").forward(request, response);
     }

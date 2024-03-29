@@ -92,7 +92,7 @@ public class ShipperDAO {
         String sql = "SELECT Shipper.*, [Location].[name] as location_name\n"
                 + "from Shipper\n"
                 + "join [Location] on Shipper.location_id = [Location].id \n"
-                + "where Shipper.[name] = ? and Shipper.[password] = ? ";
+                + "where Shipper.ship_account = ? and Shipper.[password] = ? ";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, name);
@@ -100,12 +100,14 @@ public class ShipperDAO {
             rs = ps.executeQuery();
             if (rs.next()) {
                 shipper = new Shipper(rs.getInt("id"),
+                        rs.getInt("delivery_id"),
                         rs.getString("name"),
                         rs.getString("password"),
                         rs.getInt("location_id"),
                         rs.getString("phone"),
                         rs.getString("location_name"),
-                        rs.getString("image")
+                        rs.getString("image"),
+                        rs.getString("ship_account")
                 );
                 System.out.println("OK");
             } else {
@@ -130,6 +132,7 @@ public class ShipperDAO {
             while (rs.next()) {
                 Shipper shipper = Shipper.builder()
                         .id(rs.getInt("id"))
+                        .delivery_id(rs.getInt("delivery_id"))
                         .name(rs.getString("name"))
                         .password(rs.getString("password"))
                         .location_id(rs.getInt("location_id"))
@@ -159,6 +162,7 @@ public class ShipperDAO {
             while (rs.next()) {
                 Shipper shipper = Shipper.builder()
                         .id(rs.getInt("id"))
+                        .delivery_id(rs.getInt("delivery_id"))
                         .name(rs.getString("name"))
                         .password(rs.getString("password"))
                         .location_id(rs.getInt("location_id"))
@@ -190,12 +194,14 @@ public class ShipperDAO {
             ps.executeUpdate();
             while (rs.next()) {
                 shipper = new Shipper(rs.getInt(1),
-                        rs.getString(2),
+                        rs.getInt(2),
                         rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
+                        rs.getString(4),
+                        rs.getInt(5),
                         rs.getString(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9)
                 );
             }
             System.out.println("successfull");
@@ -203,57 +209,161 @@ public class ShipperDAO {
         }
 
     }
-    
-    public void cancelOrder(String id){
+
+    public void cancelOrder(String id) {
         String sql = "update [Order] set [status] = '6' where id = ? ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, id);           
+            ps.setString(1, id);
             ps.executeUpdate();
             while (rs.next()) {
                 shipper = new Shipper(rs.getInt(1),
-                        rs.getString(2),
+                        rs.getInt(2),
                         rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
+                        rs.getString(4),
+                        rs.getInt(5),
                         rs.getString(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9)
                 );
             }
             System.out.println("successfull");
         } catch (Exception e) {
         }
     }
-    public void completedOrder(String id){
+
+    public void completedOrder(String id) {
         String sql = "update [Order] set [status] = '5' where id = ? ";
         try {
             ps = con.prepareStatement(sql);
-            ps.setString(1, id);           
+            ps.setString(1, id);
             ps.executeUpdate();
             while (rs.next()) {
                 shipper = new Shipper(rs.getInt(1),
-                        rs.getString(2),
+                        rs.getInt(2),
                         rs.getString(3),
-                        rs.getInt(4),
-                        rs.getString(5),
+                        rs.getString(4),
+                        rs.getInt(5),
                         rs.getString(6),
-                        rs.getString(7)
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9)
                 );
             }
             System.out.println("successfull");
         } catch (Exception e) {
         }
     }
-   
+
+    public void addShipper(int id, String name, String pass, int locateid, String phone, String image, String account) {
+        String sql = "INSERT INTO Shipper(delivery_id, [name], [password], location_id, phone, [image], ship_account)\n"
+                + "VALUES (?,?,?,?,?,?,?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            ps.setString(2, name);
+            ps.setString(3, pass);
+            ps.setInt(4, locateid);
+            ps.setString(5, phone);
+            ps.setString(6, image);
+            ps.setString(7, account);
+            ps.executeUpdate();
+            while (rs.next()) {
+                shipper = new Shipper(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9)
+                );
+            }
+            System.out.println("successfull");
+        } catch (Exception e) {
+        }
+    }
+
+    public Shipper getShipperbyAcc(String username) {
+        String sql = "SELECT Shipper.*, [Location].name AS location_name "
+                + "FROM Shipper "
+                + "JOIN [Location] ON Shipper.location_id = [Location].id "
+                + "WHERE Shipper.ship_account = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            if (rs.next()) { // Chỉ cần sử dụng if nếu bạn mong đợi một kết quả duy nhất
+                shipper = new Shipper(rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9)
+                );
+                return shipper;
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        } finally {
+            // Đảm bảo đóng tất cả tài nguyên để tránh rò rỉ tài nguyên
+            try {
+                if (rs != null) {
+                    rs.close();
+                }
+                if (ps != null) {
+                    ps.close();
+                }
+                // Đóng Connection nếu bạn mở nó trong hàm này
+            } catch (Exception se) {
+                se.printStackTrace();
+            }
+        }
+        return null;
+    }
+
+    public String getPasswordByid(String id) {
+        String sql = "SELECT [password] from [Shipper] WHERE id = ?";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getString("password");
+            }
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+        return null;
+    }
+
+    public void changePassword(String id, String newPass) {
+        String sql = "Update [Shipper] set [password]= ? where id = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, newPass);
+            ps.setString(2, id);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+    }
 
     public static void main(String[] args) {
-        ShipperDAO shipperDAO = new ShipperDAO();
-        List<Shipper> shippers = shipperDAO.shipperList("Grab");
-        if (shippers.isEmpty()) {
-            System.out.println("No shippers found for the given address.");
-        } else {
-            shippers.forEach(System.out::println);
-        }
+        System.out.println(ShipperDAO.INSTANCE.getPasswordByid("1"));
+//        ShipperDAO shipperDAO = new ShipperDAO();
+//        List<Shipper> shippers = shipperDAO.shipperList("Grab");
+//        if (shippers.isEmpty()) {
+//            System.out.println("No shippers found for the given address.");
+//        } else {
+//            shippers.forEach(System.out::println);
+//        }
+//          ShipperDAO.INSTANCE.addShipper(1, "tom", "222", 2, "323333333", "images/profile-image-default.jpg", "shipper7");
     }
 
 }

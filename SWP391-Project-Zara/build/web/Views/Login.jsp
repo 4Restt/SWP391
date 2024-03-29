@@ -366,7 +366,7 @@
                     <form id="form" class="form-group flex-wrap" action="login" method="post">
                         <div class="text-danger">${warn}</div>
                         <div class="col-12 pb-3">
-                            <label>Username or email address *</label>
+                            <label>Username *</label>
                             <input type="text" name="username" value="${username}" placeholder="Write your username / email address here"
                                    class="form-control">
                         </div>
@@ -384,7 +384,7 @@
                             <button type="submit" name="submit" class="btn btn-dark btn-large text-uppercase pb-3">Log in</button>
                             <a href="signup" class="btn btn-dark btn-large text-uppercase pb-3">Sign Up</a>
                             <a class="btn btn-dark btn-large text-uppercase pb-3" href="https://accounts.google.com/o/oauth2/auth?scope=https://www.googleapis.com/auth/userinfo.email+https://www.googleapis.com/auth/userinfo.profile&redirect_uri=http://localhost:9999/SWP391-Project-Zara/logingooglehandler&response_type=code&client_id=937366049176-dvn9qbk5sori7e2eor833mm4pthh3ncc.apps.googleusercontent.com&access_type=offline&prompt=consent">Login with Google</a>
-                            <p><a href="forgotpass">Lost your password?</a></p>
+                            <p><a href="forgotpass">Forgot Password?</a></p>
                         </div>
                     </form>
                 </div>

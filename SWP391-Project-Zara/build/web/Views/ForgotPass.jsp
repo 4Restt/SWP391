@@ -445,7 +445,7 @@
                 class="form-control">
             </div>
             <div class="col-12">
-              <button type="submit" name="submit" class="btn btn-dark btn-large text-uppercase pb-3">Send Code</button>
+              <button type="submit" name="submit" class="btn btn-dark btn-large text-uppercase pb-3">Send OTP</button>
             </div>
           </form>
         </div>

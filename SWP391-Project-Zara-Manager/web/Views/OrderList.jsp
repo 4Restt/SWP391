@@ -157,7 +157,6 @@
                                                     <a href="#" class="btn btn-icon btn-pills btn-soft-primary" data-bs-toggle="modal" data-bs-target="#vieworder${lo.getId()}"><i class="uil uil-eye"></i></a>
                                                     <a href="#" class="btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#acceptorder${lo.getId()}"><i class="uil uil-check-circle"></i></a>
                                                     <a href="#" class="btn btn-icon btn-pills btn-soft-danger" data-bs-toggle="modal" data-bs-target="#cancelorder${lo.getId()}"><i class="uil uil-times-circle"></i></a>
-                                                    <a href="#" class="btn btn-icon btn-pills btn-soft-muted" data-bs-toggle="modal" data-bs-target="#editorder${lo.getId()}"><i class="uil uil-user"></i></a>
                                                 </td>
                                             </tr>
                                         </c:forEach>    
@@ -297,7 +296,7 @@
             </div>
         </div>
         <!-- View Cus info  End -->
-        
+
         <!-- View staff info Start -->
         <div class="modal fade" id="viewuser${lo.getUser_id()}" tabindex="-1" aria-labelledby="exampleModalLabel${lo.getUser_id()}" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
@@ -453,11 +452,24 @@
                                                     <p class="text-muted mb-0"><span class="fw-bold me-4">Delivery Charges</span> Free</p>
                                                 </div>
                                             </div>
-                                            <div class="card-footer border-0 px-4 py-5"
-                                                 style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
-                                                <h5 class="d-flex align-items-center justify-content-end text-white text-uppercase mb-0">Total
-                                                    paid: <span class="h2 mb-0 ms-2">$${lo.getTotalprice()}</span></h5>
+                                            <div class="card-footer border-0 px-4 py-5 d-flex justify-content-between align-items-center" style="background-color: #a8729a; border-bottom-left-radius: 10px; border-bottom-right-radius: 10px;">
+                                                <!-- Accept Order Button -->
+                                                <a href="#" class="btn btn-lg btn-success d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#acceptorder${lo.getId()}" style="border-radius: 50px;">
+                                                    <i class="uil uil-check-circle me-2"></i> Accept Order
+                                                </a>
+
+                                                <!-- Cancel Order Button -->
+                                                <a href="#" class="btn btn-lg btn-danger d-flex align-items-center" data-bs-toggle="modal" data-bs-target="#cancelorder${lo.getId()}" style="border-radius: 50px;">
+                                                    <i class="uil uil-times-circle me-2"></i> Cancel Order
+                                                </a>
+
+                                                <!-- Total Paid Section -->
+                                                <h5 class="mb-0 text-white">Total paid: <span class="h2 ms-2">$${lo.getTotalprice()}</span></h5>
                                             </div>
+
+
+
+
                                         </div>
                                     </div>
                                 </div>
@@ -518,73 +530,8 @@
                 </div>
             </div>
         </div>
-        <div class="modal fade" id="editorder${lo.getId()}" tabindex="-1" aria-labelledby="exampleModalLabel${lo.getId()}" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-header border-bottom p-3">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Order</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-3 pt-4">
-                        <div class="card border-0 p-4 rounded shadow">
-
-                            <form method="post" action="editcustomer?id=${lo.getId()}">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Order Id <span class="text-danger">*</span></label>
-                                            <input name="id" id="name${lo.getId()}" type="text" class="form-control" value="${lo.getId()}" readonly="">
-                                        </div>
-                                    </div><!--end col-->
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Customer Id</label>
-                                            <input name="customerId" id="username${lo.getId()}" type="text" class="form-control" value="${lo.getCustomer_id()}">
-                                        </div> 
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Email <span class="text-danger">*</span></label>
-                                            <input name="email" id="email${lo.getId()}" type="email" class="form-control" value="">
-                                        </div> 
-                                    </div><!--end col-->
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Password</label>
-                                            <input name="password" id="password${lo.getId()}" type="text" class="form-control" value="$">
-                                        </div>
-                                    </div><!--end col-->
-                                    <div class=" col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Phone <span class="text-danger">*</span></label>
-                                            <input name="phone" id="phone${lo.getId()}" type="tel" class="form-control" value="">
-                                        </div> 
-                                    </div><!--end col-->
-
-                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Address <span class="text-danger">*</span></label>
-                                            <input name="address" type="text" class="flatpickr flatpickr-input form-control" value="">
-                                        </div>
-                                    </div><!--end col-->
-                                    <input type="text" name="imageBackUp" hidden="" value="">
-                                    <input type="text" name="image" hidden="" value="">
 
 
-                                    <div class="col-lg-12">
-                                        <div class="d-grid">
-                                            <button type="submit" class="btn btn-primary">Edit</button>
-                                        </div>
-                                    </div><!--end col-->
-                                </div><!--end row-->
-                            </form>
-
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>                               
     </c:forEach>
 
     <!-- Cancel Appointment End -->
@@ -620,7 +567,6 @@
                                             "lengthChange": false
                                         });
                                     });
-
 
     </script>
 

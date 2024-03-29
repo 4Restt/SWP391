@@ -18,6 +18,7 @@
         <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
         <script src="https://cdn.datatables.net/2.0.2/js/dataTables.js"></script>
         <script src="https://cdn.datatables.net/2.0.2/js/dataTables.bootstrap5.js"></script>
+        <script src="https://cdn.jsdelivr.net/npm/select2@4.0.13/dist/js/select2.min.js"></script>
 
         <style>
             /* Optional: Add additional custom styles here */
@@ -29,6 +30,16 @@
             }
             #complete {
                 width: 100% !important;
+            }
+            #unassign {
+                width: 100% !important;
+            }
+            #shipperlist {
+                width: 100% !important;
+            }
+            .dropdown-menu {
+                max-height: 200px; /* Adjust the height as needed */
+                overflow-y: auto; /* Enables scrolling */
             }
         </style>
 
@@ -244,16 +255,16 @@
                                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                                 </div>
                                 <div class="modal-body">
-                                    <div class="col-lg-8 mt-4">
+                                    <div class="col-lg-12 mt-4">
                                         <div class="card border-0 p-4 rounded shadow">
                                             <div class="row align-items-center">
                                                 <div class="col-lg-2 col-md-4">
-                                                    <img id="imgAfterUp" src="images/profile-image-default.jpg" 
-                                                         class="avatar avatar-md-md rounded-pill shadow mx-auto d-block avatar-img" style="width:50px; height:auto;" alt="">
+                                                    <img id ="imgAfterUp" src="${(imgAfterUp != null) ? imgAfterUp : 'images/profile-image-default.jpg'}" 
+                                                         class="avatar avatar-md-md rounded-pill shadow mx-auto d-block avatar-img" alt="" style="width: 50px; height: auto;">
                                                 </div><!--end col-->
 
                                                 <div class="col-lg-5 col-md-8 text-center text-md-start mt-4 mt-sm-0">
-                                                    <h5>Upload your picture</h5>
+                                                    <h5 class="">Upload your picture</h5>
                                                     <p class="text-muted mb-0">For best results, use an image at least 600px by 600px in either .jpg or .png format</p>
                                                 </div><!--end col-->
                                             </div><!--end row-->
@@ -264,16 +275,117 @@
                                                     <a href="#" class="btn btn-soft-primary ms-2" id="removeButton">Remove</a>
                                                 </div><!--end col-->
                                             </form>
+                                            <script>
+                                                function uploadImage() {
+                                                    var formData = new FormData($('#uploadForm')[0]);
 
+                                                    $.ajax({
+                                                        type: 'POST',
+                                                        url: 'uploadimgajax', // Modify to match your servlet mapping
+                                                        data: formData,
+                                                        processData: false,
+                                                        contentType: false,
+                                                        success: function (response) {
+                                                            // Display the uploaded image
+                                                            var imgSrc = response ? response : 'images/profile-image-default.jpg';
+                                                            $('#imgAfterUp').attr('src', imgSrc);
+                                                            $('input[name="image"]').attr('value', imgSrc);
+                                                        },
+                                                        error: function (xhr, status, error) {
+                                                            // Handle errors
+                                                            console.error(xhr.responseText);
+                                                        }
+                                                    });
+                                                }
+
+                                            </script>
                                             <div id="status"></div>
                                             <form class="mt-4" action="addshipper" method="post">
-                                                <!-- Form Fields for Shipper Details -->
-                                                <!-- Similar to your provided structure, include fields for name, username, password, etc. -->
+
+                                                <div class="row">
+
+                                                    <div class="col-md-12">
+                                                        <div class="mb-3">
+                                                            <label class="form-label"> Name</label>
+                                                            <input name="name" id="name" type="text" class="form-control" placeholder="Name :">
+                                                        </div>
+                                                    </div><!--end col-->
+
+
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Username</label>
+                                                            <input name="username" id="username" type="text" class="form-control" placeholder="Username: ">
+                                                        </div> 
+                                                    </div><!--end col-->
+
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Password</label>
+                                                            <input name="password" id="password" type="password" class="form-control" placeholder="Password :">
+                                                        </div> 
+                                                    </div>                                                 
+
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label class="form-label">Phone no.</label>
+                                                            <input name="phone" id="number" type="text" class="form-control" placeholder="Phone no. :">
+                                                        </div>                                                                               
+                                                    </div>
+                                                    <!-- Thêm vào trong form của bạn -->
+                                                    <div class="col-md-6">
+                                                        <div class="mb-3">
+                                                            <label for="locationSearch" class="form-label">Location</label>
+                                                            <div class="dropdown">
+                                                                <input type="hidden" id="locationId" name="locationId" value="">
+                                                                <input name="location" type="text" class="form-control" id="locationSearch" placeholder="Enter location" data-toggle="dropdown" autocomplete="off">
+                                                                <div class="dropdown-menu" style="width: 100%;">                                                                  
+                                                                </div>
+                                                            </div>
+                                                        </div>
+
+                                                    </div>
+
+                                                    <script>
+                                                        $(document).ready(function () {
+                                                            var locations = JSON.parse('${locationsJson}');
+
+                                                            $('#locationSearch').on('input', function () {
+                                                                var value = $(this).val().toLowerCase();
+                                                                var dropdownMenu = $('#locationSearch').next('.dropdown-menu');
+                                                                dropdownMenu.empty(); // Clear previous entries
+
+                                                                var filteredLocations = locations.filter(function (location) {
+                                                                    return location.name.toLowerCase().indexOf(value) > -1;
+                                                                });
+
+                                                                filteredLocations.forEach(function (location) {
+                                                                    dropdownMenu.append($('<a>', {
+                                                                        href: '#',
+                                                                        class: 'dropdown-item',
+                                                                        'data-id': location.id,
+                                                                        text: location.name,
+                                                                        click: function (e) {
+                                                                            e.preventDefault();
+                                                                            $('#locationSearch').val(location.name); // Set the visible input to the location name
+                                                                            $('#locationId').val(location.id); // Set the hidden input to the location id
+                                                                            dropdownMenu.removeClass('show'); // Hide the dropdown
+                                                                        }
+                                                                    }));
+                                                                });
+
+                                                                dropdownMenu.toggle(filteredLocations.length > 0);
+                                                            });
+                                                        });
+
+
+                                                    </script>
+                                                </div><!--end row-->
                                                 <input type="text" name="image" hidden="" value="">
                                                 <button type="submit" class="btn btn-primary">Add Shipper</button>
                                             </form>
                                         </div>
-                                    </div>
+                                    </div><!--end col-->
                                 </div>
                             </div>
                         </div>
@@ -316,7 +428,7 @@
                 </div>
 
                 <!-- Đơn hàng chưa giao -->
-                <div id="unassignedOrdersContent" style="display:none;">
+                <div class="container-fluid" id="unassignedOrdersContent" style="display:none;">
                     <h3>Unassigned Orders</h3>
 
 
@@ -328,42 +440,60 @@
                                 <option value="${address}" ${address.equals(sessionScope.filterSearchTerm) ? "selected" : ""}>${address}</option>
                             </c:forEach>
                         </select>
-
-                        <table class="table" id="unassign">
-                            <thead>
-                                <tr>
-                                    <th>STT</th>
-                                    <th>Select</th>
-                                    <th>Customer Address</th>
-                                    <th>Total Price</th>
-                                    <th>Date</th>
-                                    <th>Status</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                <c:forEach items="${orders}" var="order" varStatus="status">
+                        <div class="col-12">
+                            <table class="table" id="unassign">
+                                <thead>
                                     <tr>
-                                        <td>${status.index + 1}</td>
-                                        <td><input type="checkbox" name="selectedOrders" value="${order.id}"/></td>
-                                        <td>${order.customerAddress}</td>
-                                        <td>${order.totalprice}</td>
-                                        <td>${order.date}</td>
-                                        <td>
-                                            <c:choose>
-                                                <c:when test="${order.status == 4}">Shipping</c:when>
-                                                <c:when test="${order.status == 5}">Completed</c:when>
-                                                <c:when test="${order.status == 6}">Cancelled</c:when>
-                                                <c:otherwise>Unknown</c:otherwise>
-                                            </c:choose>
-                                        </td>
-                                    </tr>
-                                </c:forEach>
-                            </tbody>
-                        </table>
+                                        <th>STT</th>
+                                        <th>
+                                            <input type="checkbox" id="selectAll"> Select
+                                        </th>
+                                <script>
+                                    document.addEventListener('DOMContentLoaded', function () {
+                                        // Get the 'Select All' checkbox
+                                        var selectAllCheckbox = document.getElementById('selectAll');
 
+                                        selectAllCheckbox.addEventListener('change', function (e) {
+                                            // Get all checkboxes with the name 'selectedOrders'
+                                            var allCheckboxes = document.querySelectorAll('input[type="checkbox"][name="selectedOrders"]');
+                                            // Set each checkbox's checked state to match the 'Select All' checkbox
+                                            allCheckboxes.forEach(function (checkbox) {
+                                                checkbox.checked = selectAllCheckbox.checked;
+                                            });
+                                        });
+                                    });
+                                </script>
+
+                                <th>Customer Address</th>
+                                <th>Total Price</th>
+                                <th>Date</th>
+                                <th>Status</th>
+                                </tr>
+                                </thead>
+                                <tbody>
+                                    <c:forEach items="${orders}" var="order" varStatus="status">
+                                        <tr>
+                                            <td>${status.index + 1}</td>
+                                            <td><input type="checkbox" name="selectedOrders" value="${order.id}"/></td>
+                                            <td>${order.customerAddress}</td>
+                                            <td>${order.totalprice}</td>
+                                            <td>${order.date}</td>
+                                            <td>
+                                                <c:choose>
+                                                    <c:when test="${order.status == 4}">Shipping</c:when>
+                                                    <c:when test="${order.status == 5}">Completed</c:when>
+                                                    <c:when test="${order.status == 6}">Cancelled</c:when>
+                                                    <c:otherwise>Unknown</c:otherwise>
+                                                </c:choose>
+                                            </td>
+                                        </tr>
+                                    </c:forEach>
+                                </tbody>
+                            </table>
+                        </div>
                         <h3>Available Shippers for Delivery ${deliveryName}</h3>
                         <!-- Bảng Shipper List -->
-                        <table class="table">
+                        <table class="table" id="shipperlist">
                             <thead>
                                 <tr>
                                     <th>Select</th>
@@ -673,22 +803,29 @@
             $(document).ready(function () {
                 $('#unassign').DataTable({
                     "pageLength": 5,
-                    "lengthChange": false
+                    "lengthChange": false,
+                    "ordering": false
                 });
                 $('#assign').DataTable({
                     "autoWidth": true,
-                    "pageLength": 5,
+                    "pageLength": 20,
                     "lengthChange": false
                 });
                 $('#cancel').DataTable({
                     "autoWidth": true,
-                    "pageLength": 5,
+                    "pageLength": 20,
                     "lengthChange": false
                 });
                 $('#complete').DataTable({
                     "autoWidth": true,
-                    "pageLength": 5,
+                    "pageLength": 20,
                     "lengthChange": false
+                });
+                $('#shipperlist').DataTable({
+                    "autoWidth": true,
+                    "pageLength": 5,
+                    "lengthChange": false,
+                    "ordering": false
                 });
             });
 

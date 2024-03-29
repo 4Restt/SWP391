@@ -379,15 +379,7 @@
 
                         <div class="col-12 pb-3">
                             <label>Password *</label>
-                            <!--                            <input type="password" required="" name="password"
-                                                               value="" placeholder="Enter your password" 
-                                                               class="form-control" 
-                                                               pattern="^(?=.*[A-Z])(?=.*[0-9])(?=.*[!@#$%^&*()]).{8,}$" 
-                                                               title="Mật khẩu phải có ít nhất 8 ký tự, bao gồm 1 chữ viết hoa, 1 số và 1 ký tự đặc biệt"
-                                                               oninvalid="setCustomValidity('Username cannot contain special characters or spaces')"
-                                                               oninput="setCustomValidity('')"
-                                                               >-->
-                            <input type="text" 
+                            <input type="password" 
                                    required 
                                    name="password"
                                    placeholder="Enter your password" 

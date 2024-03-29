@@ -5,12 +5,14 @@
  */
 package DAL;
 
+import Models.Customer;
 import Models.Product;
 import Models.SaleEvent;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.util.List;
+import java.util.Vector;
 
 /**
  *
@@ -24,6 +26,15 @@ public class SaleDAO {
     private ResultSet rs = null;
     public static SaleDAO INSTANCE = new SaleDAO();
     private SaleEvent sale;
+    private List<SaleEvent> salelist;
+
+    public List<SaleEvent> getSalelist() {
+        return salelist;
+    }
+
+    public void setSalelist(List<SaleEvent> salelist) {
+        this.salelist = salelist;
+    }
 
     public SaleEvent getSale() {
         return sale;
@@ -64,12 +75,8 @@ public class SaleDAO {
         }
     }
 
-    public static void main(String[] args) {
-        SaleDAO.INSTANCE.InsertSaleEvent("2024-03-04", "2024-03-14", "30 thang 5");
-    }
-
     public void InsertSale(int saleeventid, String proinforid, float percent) {
-        String sql = "insert into Sale(Saleevent_id, Proinfo_id, [percent]) values (?,?,?)";
+        String sql = "insert into Sale(Saleevent_id, Proinfo_id, [percent],status) values (?,?,?,1)";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, saleeventid);
@@ -95,8 +102,22 @@ public class SaleDAO {
         }
     }
 
-    public void getIdSaleEvent(String startdate, String enddate, String name) {
-        String sql = "select * from SaleEvent where startdate = ? and enddate =? and [name] = ?";
+    public void UpdateSalePercentBySaId(float percent, int saleeventid) {
+        String sql = "Update Sale set [percent]=? "
+                + "where Saleevent_id =?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setFloat(1, percent);
+            ps.setInt(2, saleeventid);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+        }
+    }
+
+    public SaleEvent getIdSaleEvent(String startdate, String enddate, String name) {
+        String sql = "SELECT *,id FROM SaleEvent"
+                + " WHERE startdate = ? and enddate = ? and [name] = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, startdate);
@@ -108,12 +129,15 @@ public class SaleDAO {
                         rs.getInt(1),
                         rs.getString(2),
                         rs.getString(3),
-                        rs.getString(4)
+                        rs.getString(4),
+                        rs.getInt(5)
                 );
             }
+            return sale;
         } catch (Exception e) {
             status = "Error at SearchFilter" + e.getMessage();
         }
+        return null;
     }
 
     public void updateSaleEvent(int id, String startdate, String enddate, String name) {
@@ -145,16 +169,24 @@ public class SaleDAO {
         }
     }
 
-    public void DeleteSale(int saleeventid, int proinfoid, float percent) {
+    public void DeleteSale(int saleeventid) {
         String sql = "DELETE FROM Sale\n"
-                + "WHERE Saleevent_id = ?\n"
-                + "  AND Proinfo_id = ?\n"
-                + "  AND [percent] = ?";
+                + "WHERE Saleevent_id = ?";
         try {
             ps = con.prepareStatement(sql);
             ps.setInt(1, saleeventid);
-            ps.setInt(2, proinfoid);
-            ps.setFloat(3, percent);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+        }
+    }
+
+    public void DeleteSaleByProid(int proid) {
+        String sql = "DELETE FROM Sale\n"
+                + "WHERE Proinfo_id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, proid);
             rs = ps.executeQuery();
         } catch (Exception e) {
             status = "Error at SearchFilter" + e.getMessage();
@@ -173,4 +205,105 @@ public class SaleDAO {
         }
     }
 
+    public void DeactivateSale(int said) {
+        String sql = "Update Sale set status = 0\n"
+                + "WHERE Saleevent_id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, said);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+        }
+    }
+
+    public void DeactivateSalePro(int said, int proid) {
+        String sql = "Update Sale set status = 0\n"
+                + "WHERE Saleevent_id = ? and Proinfo_id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, said);
+            ps.setInt(2, proid);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+        }
+    }
+    
+    public void ActivateSalePro(int said, int proid) {
+        String sql = "Update Sale set status = 1\n"
+                + "WHERE Saleevent_id = ? and Proinfo_id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, said);
+            ps.setInt(2, proid);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+        }
+    }
+
+    public void ActivateSale(int said) {
+        String sql = "Update Sale set status = 1\n"
+                + "WHERE Saleevent_id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, said);
+            rs = ps.executeQuery();
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+        }
+    }
+
+    public List<SaleEvent> getAllListEvent() {
+        salelist = new Vector<SaleEvent>();
+        String sql = "SELECT se.*, MAX(sa.[status]) AS max_status\n"
+                + "FROM SaleEvent se\n"
+                + "JOIN Sale sa ON se.id = sa.Saleevent_id \n"
+                + "GROUP BY se.id, se.[name], se.startdate, se.enddate;";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                salelist.add(new SaleEvent(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5)
+                ));
+            }
+            return salelist;
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+        }
+        return null;
+    }
+
+    public SaleEvent getSaleEventById(String id) {
+        String sql = "SELECT *"
+                + " FROM SaleEvent where id= ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                sale = new SaleEvent(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5)
+                );
+            }
+            return sale;
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+        }
+        return null;
+    }
+
+    public static void main(String[] args) {
+       SaleDAO.INSTANCE.InsertSale(9, "2", (float) 0.4);
+    }
 }

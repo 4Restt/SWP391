@@ -9,6 +9,8 @@ import Models.Delivery;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.List;
+import java.util.Vector;
 
 public class DeliveryDAO {
 
@@ -18,6 +20,15 @@ public class DeliveryDAO {
     private ResultSet rs = null;
     private Delivery delivery;
     public static DeliveryDAO INSTANCE = new DeliveryDAO();
+    private List<Delivery> de;
+
+    public List<Delivery> getDe() {
+        return de;
+    }
+
+    public void setDe(List<Delivery> de) {
+        this.de = de;
+    }
 
     public DeliveryDAO() {
         if (INSTANCE == null) {
@@ -117,7 +128,7 @@ public class DeliveryDAO {
                         rs.getString(4),
                         rs.getString(5)
                 );
-                if(delivery != null){
+                if (delivery != null) {
                     System.out.println(delivery);
                 }
                 return delivery;
@@ -128,8 +139,29 @@ public class DeliveryDAO {
         }
         return null;
     }
-    
-    
+
+    public List<Delivery> getListDelivery() {
+        de = new Vector<Delivery>();
+        String sql = "Select * from Delivery";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                de.add(new Delivery(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5)
+                ));
+            }
+            return de;
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+        }
+        return null;
+
+    }
 
     public static void main(String[] args) {
         DeliveryDAO.INSTANCE.getDeliverybyName("Grab");

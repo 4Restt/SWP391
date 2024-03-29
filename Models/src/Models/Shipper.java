@@ -22,11 +22,13 @@ import lombok.ToString;
 @AllArgsConstructor
 @NoArgsConstructor
 public class Shipper {
-    private int id;
+   private int id;
+    private int delivery_id;
     private String name;
     private String password;
     private int location_id;
     private String phone;
     private String image;
+    private String ship_account;
     private String location_name;
 }

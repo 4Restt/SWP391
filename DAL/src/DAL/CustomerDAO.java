@@ -304,6 +304,74 @@ public class CustomerDAO {
         }
     }
             
+             public void updateAddress(String address, String name) {
+        String sql = "Update [Customer] set [address]= ? where id = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, address);
+            ps.setString(2, name);
+            ps.executeUpdate();
+            System.out.println(address + " ||" + name);
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+
+    }
+
+    public void ChangePhone(String phone, String name) {
+        String sql = "Update [Customer] set [phone]=? where name = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, phone);
+            ps.setString(2, name);
+            ps.executeUpdate();
+        } catch (Exception e) {
+            System.out.println("ChangePhone: " + e.getMessage());
+        }
+
+    }
+    public Customer findByEmail(String email) {
+        String sql = "SELECT * FROM [Customer] WHERE email = ?";
+        try {
+
+            ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Customer customer = new Customer(
+                        rs.getInt(1),                      
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10)
+                );
+            }
+
+        } catch (Exception e) {
+
+        }
+        return null;
+    }
+      public void ChangeEmail(String email, String account) {
+        String sql = "Update [Customer] set [email]= ? where id = ? ";
+        try {
+            PreparedStatement ps = con.prepareStatement(sql);
+            ps.setString(1, email);
+            ps.setString(2, account);
+            ps.executeUpdate();
+            customer.setEmail(email);
+            System.out.println(email + " ||" + account);
+        } catch (Exception e) {
+            System.out.println("addAddress: " + e.getMessage());
+        }
+    }
+
+            
     public static void main(String[] args) {
         
         System.out.println(CustomerDAO.INSTANCE.checkAccountGoogleExist("116104562155113340961"));

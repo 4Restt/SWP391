@@ -216,6 +216,10 @@
         <servlet-name>ChangeEmail</servlet-name>
         <servlet-class>Controllers.ChangeEmail</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>UpdateAddressController</servlet-name>
+        <servlet-class>Controllers.UpdateAddressController</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -431,6 +435,10 @@
     <servlet-mapping>
         <servlet-name>ChangeEmail</servlet-name>
         <url-pattern>/changeEmail</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>UpdateAddressController</servlet-name>
+        <url-pattern>/updateAddress</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

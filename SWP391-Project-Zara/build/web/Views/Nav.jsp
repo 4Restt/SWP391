@@ -131,7 +131,7 @@
                                             <a href="cart" class="dropdown-item item-anchor">Cart </a>
                                         </li>
                                         <li>
-                                            <a href="viewprofile" class="dropdown-item item-anchor">My Profile</a>
+                                            <a href="customerprofile" class="dropdown-item item-anchor">My Profile</a>
                                         </li>
                                         <li>
                                             <a href="myorder" class="dropdown-item item-anchor">Order Tracking </a>

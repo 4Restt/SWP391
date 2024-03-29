@@ -128,6 +128,10 @@
         <servlet-name>OrderCancle</servlet-name>
         <servlet-class>Controllers.OrderCancle</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>CustomerProfile</servlet-name>
+        <servlet-class>Controllers.CustomerProfile</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -255,6 +259,10 @@
     <servlet-mapping>
         <servlet-name>OrderCancle</servlet-name>
         <url-pattern>/ordercancle</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>CustomerProfile</servlet-name>
+        <url-pattern>/customerprofile</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

@@ -23,4 +23,5 @@ public class ProductSale {
     private float percent;
     private String image;
     private float pricesale;
+    private int status;
 }

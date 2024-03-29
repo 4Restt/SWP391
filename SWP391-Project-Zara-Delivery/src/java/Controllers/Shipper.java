@@ -5,6 +5,7 @@
 package Controllers;
 
 import DAL.OrderDAO;
+import DAL.ShipperDAO;
 import Models.Order;
 import java.io.IOException;
 import java.io.PrintWriter;
@@ -73,12 +74,19 @@ public class Shipper extends HttpServlet {
             List<Order> completedOrders = OrderDAO.INSTANCE.getCompletedOrders((String) session.getAttribute("shipperName"));
             List<Order> canceledOrders = OrderDAO.INSTANCE.getCancelledOrders((String) session.getAttribute("shipperName"));
             
+            String content = (String) request.getAttribute("content");
+            if (content != null && content.equals("profile")) {
+                request.setAttribute("content", "profile");
+            } else {
+                request.setAttribute("content", "newOrdersContent");
+            }
             
 
             request.setAttribute("shipperName", shipperName);
             request.setAttribute("assignedOrders", assignedOrders);
             request.setAttribute("completedOrders", completedOrders);
             request.setAttribute("canceledOrders", canceledOrders);
+            request.setAttribute("profile", ShipperDAO.INSTANCE.getShipperbyAcc(shipperName));
         }
 
         // Chuyển hướng tới JSP với thông tin đã được đặt

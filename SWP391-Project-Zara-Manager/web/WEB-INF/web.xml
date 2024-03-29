@@ -192,6 +192,30 @@
         <servlet-name>EventEdit</servlet-name>
         <servlet-class>Controllers.EventEdit</servlet-class>
     </servlet>
+    <servlet>
+        <servlet-name>ActiveProduct</servlet-name>
+        <servlet-class>Controllers.ActiveProduct</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>DeleteProductSale</servlet-name>
+        <servlet-class>Controllers.DeleteProductSale</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ManagerEvent</servlet-name>
+        <servlet-class>Controllers.ManagerEvent</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>MyOrder</servlet-name>
+        <servlet-class>Controllers.MyOrder</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>AddAddressController</servlet-name>
+        <servlet-class>Controllers.AddAddressController</servlet-class>
+    </servlet>
+    <servlet>
+        <servlet-name>ChangeEmail</servlet-name>
+        <servlet-class>Controllers.ChangeEmail</servlet-class>
+    </servlet>
     <servlet-mapping>
         <servlet-name>Home</servlet-name>
         <url-pattern>/home</url-pattern>
@@ -383,6 +407,30 @@
     <servlet-mapping>
         <servlet-name>EventEdit</servlet-name>
         <url-pattern>/eventedit</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ActiveProduct</servlet-name>
+        <url-pattern>/activeproduct</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>DeleteProductSale</servlet-name>
+        <url-pattern>/deleteproductsale</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ManagerEvent</servlet-name>
+        <url-pattern>/managerevent</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>MyOrder</servlet-name>
+        <url-pattern>/myorder</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>AddAddressController</servlet-name>
+        <url-pattern>/addaddress</url-pattern>
+    </servlet-mapping>
+    <servlet-mapping>
+        <servlet-name>ChangeEmail</servlet-name>
+        <url-pattern>/changeEmail</url-pattern>
     </servlet-mapping>
     <session-config>
         <session-timeout>

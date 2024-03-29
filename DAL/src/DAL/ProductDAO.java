@@ -35,7 +35,7 @@ public class ProductDAO {
             }
         }
     }
-    
+
     public void UpdatePrice(float price, int id) {
         String sql = "UPDATE ProductInfor\n"
                 + "SET price_sale = ?\n"
@@ -49,7 +49,7 @@ public class ProductDAO {
             status = "Error at SearchFilter" + e.getMessage();
         }
     }
-    
+
     public void Search(String sql, String txt, int size) {
         listProduct = new Vector<Product>();
         try {
@@ -116,7 +116,7 @@ public class ProductDAO {
         }
         return listProduct;
     }
-    
+
     public void SearchFilter(String[] style, String cateId, String sql) {
         listProduct = new Vector<Product>();
         try {
@@ -143,7 +143,7 @@ public class ProductDAO {
 
         }
     }
-    
+
     public void SearchFilter1(String cateId, String sql) {
         listProduct = new Vector<Product>();
         try {
@@ -371,7 +371,6 @@ public class ProductDAO {
         return null;
     }
 
-
     public List<Cart> getCartProduct(ArrayList<Cart> cartList) {
         List<Cart> productsCart = new ArrayList<>();
         try {
@@ -394,7 +393,7 @@ public class ProductDAO {
                         ct.setColor(rs.getString("color"));
                         ct.setName(rs.getString("name"));
                         ct.setQuantity(item.getQuantity());
-                        ct.setPrice(rs.getFloat("price_sale")*item.getQuantity());
+                        ct.setPrice(rs.getFloat("price_sale") * item.getQuantity());
                         ct.setImgDefault(rs.getString("imgDefault"));
                         productsCart.add(ct);
                     }
@@ -432,6 +431,7 @@ public class ProductDAO {
         }
         return sum;
     }
+
     public void Search1(String cateId, String txt, String sql, int size) {
         listProduct = new Vector<Product>();
         try {
@@ -563,6 +563,7 @@ public class ProductDAO {
         }
         return listProduct;
     }
+
     public int getTotalProduct() {
         String sql = "SELECT Count(id)\n"
                 + "FROM [ProductInfor]";
@@ -577,13 +578,118 @@ public class ProductDAO {
         }
         return 0;
     }
-    
+
+    public List<Product> getBestSellingProduct() {
+        listProduct = new Vector<Product>();
+        String sql = "WITH RankedProducts AS (\n"
+                + "                    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price_sale, PI.img_default,PI.price, SUM(OD.quantity) AS total_quantity,\n"
+                + "                        ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
+                + "                            CASE \n"
+                + "                                WHEN P.size = 'S' THEN 0 \n"
+                + "                                WHEN P.size = 'M' THEN 1 \n"
+                + "                                WHEN P.size = 'L' THEN 2 \n"
+                + "                                WHEN P.size = 'XL' THEN 3 \n"
+                + "                                ELSE 4\n"
+                + "                            END\n"
+                + "                        ) AS rn\n"
+                + "                    FROM  Product P\n"
+                + "                    JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
+                + "					JOIN Orderdetail OD ON P.product_info_id = OD.product_info_id AND P.size = OD.size AND P.color = OD.color\n"
+                + "					GROUP BY P.product_info_id, P.size, P.color, P.name, P.quantity, PI.price_sale, PI.img_default, PI.price\n"
+                + "                )\n"
+                + "                SELECT product_info_id, size, color, product_name, quantity, price_sale, img_default,price\n"
+                + "                FROM RankedProducts\n"
+                + "                WHERE rn = 1\n"
+                + "                ORDER BY total_quantity DESC";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listProduct.add(new Product(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getFloat(8)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Student " + e.getMessage();
+        }
+        return listProduct;
+    }
+
+    public int UpdateProductQuantity(int quantity, int proid, String size, String color) {
+        String sql = "update Product set quantity =?\n"
+                + "where product_info_id = ? and size = ? and color= ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, quantity);
+            ps.setInt(2, proid);
+            ps.setString(3, size);
+            ps.setString(4, color);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalProduct: " + e.getMessage());
+        }
+        return 0;
+    }
+    public List<Product> getProductByPid2(String cid, String size, String color) {
+        listProduct = new Vector<Product>();
+        String sql = "WITH RankedProducts AS (\n"
+                + "    SELECT P.product_info_id, P.size,  P.color, P.name AS product_name, P.quantity, PI.price_sale, PI.img_default,PI.price,\n"
+                + "        ROW_NUMBER() OVER (PARTITION BY P.product_info_id ORDER BY \n"
+                + "            CASE \n"
+                + "                WHEN P.size = 'S' THEN 0 \n"
+                + "                WHEN P.size = 'M' THEN 1 \n"
+                + "                WHEN P.size = 'L' THEN 2 \n"
+                + "                WHEN P.size = 'XL' THEN 3 \n"
+                + "                ELSE 4 \n"
+                + "            END\n"
+                + "        ) AS rn\n"
+                + "    FROM  Product P\n"
+                + "    JOIN ProductInfor PI ON P.product_info_id = PI.id\n"
+                + "    JOIN Style S ON PI.style_id = S.id\n"
+                + "    JOIN Category C ON S.cate_id = C.id\n"
+                + "    WHERE PI.id = ? AND P.size = ? AND P.color = ?\n"
+                + ")\n"
+                + "SELECT product_info_id, size, color, product_name, quantity, price_sale, img_default, price\n"
+                + "FROM RankedProducts\n"
+                + "ORDER BY product_info_id DESC";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, cid);
+            ps.setString(2, size);
+            ps.setString(3, color);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                listProduct.add(new Product(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getFloat(8)
+                ));
+            }
+        } catch (Exception e) {
+            status = "Error at read Student " + e.getMessage();
+        }
+        return listProduct;
+    }
+        
     public static void main(String[] args) {
         // Call getTop6NewArrival method and get the list of top 6 new arrival products
-        List<String> topNewArrivals = ProductDAO.INSTANCE.getProductInfoImage("1", "Red");
-        Product product1 = ProductDAO.INSTANCE.getProductByPSC("1", "S", "Red");
-        // Display the top 6 new arrival products
-        System.out.println(product1.getName());
+       
+        System.out.println(ProductDAO.INSTANCE.getProductByPid2("7","S","Black"));
 
     }
 

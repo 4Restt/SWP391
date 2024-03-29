@@ -40,7 +40,7 @@
                 </div>    
                 <div class="form-group">
                     <label >Số tiền:</label>
-                    <label><%=request.getParameter("vnp_Amount")%> VND</label>
+                <label><%= Double.parseDouble(request.getParameter("vnp_Amount")) / 100 %> VND</label>
                 </div>  
                 <div class="form-group">
                     <label >Mô tả giao dịch:</label>
@@ -100,7 +100,7 @@
                     </div> 
                 </div>
                 <p id="thongbao"></p>
-                <a href="home">Back to Home</a>
+                <a href="../home">Back to Home</a>
                 <div id="countdown"></div>
                 <p>
                     &nbsp;

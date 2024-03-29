@@ -127,6 +127,7 @@ public class PaymentController extends HttpServlet {
         queryUrl += "&vnp_SecureHash=" + vnp_SecureHash;
         String paymentUrl = StaticMeThod.vnp_PayUrl + "?" + queryUrl;
         response.sendRedirect(paymentUrl);
+        
     }
 
     /**
@@ -140,7 +141,7 @@ public class PaymentController extends HttpServlet {
     @Override
     protected void doPost(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException {
-        long total = (long) (Float.parseFloat((String) request.getAttribute("total"))) * 25000;
+        long total = (long) (Float.parseFloat((String) request.getAttribute("total"))) * 2500000;
         String orderType = "other";
         String bankCode = request.getParameter("bankCode");
         String vnp_TxnRef = StaticMeThod.getRandomNumber(8);

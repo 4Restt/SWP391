@@ -4,6 +4,7 @@
  */
 package Models;
 
+import java.util.List;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Getter;
@@ -22,4 +23,5 @@ public class SaleEvent {
     private String startdate;
     private String enddate;
     private String name;
+    private int status;
 }

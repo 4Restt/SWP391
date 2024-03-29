@@ -54,7 +54,7 @@ public class ProductSaleDAO {
 
     public void getIdSaleEvent(String startdate, String enddate, String name) {
         String sql = "select se.*, p.id,p.price, sa.[percent], "
-                + "p.img_default, p.price_sale from SaleEvent se \n"
+                + "p.img_default, p.price_sale, sa.status from SaleEvent se \n"
                 + "join Sale sa on se.id = sa.Saleevent_id\n"
                 + "join ProductInfor p on p.id = sa.Proinfo_id\n"
                 + "where se.startdate = ? and se.enddate = ? and se.[name] = ?";
@@ -75,7 +75,8 @@ public class ProductSaleDAO {
                         rs.getFloat(6),
                         rs.getFloat(7),
                         rs.getString(8),
-                        rs.getFloat(9)
+                        rs.getFloat(9),
+                        rs.getInt(10)
                 );
             }
         } catch (Exception e) {
@@ -84,7 +85,7 @@ public class ProductSaleDAO {
     }
 
     public ProductSale getProductSaleByProinfoId(int proid) {
-        String sql = "SELECT se.*, p.id, p.price, sa.[percent],p.img_default, p.price_sale\n"
+        String sql = "SELECT se.*, p.id, p.price, sa.[percent],p.img_default, p.price_sale,sa.status\n"
                 + "FROM SaleEvent se \n"
                 + "JOIN Sale sa ON se.id = sa.Saleevent_id\n"
                 + "JOIN ProductInfor p ON p.id = sa.Proinfo_id\n"
@@ -107,7 +108,8 @@ public class ProductSaleDAO {
                         rs.getFloat(6),
                         rs.getFloat(7),
                         rs.getString(8),
-                        rs.getFloat(9)
+                        rs.getFloat(9),
+                        rs.getInt(10)
                 );
             }
             return pro;
@@ -118,7 +120,7 @@ public class ProductSaleDAO {
     }
 
     public ProductSale getProductSaleBySaleEventId(int saleeventid) {
-        String sql = "SELECT se.*, p.id, p.price, sa.[percent],p.img_default, p.price_sale\n"
+        String sql = "SELECT se.*, p.id, p.price, sa.[percent],p.img_default, p.price_sale,sa.status\n"
                 + "FROM SaleEvent se \n"
                 + "JOIN Sale sa ON se.id = sa.Saleevent_id\n"
                 + "JOIN ProductInfor p ON p.id = sa.Proinfo_id\n"
@@ -137,7 +139,8 @@ public class ProductSaleDAO {
                         rs.getFloat(6),
                         rs.getFloat(7),
                         rs.getString(8),
-                        rs.getFloat(9)
+                        rs.getFloat(9),
+                        rs.getInt(10)
                 );
             }
             return pro;
@@ -149,7 +152,7 @@ public class ProductSaleDAO {
 
     public List<ProductSale> listAllProductSale() {
         prosale = new Vector<ProductSale>();
-        String sql = "SELECT se.*, p.id, p.price, sa.[percent], p.img_default, p.price_sale\n"
+        String sql = "SELECT se.*, p.id, p.price, sa.[percent], p.img_default, p.price_sale, sa.status\n"
                 + "FROM SaleEvent se \n"
                 + "JOIN Sale sa ON se.id = sa.Saleevent_id\n"
                 + "JOIN ProductInfor p ON p.id = sa.Proinfo_id\n";
@@ -166,7 +169,40 @@ public class ProductSaleDAO {
                         rs.getFloat(6),
                         rs.getFloat(7),
                         rs.getString(8),
-                        rs.getFloat(9)
+                        rs.getFloat(9),
+                        rs.getInt(10)
+                ));
+            }
+            return prosale;
+        } catch (Exception e) {
+            status = "Error at SearchFilter" + e.getMessage();
+        }
+        return null;
+    }
+    
+        public List<ProductSale> listAllProductSaleBySaleId(String saleid) {
+        prosale = new Vector<ProductSale>();
+        String sql = "SELECT se.*, p.id, p.price, sa.[percent], p.img_default, p.price_sale,sa.status\n"
+                + "FROM SaleEvent se \n"
+                + "JOIN Sale sa ON se.id = sa.Saleevent_id\n"
+                + "JOIN ProductInfor p ON p.id = sa.Proinfo_id "
+                + " where se.id = ?\n";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, saleid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                prosale.add(new ProductSale(
+                        rs.getInt(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getString(4),
+                        rs.getInt(5),
+                        rs.getFloat(6),
+                        rs.getFloat(7),
+                        rs.getString(8),
+                        rs.getFloat(9),
+                        rs.getInt(10)
                 ));
             }
             return prosale;

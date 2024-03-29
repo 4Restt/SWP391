@@ -1,5 +1,6 @@
 
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fmt" uri="http://java.sun.com/jsp/jstl/fmt" %>
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <html lang="en">
 
@@ -50,44 +51,7 @@
                 <!-- end header -->               
                 <div class="container-fluid">
                     <div class="layout-specing">
-                        <div class="row">
-                            <div class="col-xl-9 col-lg-6 col-md-4">
-                                <h5 class="mb-0">Sale List</h5>
-<!--                                <nav aria-label="breadcrumb" class="d-inline-block mt-2">
-                                    <ul class="breadcrumb breadcrumb-muted bg-transparent rounded mb-0 p-0">
-                                        <li class="breadcrumb-item"><a href="index.html">Staff</a></li>
-                                        <li class="breadcrumb-item active" aria-current="page">Staff List</li>
-                                    </ul>
-                                </nav>-->
-                            </div><!--end col-->
-
-                            <div class="col-xl-3 col-lg-6 col-md-8 mt-4 mt-md-0">
-                                <div class="justify-content-md-end">
-                                    <form>
-                                        <div class="row justify-content-between align-items-center">
-                                            <div class="col-sm-12 col-md-5">
-                                                <div class="mb-0 position-relative">
-                                                    <select class="form-control time-during select2input" hidden>
-                                                        <option value="EY">Today</option>
-                                                        <option value="GY">Tomorrow</option>
-                                                        <option value="PS">Yesterday</option>
-                                                    </select>
-                                                </div>
-                                            </div><!--end col-->
-
-                                            <div class="col-sm-12 col-md-7 mt-4 mt-sm-0">
-                                                <div class="d-grid">
-                                                    <a href="#" class="btn btn-primary">Add Staff</a>
-                                                </div>
-                                            </div>
-                                           <!--end col-->
-                                        </div><!--end row-->
-                                    </form> 
-                                    <!--end form-->
-                                </div>
-                            </div><!--end col-->
-                        </div><!--end row-->
-
+                        <h3>${warn}</h3>
                         <div class="row">
                             <div class="col-12 mt-4">
                                 <div class="">
@@ -95,41 +59,35 @@
                                         <thead>
                                             <tr>
                                                 <th class="border-bottom p-3" style="min-width: 50px; ">#</th>
-                                                <th class="border-bottom p-3" style="min-width: 120px;">Name</th>
-                                                <th class="border-bottom p-3" style="min-width: 120px;">StartDate</th>
-                                                <th class="border-bottom p-3" style="min-width: 120px;">EndDate</th>
-                                                <th class="border-bottom p-3" style="min-width: 80px;">ProductId</th>
-                                                <th class="border-bottom p-3" style="min-width: 120px;">Price Default</th>
-                                                <th class="border-bottom p-3" style="min-width: 120px;">Price Sale</th>
-                                                <th class="border-bottom p-3" style="min-width: 120px;">Percent</th>
+                                                <th class="border-bottom p-3" style="min-width: 50px; ">Id</th>
+                                                <th class="border-bottom p-3" style="min-width: 180px;">Name</th>
+                                                <th class="border-bottom p-3" style="min-width: 150px;">Start Date</th>
+                                                <th class="border-bottom p-3" style="min-width: 150px;">End Date</th>
+                                                <th class="border-bottom p-3" style="min-width: 150px;">Status</th>
                                                 <th class="border-bottom p-3" style="min-width: 150px;"></th>
                                             </tr>
                                         </thead>
                                         <tbody>
-                                        <c:forEach items="${prosale}" var="pros" varStatus="loop">
+                                        <c:forEach items="${sale}" var="ls" varStatus="loop">
                                             <tr>
                                                 <th class="p-3">${loop.index + 1}</th>
-                                                <td class="p-3" style="width: 100px">
-                                                    <a href="#" class="text-dark">
-                                                        <div class="d-flex align-items-center">
-                                                            <span class="ms-2">${pros.getName()}</span>
-                                                        </div>
-                                                    </a>
-                                                </td>
-                                                <td class="p-3">${pros.startdate}</td>
-                                                <td class="p-3">${pros.enddate}</td>                                              
-                                                <td class="p-3">${pros.proinforId}</td>
-                                                <td class="p-3">${pros.price} $</td> 
-                                                <td class="p-3">${pros.pricesale} $</td> 
-                                                <td class="p-3">${(pros.percent)}</td> 
+                                                <td class="p-3">${ls.id}</td>
+                                                <td class="p-3">${ls.name}</td>
+                                                <td class="p-3">${ls.startdate}</td>
+                                                <td class="p-3">${ls.enddate}</td>                                              
+                                                <td class="p-3">${ls.status}</td>                                              
                                                 <td class="text-end p-3">
-                                                    <a href="#" class="btn btn-icon btn-pills btn-soft-primary" data-bs-toggle="modal" data-bs-target="#viewsale${pros.getId()}"><i class="uil uil-eye"></i></a>
-                                                    <a href="#" class="btn btn-icon btn-pills btn-soft-danger" data-bs-toggle="modal" data-bs-target="#deletesale${pros.getId()}"><i class="uil uil-times-circle"></i></a>
-                                                    <a href="#" class="btn btn-icon btn-pills btn-soft-muted" data-bs-toggle="modal" data-bs-target="#editsale${pros.getId()}"><i class="uil uil-user"></i></a>
-                                                </td>
+                                                    <a href="#" class="btn btn-icon btn-pills btn-soft-primary" data-bs-toggle="modal" data-bs-target="#viewsale${ls.id}"><i class="uil uil-eye"></i></a>
+                                                    <a href="#" class="btn btn-icon btn-pills btn-soft-success" data-bs-toggle="modal" data-bs-target="#acceptsale${ls.id}"><i class="uil uil-check-circle"></i></a>                                                                                                        
+                                                    
+                                                    
+                                                    <a href="#" class="btn btn-icon btn-pills btn-soft-danger" data-bs-toggle="modal" data-bs-target="#deletesale${ls.id}"><i class="uil uil-check-circle"></i></a>                                                    
+                                                    
+                                                    <a href="managerevent?saleid=${ls.id}" class="btn btn-icon btn-pills btn-soft-muted"><i class="uil uil-user"></i></a>
+                                                    
+                                                    </td>
                                             </tr>
                                         </c:forEach>    
-
                                     </tbody>
                                 </table>
                             </div>
@@ -201,176 +159,70 @@
             </ul><!--end icon-->
         </div>
     </div>
-    <!-- Offcanvas End -->
 
-    <!-- Modal start -->
-    <!-- Add New Appointment Start -->
-    <div class="modal fade" id="appointmentform" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
-        <div class="modal-dialog modal-lg modal-dialog-centered">
-            <div class="modal-content">
-                <div class="modal-header border-bottom p-3">
-                    <h5 class="modal-title" id="exampleModalLabel">Book an Appointment</h5>
-                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                </div>
-                <div class="modal-body p-3 pt-4">
-                    <form>
-                        <div class="row">
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label class="form-label">Patient Name <span class="text-danger">*</span></label>
-                                    <input name="name" id="name" type="text" class="form-control" placeholder="Patient Name :">
-                                </div>
-                            </div><!--end col-->
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Departments</label>
-                                    <select class="form-control department-name select2input">
-                                        <option value="EY">Eye Care</option>
-                                        <option value="GY">Gynecologist</option>
-                                        <option value="PS">Psychotherapist</option>
-                                        <option value="OR">Orthopedic</option>
-                                        <option value="DE">Dentist</option>
-                                        <option value="GA">Gastrologist</option>
-                                        <option value="UR">Urologist</option>
-                                        <option value="NE">Neurologist</option>
-                                    </select>
-                                </div>
-                            </div><!--end col-->
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Doctor</label>
-                                    <select class="form-control doctor-name select2input">
-                                        <option value="CA">Dr. Calvin Carlo</option>
-                                        <option value="CR">Dr. Cristino Murphy</option>
-                                        <option value="AL">Dr. Alia Reddy</option>
-                                        <option value="TO">Dr. Toni Kovar</option>
-                                        <option value="JE">Dr. Jessica McFarlane</option>
-                                        <option value="EL">Dr. Elsie Sherman</option>
-                                        <option value="BE">Dr. Bertha Magers</option>
-                                        <option value="LO">Dr. Louis Batey</option>
-                                    </select>
-                                </div>
-                            </div><!--end col-->
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Your Email <span class="text-danger">*</span></label>
-                                    <input name="email" id="email" type="email" class="form-control" placeholder="Your email :">
-                                </div> 
-                            </div><!--end col-->
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label">Your Phone <span class="text-danger">*</span></label>
-                                    <input name="phone" id="phone" type="tel" class="form-control" placeholder="Your Phone :">
-                                </div> 
-                            </div><!--end col-->
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label"> Date : </label>
-                                    <input name="date" type="text" class="flatpickr flatpickr-input form-control" id="checkin-date">
-                                </div>
-                            </div><!--end col-->
-
-                            <div class="col-lg-4 col-md-6">
-                                <div class="mb-3">
-                                    <label class="form-label" for="input-time">Time : </label>
-                                    <input name="time" type="text" class="form-control timepicker" id="input-time" placeholder="03:30 PM">
-                                </div> 
-                            </div><!--end col-->
-
-                            <div class="col-lg-12">
-                                <div class="mb-3">
-                                    <label class="form-label">Comments <span class="text-danger">*</span></label>
-                                    <textarea name="comments" id="comments" rows="4" class="form-control" placeholder="Your Message :"></textarea>
-                                </div>
-                            </div><!--end col-->
-
-                            <div class="col-lg-12">
-                                <div class="d-grid">
-                                    <button type="submit" class="btn btn-primary">Book An Appointment</button>
-                                </div>
-                            </div><!--end col-->
-                        </div><!--end row-->
-                    </form>
-                </div>
-            </div>
-        </div>
-    </div>
-    <!-- Add New Appointment End -->
-
-    <!-- View Appintment Start -->
-    
-    
-    <c:forEach items="${prosale}" var="pros" varStatus="loop">
-        <div class="modal fade" id="viewsale${pros.getId()}" tabindex="-1" aria-labelledby="exampleModalLabel${pros.getId()}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
+    <c:forEach items="${sale}" var="ls" varStatus="loop">
+        <div class="modal fade" id="viewsale${ls.id}" tabindex="-1" aria-labelledby="exampleModalLabel${ls.id}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" >
+                <div class="modal-content" style="width: 1000px; height: ">
                     <div class="modal-header border-bottom p-3">
-                        <h5 class="modal-title" id="exampleModalLabel${pros.getId()}">Sale Detail</h5>
+                        <h5 class="modal-title" id="exampleModalLabel${ls.name}">Sale Detail</h5>
                         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
                     <div class="modal-body p-3 pt-4">
-                        <div class="d-flex align-items-center">
-<!--                            <img src="${ls.getImage()}" class="avatar avatar-small rounded-pill" alt="">-->
-                            <h5 class="mb-0 ms-3">${pros.name}</h5>
-                        </div>
                         <ul class="list-unstyled mb-0 d-md-flex justify-content-between mt-4">
                             <li>
                                 <ul class="list-unstyled mb-0">
                                     <li class="d-flex">
+                                        <h6>Name: </h6>
+                                        <p class="text-muted ms-2">${ls.name}</p>
+                                    </li>
+
+                                    <li class="d-flex">
                                         <h6>StartDate: </h6>
-                                        <p class="text-muted ms-2">${pros.startdate}</p>
+                                        <p class="text-muted ms-2">${ls.startdate}</p>
                                     </li>
 
                                     <li class="d-flex">
-                                        <h6>EndDate </h6>
-                                        <p class="text-muted ms-2">${pros.enddate}</p>
-                                    </li>
-
-                                    <li class="d-flex">
-                                        <h6 class="mb-0">ProductInfor Id:</h6>
-                                        <p class="text-muted ms-2 mb-0">${pros.proinforId}</p>
-                                    </li>
-                                </ul>
-                            </li>
-                            <li>
-                                <ul class="list-unstyled mb-0">
-                                    <li class="d-flex">
-                                        <h6>Price Sale: </h6>
-                                        <p class="text-muted ms-2">${pros.pricesale} $</p>
-                                    </li> 
-                                    <li class="d-flex">
-                                        <h6>Price Default: </h6>
-                                        <p class="text-muted ms-2">${pros.price} $</p>
-                                    </li>
-
-                                    <li class="d-flex">
-                                        <h6>Percent: </h6>
-                                        <p class="text-muted ms-2">${pros.percent*100} %</p>
-                                    </li>
-                                    <li class="d-flex">
-                                        <h6>Image: </h6>
-                                        <img src="${pros.image}" alt="Product Image" class="img-fluid ms-2" 
-                                             style="height: 200px; width: 150px" />
+                                        <h6 class="mb-0">EndDate:</h6>
+                                        <p class="text-muted ms-2 mb-0">${ls.enddate}</p>
                                     </li>
                                 </ul>
                             </li>
                         </ul>
+                                    <table id="userTable" class="table table-striped table-bordered">
+                                        <thead>
+                                            <tr>
+                                                <th class="border-bottom p-3" style="min-width: 50px;">ProductId</th>
+                                                <th class="border-bottom p-3" style="min-width: 80px;">Price Default</th>
+                                                <th class="border-bottom p-3" style="min-width: 80px;">Image</th>
+                                                <th class="border-bottom p-3" style="min-width: 80px;">Percent</th>
+                                                <th class="border-bottom p-3" style="min-width: 80px;">Status</th>
+
+                                            </tr>
+                                        </thead>
+                                        <tbody>
+                                        <c:forEach var="pros" items="${prosale}">
+                                        <c:if test="${pros.id eq ls.id}">
+                                            <tr>
+                                                <td class="p-3">${pros.proinforId}</td>
+                                                <td class="p-3">${pros.price} $</td> 
+                                                <td class="p-3"><img src="${pros.image}" alt="alt" style="width: 30px;height: 50px"/></td>                                       
+                                                <td class="p-3"><fmt:formatNumber value="${pros.percent*100}" maxFractionDigits="0"/>%</td>
+                                                <td class="p-3">${pros.status} </td> 
+
+                                            </tr>
+                                            
+                                        </c:if>
+                                        </c:forEach>
+                                    </tbody>
+                                </table>
                     </div>
                 </div>
             </div>
         </div>
-
-        <!-- View Appintment End -->
-
-        
-        
-        <!-- Accept Appointment Start -->
-<!--        <div class="modal fade" id="acceptstaff${ls.getId()}" tabindex="-1" aria-labelledby="exampleModalLabel${ls.getId()}" aria-hidden="true">
+                                    
+                                    
+        <div class="modal fade" id="acceptsale${ls.id}" tabindex="-1" aria-labelledby="exampleModalLabel${ls.id}" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
                     <div class="modal-body py-5">
@@ -379,34 +231,13 @@
                                 <i class="uil uil-check-circle h1 mb-0"></i>
                             </div>
                             <div class="mt-4">
-                                <h4>Active staff</h4>
-                                <p class="para-desc mx-auto text-muted mb-0">Great doctor if you need your family member to get immediate assistance, emergency treatment.</p>
+                                <h4>Active Sale</h4>
+                                <p class="para-desc mx-auto text-muted mb-0">Are you sure to activate SaleEvent?</p>
                                 <div class="mt-4">
-                                    <a href="status?action=active&id=${ls.getId()}" class="btn btn-soft-success">Active</a>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-            </div>
-        </div>-->
-        <!-- Accept Appointment End -->
-
-        <!-- Cancel Appointment Start -->
-        <div class="modal fade" id="deletesale${pros.getId()}" tabindex="-1" aria-labelledby="exampleModalLabel${pros.getId()}" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered">
-                <div class="modal-content">
-                    <div class="modal-body py-5">
-                        <div class="text-center">
-                            <div class="icon d-flex align-items-center justify-content-center bg-soft-danger rounded-circle mx-auto" style="height: 95px; width:95px;">
-                                <i class="uil uil-times-circle h1 mb-0"></i>
-                            </div>
-                            <div class="mt-4">
-                                <h4>Delete Sale</h4>
-                                <p class="para-desc mx-auto text-muted mb-0">Are you sure you want to delete this SaleEvent?</p>
-                                <div class="mt-4">
-                                    <a href="deleteevent?saleid=${pros.id}" 
-                                       class="btn btn-soft-danger">Delete</a>
+                                    <form action="deleteevent" method="POST">
+                                        <input type="hidden" name="saleid" value="${ls.id}" />
+                                        <button type="submit" class="btn btn-soft-success">Active Event</button>
+                                    </form>
                                 </div>
                             </div>
                         </div>
@@ -414,108 +245,30 @@
                 </div>
             </div>
         </div>
-<!--        <script>
-            function uploadImage${ls.getId()}() {
-                var formData = new FormData($('#uploadForm${ls.getId()}')[0]);
-                $.ajax({
-                    type: 'POST',
-                    url: 'uploadimgajax', // Modify to match your servlet mapping
-                    data: formData,
-                    processData: false,
-                    contentType: false,
-                    success: function (response) {
-                        // Display the uploaded image
-                        var imgSrc = response ? response : '${ls.getImage()}';
-                        $(('#imgAfterUp${ls.getId()}')).attr('src', imgSrc);
-                        $('input[name="image"]').attr('value', imgSrc);
-                    },
-                    error: function (xhr, status, error) {
-                        // Handle errors
-                        console.error(xhr.responseText);
-                    }
-                });
-            }
-
-        </script>                    -->
-        <div class="modal fade" id="editsale${pros.getId()}" tabindex="-1" aria-labelledby="exampleModalLabel${pros.getId()}" aria-hidden="true">
-            <div class="modal-dialog modal-lg modal-dialog-centered">
+                                
+                                
+                                
+        <div class="modal fade" id="deletesale${ls.id}" tabindex="-1" aria-labelledby="exampleModalLabel${ls.id}" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered">
                 <div class="modal-content">
-                    <div class="modal-header border-bottom p-3">
-                        <h5 class="modal-title" id="exampleModalLabel">Edit Sale</h5>
-                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-                    </div>
-                    <div class="modal-body p-3 pt-4">
-                        <div class="card border-0 p-4 rounded shadow">
-
-                                                                       
-                            <form method="post" action="eventedit?id=${pros.getId()}">
-                                <div class="row">
-                                    <div class="col-lg-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Name <span class="text-danger">*</span></label>
-                                            <input name="name" id="name${pros.name}" type="text" class="form-control" value="${pros.getName()}">
-                                        </div>
-                                    </div><!--end col-->
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Start Date</label>
-                                            <input name="startdate" id="startdate${pros.startdate}" type="date" class="form-control" value="${pros.startdate}">
-                                        </div> 
-                                    </div>
-
-                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">End Date<span class="text-danger">*</span></label>
-                                            <input name="enddate" id="enddate${pros.enddate}" type="date" class="form-control" value="${pros.enddate}">
-                                        </div> 
-                                    </div>
-                                        <!--end col-->
-<!--                                    <div class="col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">ProductInfor Id</label>
--->                                            
-                                        <input name="proinforid" id="proinforid${pros.proinforId}" type="text" class="form-control" value="${pros.proinforId}" hidden=""><!--
-                                        </div>
-                                    </div>end col-->
-                                    <div class=" col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Percent <span class="text-danger">*</span></label>
-                                            <input name="percent" id="percent${pros.percent}" type="tel" class="form-control" value="${pros.percent}">
-                                        </div> 
-                                    </div>
-                          <input name="price" id="percent${pros.price}" type="tel" class="form-control" value="${pros.price}" hidden="">
-
-                                        <!--end col-->
-<!--                                    <div class=" col-md-6">
-                                        <div class="mb-3">
-                                            <label class="form-label">Image <span class="text-danger">*</span></label>
-                                            <input name="image" id="image${pros.image}" type="tel" class="form-control" value="${pros.image}">
-                                        </div> 
-                                    </div>end col-->
-
-<!--                                    <div class="col-lg-12">
-                                        <div class="mb-3">
-                                            <label class="form-label">Address <span class="text-danger">*</span></label>
-                                            <input name="address" type="text" class="flatpickr flatpickr-input form-control" value="${ls.getAddress()}">
-                                        </div>
-                                    </div>end col
-                                    <input type="text" name="imageBackUp" hidden="" value="${ls.getImage()}">
-                                    <input type="text" name="image" hidden="" value="">-->
-
-
-                                    <div class="col-lg-12">
-                                        <div class="d-grid">
-                                            <button type="submit" class="btn btn-primary">Edit</button>
-                                        </div>
-                                    </div><!--end col-->
-                                </div><!--end row-->
-                            </form>
-
+                    <div class="modal-body py-5">
+                        <div class="text-center">
+                            <div class="icon d-flex align-items-center justify-content-center bg-soft-success rounded-circle mx-auto" style="height: 95px; width:95px;">
+                                <i class="uil uil-check-circle h1 mb-0"></i>
+                            </div>
+                            <div class="mt-4">
+                                <h4>Deactive Sale</h4>
+                                <p class="para-desc mx-auto text-muted mb-0">Are you sure you want to Deactive this SaleEvent?</p>
+                                <div class="mt-4">
+                                    <a href="deleteevent?saleid=${ls.id}&startdate=${ls.startdate}&enddate=${ls.enddate}" 
+                                       class="btn btn-soft-danger">Deactive</a>
+                                </div>
+                            </div>
                         </div>
                     </div>
                 </div>
             </div>
-        </div>                               
+        </div>
     </c:forEach>
     <!-- Cancel Appointment End -->
     <!-- Modal end -->
@@ -543,15 +296,78 @@
     <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
     <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.1/js/dataTables.bootstrap4.js"></script>
-    <script>
-                                        $(document).ready(function () {
-                                            $('#userTable').DataTable({
-                                                "pageLength": 5,
-                                                "lengthChange": false
-                                            });
-                                        });
 
+    <script>
+        $(document).ready(function () {
+            $('#userTable').DataTable({
+                "pageLength": 2,
+                "lengthChange": false
+            });
+        });
+    </script>     
+    
+    <script>
+    $(document).ready(function () {
+        $('#productForm').on('submit', function(e) {
+            e.preventDefault(); // Ngăn không cho form submit theo cách truyền thống
+
+            var selectedProductIds = $('input[name="selectedProducts"]:checked').map(function() {
+                return this.value;
+            }).get();
+
+            console.log(selectedProductIds); // Hiển thị IDs trên console hoặc xử lý theo yêu cầu
+
+            // Gửi `selectedProductIds` đến servlet qua AJAX
+            $.ajax({
+                url: 'url_to_servlet', // Thay thế với URL thực tế của Servlet
+                type: 'POST',
+                data: {selectedProducts: selectedProductIds},
+                success: function(response) {
+                    // Xử lý khi request thành công
+                    console.log('Data sent successfully');
+                },
+                error: function() {
+                    // Xử lý khi có lỗi
+                    console.error('Error sending data');
+                }
+            });
+        });
+    });
+</script>
+
+    <script>
+        function changeStatus(btn, status, id) {
+            $.ajax({
+                url: 'status',
+                type: 'GET',
+                data: {
+                    id: id,
+                    action: status
+                },
+                success: function (response) {
+                    // Update status cell content and classes
+                    var statusCell = $('#status_' + id);
+                    statusCell.text(response);
+                    statusCell.removeClass('text-success text-danger');
+                    if (response === 'Activated') {
+                        statusCell.addClass('text-success');
+                    } else {
+                        statusCell.addClass('text-danger');
+                    }
+
+                    // Close the modal
+                    $(btn).closest('.modal').modal('hide');
+                },
+                error: function (xhr, status, error) {
+                    console.log('Error:', error);
+                }
+            });
+        }
     </script>
+
+
+
+
 
 
 </body>

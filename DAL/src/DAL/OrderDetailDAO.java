@@ -121,9 +121,10 @@ public class OrderDetailDAO {
                     + "END\n"
                     + "WHERE id = ?";
         }
-        if(action.equals("deactive")){
+        if (action.equals("deactive")) {
             sql = "UPDATE [Order]\n"
                     + "SET status = CASE \n"
+                    + "                WHEN status = '0' THEN '6'\n"
                     + "                WHEN status = '1' THEN '0'\n"
                     + "                WHEN status = '2' THEN '1'\n"
                     + "                WHEN status = '3' THEN '2'\n"
@@ -132,20 +133,57 @@ public class OrderDetailDAO {
                     + "END\n"
                     + "WHERE id = ?";
         }
-        try{
+        try {
             ps = con.prepareStatement(sql);
             ps.setString(1, id);
-            ps.executeUpdate();   
-        }catch(Exception ex){
+            ps.executeUpdate();
+        } catch (Exception ex) {
             status = "Error at OrderDetail " + ex.getMessage();
             System.out.println(status);
         }
     }
 
-    public static void main(String[] args) {
+    public void cancel(String id) {
+        String sql = "UPDATE [Order]\n"
+                + "                    SET status = 6\n"
+                + "                    WHERE id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, id);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            status = "Error at OrderDetail " + ex.getMessage();
+            System.out.println(status);
+        }
 
-        System.out.println(OrderDetailDAO.INSTANCE.getListDetailByOrderId("1"));
-        System.out.println(OrderDetailDAO.INSTANCE.getListDetail());
+    }
+
+    public void AddOrderDetail(int odid, int proid, String size,
+            String color, int quantity, float price) {
+        String sql = "insert into Orderdetail (Od_id, \n"
+                + "product_info_id, size,\n"
+                + "color, quantity, price)\n"
+                + "values (?,?,?,?,?,?)";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, odid);
+            ps.setInt(2, proid);
+            ps.setString(3, size);
+            ps.setString(4, color);
+            ps.setInt(5, quantity);
+            ps.setFloat(6, price);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            status = "Error at OrderDetail " + ex.getMessage();
+            System.out.println(status);
+        }
+
+    }
+
+    public static void main(String[] args) {
+        
+        System.out.println(OrderDetailDAO.INSTANCE.getListDetailByOrderId("11"));
+        
 
     }
 

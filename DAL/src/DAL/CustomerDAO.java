@@ -276,7 +276,34 @@ public class CustomerDAO {
             status = "Error at Insert User" + e.getMessage();
         }
     }
+        public int getTotalCustomer() {
+        String sql = "SELECT count(*) from [Customer]";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalStaff: " + e.getMessage());
+        }
+        return 0;
+    }
         
+            public void UpdateInfor(String name, String address, String phone, int id) {
+        String sql = "Update Customer set name = ?, address = ?, phone = ? where id = ? ";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, name);
+            ps.setString(2, address);
+            ps.setString(3, phone);
+            ps.setInt(4, id);
+            ps.execute();
+        } catch (Exception e) {
+            status = "Error at Insert User" + e.getMessage();
+        }
+    }
+            
     public static void main(String[] args) {
         
         System.out.println(CustomerDAO.INSTANCE.checkAccountGoogleExist("116104562155113340961"));

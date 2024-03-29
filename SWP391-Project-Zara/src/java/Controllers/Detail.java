@@ -1,6 +1,8 @@
 package Controllers;
 import DAL.CategoryDAO;
 import DAL.ProductDAO;
+import Helper.MemCached;
+import Models.Customer;
 import Models.Product;
 import com.google.gson.JsonArray;
 import com.google.gson.JsonObject;
@@ -19,6 +21,20 @@ public class Detail extends HttpServlet {
         String size = request.getParameter("size");
         String color = request.getParameter("color");      
         List<Models.Category> listCategory = CategoryDAO.INSTANCE.getAllCategory();
+        Customer customer = (Customer) request.getSession().getAttribute("account");
+
+        
+        List<Product> listNewArrival = ProductDAO.INSTANCE.getTop6NewArrival();
+        List<Product> listBestSelling = ProductDAO.INSTANCE.getBestSellingProduct();
+        List<Models.Cart> cart_list = customer == null ? null : MemCached.mem.get(customer.getId());
+        int totalQ = 0;
+        if (cart_list != null) {
+            for (Models.Cart c : cart_list) {
+                totalQ += c.getQuantity();
+            }
+        }
+
+        request.setAttribute("totalQ", totalQ);
         List<String> listImgPath = ProductDAO.INSTANCE.getProductInfoImage(productInforId, color);
         request.setAttribute("product", ProductDAO.INSTANCE.getProductByPSC(productInforId, size, color));
         request.setAttribute("category", CategoryDAO.INSTANCE.getCateByProInfoId(productInforId));

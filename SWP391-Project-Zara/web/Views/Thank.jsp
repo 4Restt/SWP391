@@ -1,3 +1,4 @@
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -201,7 +202,7 @@
       <div class="row justify-content-between align-items-center w-100">
 
         <div class="col-auto">
-          <a class="navbar-brand" href="index.html"><img src="images/main-logo.png" alt="logo"></a>
+          <a class="navbar-brand" href="home"><img src="images/main-logo.png" alt="logo"></a>
         </div>
 
         <div class="col-auto">
@@ -219,7 +220,7 @@
             <div class="offcanvas-body">
               <ul class="navbar-nav justify-content-end flex-grow-1 gap-1 gap-md-5 pe-3">
                 <li class="nav-item dropdown">
-                  <a class="nav-link dropdown-toggle active" href="#" id="dropdownHome" data-bs-toggle="dropdown"
+                  <a class="nav-link dropdown-toggle active" href="home" id="dropdownHome" data-bs-toggle="dropdown"
                     aria-haspopup="true" aria-expanded="false">Home</a>
                   <ul class="dropdown-menu list-unstyled" aria-labelledby="dropdownHome">
                     <li>
@@ -392,30 +393,59 @@
 
   <section class="checkout-wrap pb-5">
     <div class="container">
-        
+        <h6>Your order has been placed successfully</h6>
          <div class="row g-5">
-          <div class="col-lg-6">
+          <div class="col-lg-5">
             <h4 class="text-dark pb-4">Billing Details</h4>
             <div class="billing-details">
               <label for="fname">Full Name*</label>
-              <input type="text" id="fname" name="firstname" class="form-control mt-2 mb-4 ps-3" readonly="">
+              <input type="text" value="${name}" id="fname" name="firstname" class="form-control mt-2 mb-4 ps-3" readonly="">
               <label for="address">Address*</label>
-              <input type="text" id="cname" name="address" class="form-control mt-2 mb-4" readonly="">
-              <label for="email">Phone *</label>
-              <input type="text" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3" readonly="">
-              <label for="email">Email address *</label>
-              <input type="email" id="email" name="email" class="form-control mt-2 mb-4 ps-3" readonly="">
+              <input type="text" value="${address}" id="cname" name="address" class="form-control mt-2 mb-4" readonly="">
+              <label for="phone">Phone *</label>
+              <input type="text" value="${phone}" id="phone" name="phone" class="form-control mt-2 mb-4 ps-3" readonly="">
+<!--              <label for="email">Email address *</label>
+              <input type="email" value="${email}" id="email" name="email" class="form-control mt-2 mb-4 ps-3" readonly="">-->
             </div>
           </div>
-          <div class="col-lg-6">
-<!--            <h4 class="text-dark pb-4">Additional Information</h4>
-            <div class="billing-details">
-              <label for="fname">Order notes (optional)</label>
-              <textarea class="form-control pt-3 pb-3 ps-3 mt-2" placeholder="Notes about your order. Like special notes for delivery."></textarea>
-            </div>-->
+          <div class="col-lg-7">
             <div class="your-order mt-5">
               <h4 class="display-7 text-dark pb-4">Cart Totals</h4>
+              
               <div class="total-price">
+                  <table class="table" id="userTable">
+                        <thead>
+                            <tr class="cart-header">
+                                <th class="cart-title text-uppercase text-muted col-lg-4 pb-3">Product</th>
+                                <th class="cart-title text-uppercase text-muted col-lg-2 pb-3">Size</th>
+                                <th class="cart-title text-uppercase text-muted col-lg-2 pb-3">Quantity</th>
+                                <th class="cart-title text-uppercase text-muted col-lg-3 pb-3" style="padding-left: 60px">Subtotal</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            <c:forEach items="${cartProduct}" var="cl">
+                                <tr class="cart-item border-top border-bottom">
+                                    <td class="align-middle">
+                                        <div class="card-image">
+                                            <img src="${cl.getImgDefault()}" alt="cloth" class="img-fluid" style="width: 100px; height: 120px">
+                                        </div>
+                                    </td>
+                                    <td class="align-middle">${cl.getSize()}</td>
+                                    <td class="align-middle">
+                                        <div class="input-group product-qty">
+                                            ${cl.getQuantity()}
+                                        </div>
+                                    </td>
+                                    <td class="align-middle text-center">
+                                        <div class="total-price">
+                                            <span class="money text-dark">$ ${cl.getPrice()}</span>
+                                        </div>
+                                    </td>
+                                </tr>
+                            </c:forEach>
+                        </tbody>
+                    </table>
+                  
                 <table cellspacing="0" class="table">
                   <tbody>
                     <tr class="order-total border-bottom pt-2 pb-2 text-uppercase">
@@ -432,7 +462,7 @@
                     </tr>
                   </tbody>
                 </table>
-                        <a href="home" class="btn btn-dark btn-lg text-uppercase btn-rounded-none w-100">Back to Home Page</a>
+                <a href="home" class="btn btn-dark btn-lg text-uppercase btn-rounded-none w-100">Back to Home Page</a>
               </div>
             </div>
           </div>
@@ -516,7 +546,7 @@
         <div class="col-md-3 col-sm-6">
           <div class="footer-menu footer-menu-001">
             <div class="footer-intro mb-4">
-              <a href="index.html">
+              <a href="home">
                 <img src="images/main-logo.png" alt="logo">
               </a>
             </div>
@@ -557,7 +587,7 @@
             <h5 class="widget-title text-uppercase mb-4">Quick Links</h5>
             <ul class="menu-list list-unstyled text-uppercase border-animation-left fs-6">
               <li class="menu-item">
-                <a href="index.html" class="item-anchor">Home</a>
+                <a href="home" class="item-anchor">Home</a>
               </li>
               <li class="menu-item">
                 <a href="shop-four-column-wide.html" class="item-anchor">About</a>
@@ -638,5 +668,34 @@
   <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha3/dist/js/bootstrap.bundle.min.js" integrity="sha384-ENjdO4Dr2bkBIFxQpeoTz1HIcje39Wm4jDKdf19U8gI4ddQ3GYNS7NTKfAdVQSZe" crossorigin="anonymous"></script>
   <script src="https://cdn.jsdelivr.net/npm/swiper@9/swiper-bundle.min.js"></script>
   <script src="js/script.js"></script>
+      <script src="js/bootstrap.bundle.min.js"></script>
+    <!-- simplebar -->
+    <script src="js/simplebar.min.js"></script>
+    <!-- Select2 -->
+    <script src="js/select2.min.js"></script>
+    <script src="js/select2.init.js"></script>
+    <!-- Datepicker -->
+    <script src="js/flatpickr.min.js"></script>
+    <script src="js/flatpickr.init.js"></script>
+    <!-- Datepicker -->
+    <script src="js/jquery.timepicker.min.js"></script> 
+    <script src="js/timepicker.init.js"></script> 
+    <!-- Icons -->
+    <script src="js/feather.min.js"></script>
+    <!-- Main Js -->
+    <script src="js/app.js"></script>
+    <script src="https://code.jquery.com/jquery-3.7.1.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.5.2/js/bootstrap.min.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.1/js/dataTables.js"></script>
+    <script type="text/javascript" charset="utf8" src="https://cdn.datatables.net/2.0.1/js/dataTables.bootstrap4.js"></script>
+  <script>
+             $(document).ready(function () {
+         $('#userTable').DataTable({
+             "pageLength": 2,
+             "lengthChange": false
+         });
+     });
+  </script>
 </body>
 </html>

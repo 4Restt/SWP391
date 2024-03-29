@@ -70,6 +70,7 @@ public class UserDAO {
 
     public static void main(String[] args) {
         System.out.println("asdsad"+UserDAO.INSTANCE.getPasswordByid("3"));
+        System.out.println(UserDAO.INSTANCE.checkAccountExist1("123123123123123"));
 //        User u = UserDAO.INSTANCE.checkEmailExist1("phuckmhe170685@fpt.edu.vn");
 //        List<User> ll = UserDAO.INSTANCE.pagingStaff(1);
 //        UserDAO.INSTANCE.login("manager", "manager");
@@ -130,6 +131,60 @@ public class UserDAO {
         } catch (Exception e) {
         }
     }
+    public User checkAccountExist1(String username) {
+        User u = new User();
+        String sql = "select * from [User]  where username = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, username);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return( new User(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                ));
+            }
+            
+        } catch (Exception e) {
+        }
+        return null;
+    }
+    public User checkPhoneExist(String phone) {
+        User u = new User();
+        String sql = "select * from [User]  where phone = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setString(1, phone);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return (new User(
+                        rs.getString(1),
+                        rs.getString(2),
+                        rs.getString(3),
+                        rs.getInt(4),
+                        rs.getString(5),
+                        rs.getString(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                ));
+            }
+            
+        } catch (Exception e) {
+        }
+        return null;
+    }
 
     public void checkEmailExist(String email) {
         String sql = "select * from [User]  where [email] = ?";
@@ -155,6 +210,7 @@ public class UserDAO {
         } catch (Exception e) {
         }
     }
+    
 
     public void signUp(String username, String password, String name, String phone,
             String address, String email) {

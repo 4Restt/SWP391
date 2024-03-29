@@ -72,7 +72,7 @@ public class OrderDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getInt(5),
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
@@ -104,7 +104,7 @@ public class OrderDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getInt(5),
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
@@ -136,7 +136,7 @@ public class OrderDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getInt(5),
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
@@ -168,7 +168,7 @@ public class OrderDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getInt(5),
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
@@ -205,7 +205,7 @@ public class OrderDAO {
                 + "                 FROM [Order]\n"
                 + "                 JOIN Customer ON [Order].customer_id = Customer.id\n"
                 + "                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n"
-                + "                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '4' )";
+                + "                 WHERE [Order].shipper_id = (select id from Shipper where ship_account = ? and [Order].[status] = '4' )";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, shipper_name);
@@ -216,7 +216,7 @@ public class OrderDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getInt(5),
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
@@ -238,7 +238,7 @@ public class OrderDAO {
                 + "                 FROM [Order]\n"
                 + "                 JOIN Customer ON [Order].customer_id = Customer.id\n"
                 + "                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n"
-                + "                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '5' )";
+                + "                 WHERE [Order].shipper_id = (select id from Shipper where ship_account = ? and [Order].[status] = '5' )";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, shipper_name);
@@ -249,7 +249,7 @@ public class OrderDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getInt(5),
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
@@ -271,7 +271,7 @@ public class OrderDAO {
                 + "                 FROM [Order]\n"
                 + "                 JOIN Customer ON [Order].customer_id = Customer.id\n"
                 + "                 JOIN Shipper ON [Order].shipper_id = Shipper.id\n"
-                + "                 WHERE [Order].shipper_id = (select id from Shipper where [name] = ? and [Order].[status] = '6' )";
+                + "                 WHERE [Order].shipper_id = (select id from Shipper where ship_account = ? and [Order].[status] = '6' )";
         try {
             ps = con.prepareStatement(sql);
             ps.setString(1, shipper_name);
@@ -282,7 +282,7 @@ public class OrderDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getInt(5),
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
@@ -375,7 +375,7 @@ public class OrderDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getInt(5),
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
@@ -407,7 +407,7 @@ public class OrderDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getInt(5),
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
@@ -440,7 +440,7 @@ public class OrderDAO {
                         rs.getInt(2),
                         rs.getInt(3),
                         rs.getInt(4),
-                        rs.getString(5),
+                        rs.getInt(5),
                         rs.getFloat(6),
                         rs.getString(7),
                         rs.getString(8),
@@ -474,7 +474,7 @@ public class OrderDAO {
 
     public static void main(String[] args) {
 
-        System.out.println(OrderDAO.INSTANCE.getListOrderByStatus("0"));
+        System.out.println(OrderDAO.INSTANCE.getListOrderByCustomerId(1));
 
     }
 
@@ -492,4 +492,137 @@ public class OrderDAO {
         }
         return 0;
     }
+
+    public int getTotalOrder() {
+        String sql = "SELECT count(*) from [Order] where status <> 7";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalStaff: " + e.getMessage());
+        }
+        return 0;
+    }
+
+    public int getTotalOrderProcess() {
+        String sql = "SELECT count(*) from [Order] where status = 0 ";
+        try {
+            ps = con.prepareStatement(sql);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                return rs.getInt(1);
+            }
+        } catch (Exception e) {
+            System.out.println("getTotalStaff: " + e.getMessage());
+        }
+        return 0;
+    }
+
+    public void AddOrder(int cusid, int deid, float totalprice) {
+        String sql = "Insert into [Order] (Customer_id,delivery_id,totalprice ) "
+                + "values (?,?,?)";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cusid);
+            ps.setInt(2, deid);
+            ps.setFloat(3, totalprice);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            status = "Error at OrderDetail " + ex.getMessage();
+            System.out.println(status);
+        }
+    }
+
+    public void DeleteOrder(int cusid) {
+        String sql = "DELETE FROM [Order]\n"
+                + "WHERE Customer_id = ?\n"
+                + "AND createdate = (\n"
+                + "    SELECT MAX(createdate)\n"
+                + "    FROM [Order]\n"
+                + "    WHERE Customer_id = ?\n"
+                + ");";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cusid);
+            ps.setInt(2, cusid);
+            ps.executeUpdate();
+        } catch (Exception ex) {
+            status = "Error at OrderDetail " + ex.getMessage();
+            System.out.println(status);
+        }
+    }
+
+    public Order GetOrder(int cusid) {
+        String sql = "SELECT TOP 1 o.*, c.[address], c.[name],c.phone\n"
+                + "FROM [Order] o \n"
+                + "join Customer c \n"
+                + "on o.Customer_id = c.id\n"
+                + "WHERE o.Customer_id = ?\n"
+                + "ORDER BY o.createDate DESC;";
+
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, cusid);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                order = new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                );
+            }
+            return order;
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+        return null;
+    }
+
+    public List<Order> getListOrderByCustomerId(int id) {
+        listOrder = new Vector<>();
+        String sql = "SELECT o.*, Customer.address AS customerAddress, Customer.name, Customer.phone\n"
+                + "                FROM [Order] o\n"
+                + "                JOIN Customer ON o.customer_id = Customer.id\n"
+                + "                WHERE Customer_id = ?";
+        try {
+            ps = con.prepareStatement(sql);
+            ps.setInt(1, id);
+            rs = ps.executeQuery();
+            while (rs.next()) {
+                Order order = new Order(
+                        rs.getInt(1),
+                        rs.getInt(2),
+                        rs.getInt(3),
+                        rs.getInt(4),
+                        rs.getInt(5),
+                        rs.getFloat(6),
+                        rs.getString(7),
+                        rs.getString(8),
+                        rs.getString(9),
+                        rs.getString(10),
+                        rs.getString(11)
+                );
+                listOrder.add(order);
+            }
+        } catch (Exception e) {
+            status = "Error at read Department " + e.getMessage();
+        }
+
+        return listOrder;
+
+    }
+    
 }
